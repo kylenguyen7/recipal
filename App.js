@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeScreen from './components/screens/HomeScreen'
 import MeScreen from './components/screens/MeScreen'
-
+import Colors from './constants/color';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,14 +12,14 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          tabBarStyle: {backgroundColor: '#e85927'},
-        }}
-        tabBarOptions={{
-          activeTintColor: 'white',
-          inactiveTintColor: '#eeeeee',
-          // style: {
-          //   backgroundColor: '#e85927'
-          // },
+          "tabBarActiveTintColor": Colors.tomato,
+          "tabBarInactiveTintColor": "black",
+          "tabBarStyle": [
+            {
+              "display": "flex"
+            },
+            null
+          ]
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} />

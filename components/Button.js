@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View, Button } from 'react-native';
+import Colors from '../constants/color';
 
 export default function RecipalButton({ width, height, text, onPress }) {
   return (
@@ -18,7 +19,7 @@ export default function BackButton({}) {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#e85927',
+    backgroundColor: Colors.tomato,
     borderRadius: 1000,
     display: 'flex',
     justifyContent: 'center',

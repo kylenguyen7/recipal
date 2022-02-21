@@ -1,6 +1,8 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native';
 import AppLoading from 'expo-app-loading';
-import { useFonts, Inter_900Black } from '@expo-google-fonts/inter';
+import Colors from '../constants/color';
+import { useFonts } from 'expo-font';
+
 
 export default function RecipalButton({ width, height, text, onPress }) {
   let [fontsLoaded] = useFonts({
@@ -21,7 +23,7 @@ export default function RecipalButton({ width, height, text, onPress }) {
 const styles = StyleSheet.create({
   button: {
     borderWidth: 5,
-    borderColor: '#e85927',
+    borderColor: Colors.tomato,
     backgroundColor: 'white',
     borderRadius: 1000,
     display: 'flex',
@@ -38,7 +40,7 @@ const styles = StyleSheet.create({
   buttonText: {
     // Font
     fontFamily: 'AvenirLTStd-Black',
-    color: '#e85927',
+    color: Colors.tomato,
     fontSize: 20
   }
 });
