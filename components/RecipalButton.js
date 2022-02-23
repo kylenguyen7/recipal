@@ -11,11 +11,11 @@ import Colors from '../constants/colors';
  * <RecipalButton width={200} height={50} text={'Press Me!'} onPress={onButtonPress}></RecipalButton>
  */
 
-export default function RecipalButton({ width, height, text, onPress }) {
+export default function RecipalButton({ width, height, text, fontSize, onPress }) {
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [ pressed ? styles.buttonPressed : styles.button, {width: width, height: height}]}>
       {({ pressed }) => (
-        <Text style={pressed ? styles.buttonPressedText : styles.buttonText}>{text}</Text>
+        <Text style={[pressed ? styles.buttonPressedText : styles.buttonText, {fontSize: fontSize}]}>{text}</Text>
       )}
     </Pressable>
   );
