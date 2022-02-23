@@ -1,9 +1,9 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from './components/screens/HomeScreen'
+import HomeStack from './components/screens/HomeStack'
 import MeScreen from './components/screens/MeScreen'
-import Colors from './constants/color';
+import Colors from './constants/colors';
 
 const Tab = createBottomTabNavigator();
 
@@ -12,6 +12,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
+          headerShown: false,
           "tabBarActiveTintColor": Colors.tomato,
           "tabBarInactiveTintColor": "black",
           "tabBarStyle": [
@@ -22,7 +23,7 @@ export default function App() {
           ]
         }}
       >
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Home" component={HomeStack} />
         <Tab.Screen name="Me" component={MeScreen} />
       </Tab.Navigator>
     </NavigationContainer>
