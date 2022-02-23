@@ -2,7 +2,7 @@ import { StyleSheet, Text, ScrollView, SafeAreaView} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import RecipalButton from '../RecipalButton'
 
-export default function Home() {
+export default function HomePage() {
   let navigation = useNavigation();
 
   function goToRecipeStep(recipe, stepNum) {
