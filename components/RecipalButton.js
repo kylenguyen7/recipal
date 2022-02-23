@@ -1,7 +1,5 @@
 import { StyleSheet, Text, View, Pressable } from 'react-native';
-import AppLoading from 'expo-app-loading';
 import Colors from '../constants/colors';
-import { useFonts } from 'expo-font';
 
 /**
  * EXAMPLE USAGE:
@@ -13,19 +11,11 @@ import { useFonts } from 'expo-font';
  * <RecipalButton width={200} height={50} text={'Press Me!'} onPress={onButtonPress}></RecipalButton>
  */
 
-export default function RecipalButton({ width, height, text, onPress }) {
-  let [fontsLoaded] = useFonts({
-    'AvenirLTStd-Black': require('../assets/fonts/AvenirLTStd-Black.otf'),
-  });
-
-  if (!fontsLoaded) {
-    return AppLoading;
-  }
-
+export default function RecipalButton({ width, height, text, fontSize, onPress }) {
   return (
     <Pressable onPress={onPress} style={({ pressed }) => [ pressed ? styles.buttonPressed : styles.button, {width: width, height: height}]}>
       {({ pressed }) => (
-        <Text style={pressed ? styles.buttonPressedText : styles.buttonText}>{text}</Text>
+        <Text style={[pressed ? styles.buttonPressedText : styles.buttonText, {fontSize: fontSize}]}>{text}</Text>
       )}
     </Pressable>
   );
@@ -66,13 +56,13 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     // Font
-    fontFamily: 'AvenirLTStd-Black',
+    fontFamily: 'Avenir-Black',
     color: Colors.tomato,
     fontSize: 20
   },
   buttonPressedText: {
     // Font
-    fontFamily: 'AvenirLTStd-Black',
+    fontFamily: 'Avenir-Black',
     color: 'white',
     fontSize: 20
   }

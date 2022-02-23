@@ -5,6 +5,7 @@ const colors = {
     lightBlack: '#121416',
     lighterBlack: '#202224',
     tomato: '#e85927',
+    pasta: '#FDD556'
 };
 
 export default colors;
