@@ -19,14 +19,15 @@ export default function BackHeader() {
 
 let styles = StyleSheet.create({
   container: {
-    height: 30,
+    height: 80,
     width: 32 / 0.4,
     display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start'
   },
   image: {
-    height: '100%',
+    marginLeft: 10,
+    height: 30,
     width: undefined,
     aspectRatio: 1/0.4,
     resizeMode: 'contain'

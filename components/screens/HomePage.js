@@ -14,15 +14,11 @@ export default function HomePage() {
 
   for(let i = 0; i < categories.length; i++) {
     categoryList.push(
-      <View style={{margin: 4}}>
+      <View key={i} style={{margin: 4}}>
         <RecipalButton text={categories[i]} fontSize={24} width={275} height={60}
                           onPress={() => navigation.navigate('RecipeSelect', {category: categories[i]})}/>
       </View>
     )
-  }
-
-  function goToRecipeStep(recipe, stepNum) {
-    navigation.push("RecipeSelect", {recipe: recipe, step: stepNum})
   }
 
   return (
