@@ -1,8 +1,4 @@
-import { StyleSheet, Text, Image, Pressable, ScrollView, ImageBackground, View, SectionList } from 'react-native';
-import { useState } from 'react';
-import { SearchableFlatList } from "react-native-searchable-list";
-import { SearchBar } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, Image, Pressable, ImageBackground, View, SectionList } from 'react-native';
 import RecipalButton from '../RecipalButton'
 import Header from '../BackHeader'
 import Images from '../../constants/images';
@@ -68,7 +64,7 @@ export default function Ingredients({ navigation, route }) {
         </View>
         <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
       </View>
-      <Image style={styles.img} source={Images.fettucine}/>
+      <Image style={styles.img} source={Images.fettuccine}/>
     </View>
   );
 

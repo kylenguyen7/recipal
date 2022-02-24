@@ -1,4 +1,4 @@
-import { StyleSheet, Text, ScrollView, SafeAreaView} from 'react-native';
+import { StyleSheet, Text, ScrollView, View } from 'react-native';
 import { NavigationActions } from '@react-navigation/native';
 import RecipalButton from '../RecipalButton'
 import Header from '../BackHeader'
@@ -14,14 +14,14 @@ export default function RecipeFinish({ navigation, route }) {
   }
 
   return (
-    <SafeAreaView>
+    <View>
       <Header></Header>
       <ScrollView>
         <Text>{recipe} {step}</Text>
         <RecipalButton text={'View My Recipe History'} width={300} height={50}
                         onPress={() => toRecipeHistory()}></RecipalButton>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 }
 

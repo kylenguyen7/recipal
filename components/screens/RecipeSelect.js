@@ -17,31 +17,31 @@ export default function RecipeSelect() {
       id: 0,
       title: "Fettucine Alfredo",
       time: "1.5 hours",
-      image: Images.fettucine
+      image: Images.fettuccine
     },
     {
       id: 1,
       title: "Garlic Breadsticks",
       time: "1.5 hours",
-      image: Images.fettucine
+      image: Images.fettuccine
     },
     {
       id: 2,
       title: "Caprese Pizza",
       time: "1.5 hours",
-      image: Images.fettucine
+      image: Images.fettuccine
     },
     {
       id: 3,
       title: "Chicken Parm",
       time: "1.5 hours",
-      image: Images.fettucine
+      image: Images.fettuccine
     },
     {
       id: 4,
       title: "Lasagna",
       time: "1.5 hours",
-      image: Images.fettucine
+      image: Images.fettuccine
     },
   ]
 

@@ -4,7 +4,7 @@ const images = {
   spoonNoBg: require('../assets/spoon-no-bg.png'),
   notepad: require('../assets/notepad-2.png'),
   butchers: require('../assets/butchers.png'),
-  fettucine: require('../assets/fettucine.png'),
+  fettuccine: require('../assets/fettucine.png'),
   butter: require('../assets/butter.png'),
 };
 
