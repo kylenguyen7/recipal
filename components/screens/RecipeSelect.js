@@ -17,31 +17,31 @@ export default function RecipeSelect() {
       id: 0,
       title: "Fettucine Alfredo",
       time: "1.5 hours",
-      image: Images.spoonNoBg
+      image: Images.fettucine
     },
     {
       id: 1,
       title: "Garlic Breadsticks",
       time: "1.5 hours",
-      image: Images.spoonNoBg
+      image: Images.fettucine
     },
     {
       id: 2,
       title: "Caprese Pizza",
       time: "1.5 hours",
-      image: Images.spoonNoBg
+      image: Images.fettucine
     },
     {
       id: 3,
       title: "Chicken Parm",
       time: "1.5 hours",
-      image: Images.spoonNoBg
+      image: Images.fettucine
     },
     {
       id: 4,
       title: "Lasagna",
       time: "1.5 hours",
-      image: Images.spoonNoBg
+      image: Images.fettucine
     },
   ]
 
@@ -51,7 +51,7 @@ export default function RecipeSelect() {
   function renderRecipe(recipe) {
     const { title, time, image } = recipe
     return (
-      <Pressable style={styles.recipeContainer} onPress={() => {navigation.navigate("RecipeStep", {recipe: title, step: 1})}}>
+      <Pressable style={styles.recipeContainer} onPress={() => {navigation.navigate("Ingredients", {recipe: title})}}>
         <Image style={styles.recipeImg} source={image}/>
         <View style={styles.recipeTextContainer}>
           <Text style={styles.recipeTitle}>{title}</Text>
@@ -60,10 +60,6 @@ export default function RecipeSelect() {
         </View>
       </Pressable>
     )
-  }
-
-  function goToIngredients(recipe, stepNum) {
-    navigation.push("RecipeStep", {recipe: recipe, step: stepNum})
   }
 
   return ( 
@@ -98,10 +94,6 @@ export default function RecipeSelect() {
       </View>
     </ImageBackground>
   );
-
-  /**
-   * 
-   */
 }
 
 const styles = StyleSheet.create({

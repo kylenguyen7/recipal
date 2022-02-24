@@ -60,7 +60,7 @@ export default function RecipeStep({ navigation, route }) {
       <ScrollView>
         <Text>{recipe} {step}</Text>
         <RecipalButton text={'Next Step!'} width={300} height={50}
-                        onPress={() => goToRecipeStep('fetuccine-alfredo', step + 1)}></RecipalButton>
+                        onPress={() => goToRecipeStep(recipe, step + 1)}></RecipalButton>
       </ScrollView>
     </SafeAreaView>
   );
