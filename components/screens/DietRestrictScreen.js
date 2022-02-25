@@ -10,27 +10,11 @@ export default function MeScreen() {
 
   return (
     <View>
-      <Header></Header>
-      <ScrollView ref={scrollView}>
-        <View style={styles.content}>
-          <View style={styles.titleContainer}>
-            <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
-            <Text style={styles.titleText}>ABOUT ME</Text>
-          </View>
-
-          <View style={styles.counterContainer}>
-            <Counter number={'27'} category={'Meals'}/>
-            <Counter number={'18'} category={'Recipes'}/>
-            <Counter number={'82'} category={'Hours'}/>
-          </View>
-
-          <View style={styles.editDietButtons}>
-            <RecipalButton text={'My Dietary Restrictions'} fontSize={20} width={350} height={50}/>
-            <RecipalButton text={'My Nutritional Preferences'} fontSize={20} width={350} height={50}/>
-            </View>
-        </View>
-      </ScrollView>
-    </View>
+    <Header></Header>
+    <ScrollView ref={scrollView}>
+      <Text>Nutritional Preferences</Text>
+    </ScrollView>
+  </View>
   );
 }
 
