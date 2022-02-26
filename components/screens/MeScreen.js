@@ -4,9 +4,13 @@ import Header from '../BackHeader'
 import RecipalButton from '../RecipalButton'
 import Counter from '../Counter'
 import { useRef } from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
 export default function MeScreen() {
   let scrollView = useRef(null);
+  const Stack = createStackNavigator();
+  let navigation = useNavigation();
 
   return (
     <View>
@@ -25,8 +29,10 @@ export default function MeScreen() {
           </View>
 
           <View style={styles.editDietButtons}>
-            <RecipalButton text={'My Dietary Restrictions'} fontSize={20} width={350} height={50}/>
-            <RecipalButton text={'My Nutritional Preferences'} fontSize={20} width={350} height={50}/>
+            <RecipalButton text={'My Dietary Restrictions'} fontSize={20} width={350} height={50}
+                           onPress={() =>  navigation.navigate('DietRestrictScreen')}/>
+            <RecipalButton text={'My Nutritional Preferences'} fontSize={20} width={350} height={50}
+                           onPress={() =>  navigation.navigate('NutriPrefScreen')}/>
             </View>
         </View>
       </ScrollView>

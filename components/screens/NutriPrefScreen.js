@@ -5,30 +5,14 @@ import RecipalButton from '../RecipalButton'
 import Counter from '../Counter'
 import { useRef } from 'react';
 
-export default function MeScreen() {
+export default function NutriPrefScreen() {
   let scrollView = useRef(null);
 
   return (
     <View>
       <Header></Header>
       <ScrollView ref={scrollView}>
-        <View style={styles.content}>
-          <View style={styles.titleContainer}>
-            <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
-            <Text style={styles.titleText}>ABOUT ME</Text>
-          </View>
-
-          <View style={styles.counterContainer}>
-            <Counter number={'27'} category={'Meals'}/>
-            <Counter number={'18'} category={'Recipes'}/>
-            <Counter number={'82'} category={'Hours'}/>
-          </View>
-
-          <View style={styles.editDietButtons}>
-            <RecipalButton text={'My Dietary Restrictions'} fontSize={20} width={350} height={50}/>
-            <RecipalButton text={'My Nutritional Preferences'} fontSize={20} width={350} height={50}/>
-            </View>
-        </View>
+        <Text>Nutritional Preferences</Text>
       </ScrollView>
     </View>
   );

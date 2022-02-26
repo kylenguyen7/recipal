@@ -5,14 +5,14 @@ import RecipalButton from '../RecipalButton'
 import Counter from '../Counter'
 import { useRef } from 'react';
 
-export default function MeScreen() {
+export default function DietRestrictScreen() {
   let scrollView = useRef(null);
 
   return (
     <View>
     <Header></Header>
     <ScrollView ref={scrollView}>
-      <Text>Nutritional Preferences</Text>
+      <Text>Dietary Restrictions</Text>
     </ScrollView>
   </View>
   );

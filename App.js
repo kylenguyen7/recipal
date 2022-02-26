@@ -4,8 +4,10 @@ import { useFonts } from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStack from './components/screens/HomeStack'
-import MeScreen from './components/screens/MeScreen'
+import MeStack from './components/screens/MeStack';
 import Colors from './constants/colors';
+import MeScreen from './components/screens/MeScreen';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -36,7 +38,7 @@ export default function App() {
         }}
       >
         <Tab.Screen name="Home" component={HomeStack} />
-        <Tab.Screen name="Me" component={MeScreen} />
+        <Tab.Screen name="Me" component={MeStack} />
       </Tab.Navigator>
     </NavigationContainer>
   );

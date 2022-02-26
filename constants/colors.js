@@ -7,6 +7,7 @@ const colors = {
     tomato: '#e85927',
     pasta: '#FDD556',
     bellPepper: '#66A107',
+    green: '#66A107'
 };
 
 export default colors;
