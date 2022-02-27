@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View, Pressable } from 'react-native';
+import { StyleSheet, Text, Pressable, Image } from 'react-native';
 import Colors from '../constants/colors';
+import Images from '../constants/images'
 
 /**
  * EXAMPLE USAGE:
@@ -11,25 +12,29 @@ import Colors from '../constants/colors';
  * <RecipalButton width={200} height={50} text={'Press Me!'} onPress={onButtonPress}></RecipalButton>
  */
 
-export default function RestrictionsButton({ width, height, text, fontSize, onPress }) {
+export default function RestrictionButton({title, description, onPress }) {
   return (
-    <Pressable onPress={onPress} style={({ pressed }) => [ pressed ? styles.buttonPressed : styles.button, {width: width, height: height}]}>
-      {({ pressed }) => (
-        <Text style={[pressed ? styles.buttonPressedText : styles.buttonText, {fontSize: fontSize}]}>{text}</Text>
-      )}
+    <Pressable onPress={onPress} style={styles.button}>
+        <Text style={styles.buttonText}>{title}</Text>
+        <Image style={styles.infoButton} source={Images.infoButton}/>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
-    borderWidth: 5,
+    height: 70,
+    width: '48%',
+    flexDirection: 'row',
+    borderWidth: 2,
     borderColor: Colors.tomato,
     backgroundColor: 'white',
-    borderRadius: 1000,
+    borderRadius: 20,
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    padding: 10,
+    marginBottom: 15,
 
     // Shadow
     shadowColor: '#000',
@@ -58,13 +63,17 @@ const styles = StyleSheet.create({
     // Font
     fontFamily: 'Avenir-Black',
     color: Colors.tomato,
-    fontSize: 20
+    fontSize: 13
   },
   buttonPressedText: {
     // Font
     fontFamily: 'Avenir-Black',
     color: 'white',
-    fontSize: 20
+    fontSize: 10
+  }, 
+  infoButton: {
+    height: 30,
+    width: 30,
   }
 });
   

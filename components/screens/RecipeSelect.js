@@ -43,6 +43,12 @@ export default function RecipeSelect() {
       time: "1.5 hours",
       image: Images.fettuccine
     },
+    {
+      id: 5,
+      title: "Crepes",
+      time: "1.5 hours",
+      image: Images.fettuccine
+    }
   ]
 
   const searchAttribute = "title";

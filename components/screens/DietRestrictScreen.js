@@ -1,36 +1,40 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import { useRef } from 'react';
+import { StyleSheet, Text, View, Image, FlatList,  } from 'react-native';
 
 import Header from '../BackHeader'
 import Images from '../../constants/images';
-import RecipalButton from '../RecipalButton'
+import { restrictions } from './restrictionsData';
+import RestrictionButton from '../RestrictionButton';
 
 
 export default function DietRestrictScreen() {
-  let scrollView = useRef(null);
+  function renderRestriction(restriction) {
+    return (
+      <RestrictionButton title={restriction.title} description={restriction.description}/>
+    )
+  }
+
 
   return (
     <View>
       <Header></Header>
-      <ScrollView ref={scrollView}>
-        <View style={styles.content}>
-          
-          <View style={styles.titleContainer}>
-            <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
-            <Text style={styles.bubbleText}>Tap below to specify your recipe needs!</Text>
-          </View>
-
-          <Text style={styles.titleText}>MY DIETARY RESTRICTIONS</Text>
-
-          {/* <View style={styles.restrictContainer}>
-            <View>
-              <RestrctionButton/>
-              <RestrctionButton/>
-            </View>
-          </View> */}
-
+      <View style={styles.content}>
+        
+        <View style={styles.titleContainer}>
+          <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
+          <Text style={styles.bubbleText}>Tap below to specify your recipe needs!</Text>
         </View>
-      </ScrollView>
+
+        <Text style={styles.titleText}>MY DIETARY RESTRICTIONS</Text>
+
+        <FlatList
+          style={styles.restrictionsContainer}
+          columnWrapperStyle={{justifyContent: 'space-between'}}
+          data={restrictions}
+          numColumns={2}
+          renderItem={({item}) => renderRestriction(item)}
+        />
+
+      </View>
   </View>
   );
 }
@@ -38,7 +42,8 @@ export default function DietRestrictScreen() {
 
 const styles = StyleSheet.create({
   content: {
-    flex: 1,
+    //flex: 1,
+    flexDirection: 'column',
     alignItems: 'center',
     marginTop: 30
   },
@@ -67,11 +72,18 @@ const styles = StyleSheet.create({
     fontFamily: 'Avenir-Book',
     color: 'black',
     fontSize: 17,
+    backgroundColor: 'white',
+    overflow: 'hidden',
   },
   titleText: {
     fontFamily: 'Avenir-Black',
     color: 'black',
-    fontSize: 25,
+    fontSize: 23,
     marginTop: 15
   },
+  restrictionsContainer: {
+    width: '90%',
+    margin: 15,
+    marginBottom: 474
+  }
 })

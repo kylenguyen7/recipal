@@ -59,6 +59,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Avenir-Book',
     color: 'black',
     fontSize: 17,
+    backgroundColor: 'white',
+    overflow: 'hidden',
   },
   titleText: {
     fontFamily: 'Avenir-Black',
