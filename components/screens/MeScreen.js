@@ -1,16 +1,59 @@
 import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
-import Images from '../../constants/images';
+import { useRef } from 'react';
+import { useNavigation } from '@react-navigation/native';
+
 import Header from '../BackHeader'
 import RecipalButton from '../RecipalButton'
 import Counter from '../Counter'
-import { useRef } from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
+
+import Images from '../../constants/images';
+import RecipeItem from '../RecipeItem';
+
 
 export default function MeScreen() {
   let scrollView = useRef(null);
-  const Stack = createStackNavigator();
   let navigation = useNavigation();
+  
+  let historyList = [];
+  let historyData = [ 
+      {
+        id: 0,
+        title: "Fettucine Alfredo",
+        time: "1.5 hours",
+        image: Images.fettuccine
+      },
+      {
+        id: 1,
+        title: "Garlic Breadsticks",
+        time: "1.5 hours",
+        image: Images.fettuccine
+      },
+      {
+        id: 2,
+        title: "Caprese Pizza",
+        time: "1.5 hours",
+        image: Images.fettuccine
+      },
+      {
+        id: 3,
+        title: "Chicken Parm",
+        time: "1.5 hours",
+        image: Images.fettuccine
+      },
+      {
+        id: 4,
+        title: "Lasagna",
+        time: "1.5 hours",
+        image: Images.fettuccine
+      },
+    ]
+
+  for(let i = 0; i < historyData.length; i++) {
+    historyList.push(
+      <RecipeItem title={historyData[i].title} time={historyData[i].time} image={historyData[i].image}/>
+    )
+  }
+
 
   return (
     <View>
@@ -29,11 +72,16 @@ export default function MeScreen() {
           </View>
 
           <View style={styles.editDietButtons}>
-            <RecipalButton text={'My Dietary Restrictions'} fontSize={20} width={350} height={50}
+            <RecipalButton text={'My Dietary Restrictions'} fontSize={20} width={'90%'} height={50}
                            onPress={() =>  navigation.navigate('DietRestrictScreen')}/>
-            <RecipalButton text={'My Nutritional Preferences'} fontSize={20} width={350} height={50}
+            <RecipalButton text={'My Nutritional Preferences'} fontSize={20} width={'90%'} height={50}
                            onPress={() =>  navigation.navigate('NutriPrefScreen')}/>
             </View>
+        
+          <Text style={styles.historyText}>My Latest Meals</Text>
+          <View style={styles.historyContainer}>
+            {historyList}
+          </View>
         </View>
       </ScrollView>
     </View>
@@ -43,8 +91,8 @@ export default function MeScreen() {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    alignItems: 'center',
-    marginTop: 30
+    // alignItems: 'center',
+    marginTop: 30,
   },
   titleContainer: {
     height: 110,
@@ -67,14 +115,26 @@ const styles = StyleSheet.create({
   },
   counterContainer: {
     height: 120,
-    width: '100%',
     marginTop: 15,
     justifyContent: 'space-evenly',
     flexDirection: 'row',
     alignItems: 'center',
   },
   editDietButtons: {
+    marginTop: 10,
     height: 140,
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  historyContainer: {
+    alignItems: 'center',
+    marginBottom: 120
+  },
+  historyText: {
+    marginTop: 15,
+    fontFamily: 'Avenir-Book',
+    color: 'black',
+    fontSize: 22,
+    marginLeft: '7%'
   }
 })
