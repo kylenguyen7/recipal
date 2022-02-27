@@ -10,39 +10,12 @@ import RestrictionButton from '../RestrictionButton';
 
 
 export default function DietRestrictScreen() {
-  // let navigation = useNavigation()
-  // const [finishModalVisible, setFinishModalVisible] = useState(true);
-  //   const ConfirmFinishModal = () => (
-  //   <Modal
-  //       animationType="slide"
-  //       transparent={true}
-  //       visible={finishModalVisible}
-  //       onRequestClose={() => {
-  //         setFinishModalVisible(false);
-  //       }}
-  //     >
-  //       <View style={styles.centeredView}>
-  //         <View style={styles.modalView}>
-  //           <Text style={[styles.modalText, {fontSize: 16}]}>Congratulations on finishing this recipe! Are you sure you'd like to complete the recipe?</Text>
-  //           <View style={styles.modalButtonContainer}>
-  //             <Pressable
-  //               style={[styles.button, styles.buttonCancel]}
-  //               onPress={() => {
-  //                 setFinishModalVisible(false);
-  //               }}
-  //             >
-  //               <Text style={[styles.textStyle, styles.cancelTextStyle]}>All done!</Text>
-  //             </Pressable>
-  //           </View>
-  //         </View>
-  //       </View>
-  //     </Modal>
-  // );
-
-
   function renderRestriction(restriction) {
     return (
-      <RestrictionButton title={restriction.title} description={restriction.description}/>
+      <RestrictionButton
+        title={restriction.title}
+        description={restriction.description}
+        image={restriction.image}/>
     )
   }
 
@@ -50,7 +23,6 @@ export default function DietRestrictScreen() {
   return (
     <View>
       <Header></Header>
-      {/* <ConfirmFinishModal/> */}
       <View style={styles.content}>
         
         <View style={styles.titleContainer}>

@@ -14,11 +14,11 @@ import Images from '../constants/images'
  * <RecipalButton width={200} height={50} text={'Press Me!'} onPress={onButtonPress}></RecipalButton>
  */
 
-export default function RestrictionButton({title, description}) {
-  let navigation = useNavigation()
+export default function RestrictionButton({title, description, image}) {
   const [finishModalVisible, setFinishModalVisible] = useState(false);
   const [finishModalText, setFinishModalText] = useState("")
   const [modalTitleText, setModalTitleText] = useState("")
+  // const [modalImage, setModalImage] = useState([])
   
   const ConfirmFinishModal = () => (
     <Modal
@@ -31,7 +31,7 @@ export default function RestrictionButton({title, description}) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-          <Text style={[styles.modalText, {fontSize: 16}]}>{modalTitleText}</Text>
+            <Text style={[styles.modalText, {fontFamily: 'Avenir-Black', fontSize: 20}]}>{modalTitleText}</Text>
             <Text style={[styles.modalText, {fontSize: 16}]}>{finishModalText}</Text>
             <View style={styles.modalButtonContainer}>
               <Pressable
@@ -55,6 +55,7 @@ export default function RestrictionButton({title, description}) {
       <Pressable onPress={() => {
         setFinishModalText(description);
         setModalTitleText(title);
+        // setModalImage(image);
         setFinishModalVisible(true);
       }}>
         <Image style={styles.infoButton} source={Images.infoButton}/>
