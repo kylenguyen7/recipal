@@ -3,10 +3,9 @@ import { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import Header from '../BackHeader'
+import Images from '../../constants/images';
 import RecipalButton from '../RecipalButton'
 import Counter from '../Counter'
-
-import Images from '../../constants/images';
 import RecipeItem from '../RecipeItem';
 
 
@@ -60,6 +59,7 @@ export default function MeScreen() {
       <Header></Header>
       <ScrollView ref={scrollView}>
         <View style={styles.content}>
+
           <View style={styles.titleContainer}>
             <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
             <Text style={styles.titleText}>ABOUT ME</Text>
@@ -76,17 +76,19 @@ export default function MeScreen() {
                            onPress={() =>  navigation.navigate('DietRestrictScreen')}/>
             <RecipalButton text={'My Nutritional Preferences'} fontSize={20} width={'90%'} height={50}
                            onPress={() =>  navigation.navigate('NutriPrefScreen')}/>
-            </View>
+          </View>
         
           <Text style={styles.historyText}>My Latest Meals</Text>
           <View style={styles.historyContainer}>
             {historyList}
           </View>
+
         </View>
       </ScrollView>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   content: {
@@ -126,15 +128,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
   },
-  historyContainer: {
-    alignItems: 'center',
-    marginBottom: 120
-  },
   historyText: {
     marginTop: 15,
     fontFamily: 'Avenir-Book',
     color: 'black',
     fontSize: 22,
     marginLeft: '7%'
-  }
+  },
+  historyContainer: {
+    alignItems: 'center',
+    marginBottom: 120
+  },
 })
