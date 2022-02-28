@@ -204,8 +204,7 @@ const styles = StyleSheet.create({
   textinput: {
     height: 40,
     width: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
+    backgroundColor: '#dddddd',
     borderRadius: 10,
     textAlign: 'center',
     fontFamily: 'Avenir-Book'

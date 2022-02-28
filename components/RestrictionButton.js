@@ -2,22 +2,13 @@ import { StyleSheet, Text, Pressable, Image, Modal, View, TouchableOpacity } fro
 import { useState } from 'react';
 import Colors from '../constants/colors';
 import Images from '../constants/images'
-import { restrictions } from './restrictionsData';
 
 
-export default function RestrictionButton({id, title, description}) {
+export default function RestrictionButton({id, title, description, image}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalText, setModalText] = useState("")
   const [modalTitleText, setModalTitleText] = useState("")
-  const [images, setModalImage] = useState([
-    { id: '0', image: restrictions[0].image },
-    { id: '1', image: restrictions[1].image },
-    { id: '2', image: restrictions[2].image },
-    { id: '3', image: restrictions[3].image },
-    { id: '4', image: restrictions[4].image },
-    { id: '5', image: restrictions[5].image },
-    { id: '6', image: restrictions[6].image }
-  ]);
+  const [modalImage, setModalImage] = useState([]);
   
   const ConfirmModal = () => (
     <Modal
@@ -30,6 +21,7 @@ export default function RestrictionButton({id, title, description}) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
+            <Image style={{margin: 7}} source={modalImage[0]}/>
             <Text style={[styles.modalText, {fontFamily: 'Avenir-Black', fontSize: 20}]}>{modalTitleText}</Text>
             <Text style={[styles.modalText, {fontSize: 16}]}>{modalText}</Text>
             <View style={styles.modalButtonContainer}>
@@ -60,6 +52,7 @@ export default function RestrictionButton({id, title, description}) {
       <Pressable onPress={() => {
           setModalText(description);
           setModalTitleText(title);
+          setModalImage([image])
           setModalVisible(true);
         }}>
         <Image style={styles.infoButton} source={Images.infoButton}/>

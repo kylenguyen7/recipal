@@ -12,7 +12,8 @@ export default function DietRestrictScreen() {
       <RestrictionButton
         id={restriction.id}
         title={restriction.title}
-        description={restriction.description}/>
+        description={restriction.description}
+        image={restriction.image}/>
     )
   }
 
