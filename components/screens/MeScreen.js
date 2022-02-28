@@ -13,6 +13,7 @@ export default function MeScreen() {
   let scrollView = useRef(null);
   let navigation = useNavigation();
   
+  // Temp data
   let historyList = [];
   let historyData = [ 
       {
@@ -93,7 +94,6 @@ export default function MeScreen() {
 const styles = StyleSheet.create({
   content: {
     flex: 1,
-    // alignItems: 'center',
     marginTop: 30,
   },
   titleContainer: {

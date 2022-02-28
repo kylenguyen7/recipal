@@ -1,23 +1,15 @@
-import { StyleSheet, Text, Pressable, Image, Modal, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, Pressable, Image, Modal, View, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native';
 import { useState } from 'react';
 import Colors from '../constants/colors';
 import Images from '../constants/images'
-import { restrictions } from './restrictionsData';
 
 
-export default function RestrictionButton({id, title, description}) {
+export default function NutitionItem({id, title, description, units, image}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalText, setModalText] = useState("")
   const [modalTitleText, setModalTitleText] = useState("")
-  const [images, setModalImage] = useState([
-    { id: '0', image: restrictions[0].image },
-    { id: '1', image: restrictions[1].image },
-    { id: '2', image: restrictions[2].image },
-    { id: '3', image: restrictions[3].image },
-    { id: '4', image: restrictions[4].image },
-    { id: '5', image: restrictions[5].image },
-    { id: '6', image: restrictions[6].image }
-  ]);
+  const [lowerText, setLowerText] = useState('0');
+  const [upperText, setUpperText] = useState('');
   
   const ConfirmModal = () => (
     <Modal
@@ -48,7 +40,7 @@ export default function RestrictionButton({id, title, description}) {
   );
 
   return (
-    <TouchableOpacity
+    <View
       style={[styles.restrictButton, {backgroundColor: 'white'}]}
       // style={!restrictionInput[id] ? [styles.restrictButton, {backgroundColor: 'white'}] : [styles.restrictButton, {backgroundColor: Colors.tomato}]}
       //onPress={() => {restrictionInput[id] = true}}
@@ -57,25 +49,49 @@ export default function RestrictionButton({id, title, description}) {
       <Pressable>
         <Text style={styles.buttonText}>{title}</Text>
       </Pressable>
-      <Pressable onPress={() => {
-          setModalText(description);
-          setModalTitleText(title);
-          setModalVisible(true);
-        }}>
-        <Image style={styles.infoButton} source={Images.infoButton}/>
-      </Pressable>
-    </TouchableOpacity>
+      <View style={styles.rightSide}>
+        <View style={styles.infoAndInputs}>
+          <Pressable onPress={() => {
+              setModalText(description);
+              setModalTitleText(title);
+              setModalVisible(true);
+            }}>
+            <Image style={styles.infoButton} source={Images.infoButton}/>
+          </Pressable>
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <View style={styles.textinputrow}>
+              <TextInput
+                style={styles.textinput}
+                onChangeText={(lowerText) => setLowerText(lowerText)} // update text variable whenever text is changed within textinput
+                value={lowerText} // display value of text variable
+              />
+            </View>
+          </KeyboardAvoidingView>
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <View style={styles.textinputrow}>
+              <TextInput
+                style={styles.textinput}
+                onChangeText={(upperText) => setUpperText(upperText)} // update text variable whenever text is changed within textinput
+                value={upperText} // display value of text variable
+              />
+            </View>
+          </KeyboardAvoidingView>
+        </View>
+        <Text style={styles.units}>{units}</Text>
+      </View>
+    </View>        
   );
 }
 
 const styles = StyleSheet.create({
   restrictButton: {
     height: 70,
-    width: '48%',
+    width: 340,
     borderWidth: 2,
     borderColor: Colors.tomato,
     borderRadius: 20,
-    marginBottom: 15,
+    marginTop: 8,
+    marginBottom: 8,
     alignItems: 'center',
     justifyContent: 'space-between',
     flexDirection: 'row',
@@ -176,5 +192,29 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     textAlign: "center"
   },
+  rightSide: {
+    width: 145,
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',   
+  },
+  units: {
+    fontFamily: 'Avenir-Book',
+  },
+  textinput: {
+    height: 40,
+    width: 40,
+    borderColor: 'gray',
+    borderWidth: 1,
+    borderRadius: 10,
+    textAlign: 'center',
+    fontFamily: 'Avenir-Book'
+  },
+  infoAndInputs: {
+    width: 120,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  }
 });
   

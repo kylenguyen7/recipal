@@ -1,38 +1,68 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { useState } from 'react';
+import { SearchableFlatList } from "react-native-searchable-list";
+import { SearchBar } from 'react-native-elements';
+
 import Images from '../../constants/images';
 import Header from '../BackHeader'
-import RecipalButton from '../RecipalButton'
-import Counter from '../Counter'
-import { useRef } from 'react';
+import { nutritionData } from '../nutritionData'
+import NutitionItem from '../NutritionItem'
+
 
 export default function NutriPrefScreen() {
-  let scrollView = useRef(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchAttribute = "title";
+  const ignoreCase = true;
+
+  function renderNutritionItem(item) {
+    return (
+      <NutitionItem
+        id={item.id}
+        title={item.title}
+        description={item.description}
+        units={item.units}
+        image={item.image}/>
+    )
+  }
 
   return (
     <View>
       <Header></Header>
-      <ScrollView ref={scrollView}>
-        <View style={styles.content}>
-          
-          <View style={styles.titleContainer}>
-            <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
-            <Text style={styles.bubbleText}>Tap below to specify your recipe needs!</Text>
-          </View>
-
-          <Text style={styles.titleText}>MY NUTRITIONAL PREFERENCES</Text>
-
+      <View style={styles.content}>
+        
+        <View style={styles.titleContainer}>
+          <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
+          <Text style={styles.bubbleText}>Tap below to specify your recipe needs!</Text>
         </View>
-      </ScrollView>
-  </View>
+        <Text style={styles.titleText}>MY NUTRITIONAL PREFERENCES</Text>
+      
+        <View style={styles.search}>
+          <SearchBar
+            platform='ios'
+            placeholder="Search..."
+            onChangeText={(search) => setSearchTerm(search)}
+            value={searchTerm}
+          />
+        </View>  
+        <View>
+          <SearchableFlatList
+            contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }}
+            style={styles.listContainer} data={nutritionData} searchTerm={searchTerm}
+            searchAttribute={searchAttribute} ignoreCase={ignoreCase}
+            renderItem={({item}) => renderNutritionItem(item)}
+            keyExtractor={(item) => item.id} />
+        </View>
+      </View>
+    </View> 
   );
 }
 
 
 const styles = StyleSheet.create({
   content: {
-    flex: 1,
     alignItems: 'center',
-    marginTop: 30
+    marginTop: 30,
+    marginBottom: 1000
   },
   titleContainer: {
     height: 110,
@@ -68,4 +98,12 @@ const styles = StyleSheet.create({
     fontSize: 21,
     marginTop: 15
   },
+  search: {
+    width: '100%',
+    marginTop: 15
+  },
+  listContainer: {
+    width: '90%',
+    marginBottom: 50
+  }
 })
