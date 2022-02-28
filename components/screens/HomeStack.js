@@ -5,6 +5,7 @@ import RecipeStep from './RecipeStep'
 import RecipeFinish from './RecipeFinish'
 import Ingredients from './Ingredients'
 import HomePage from './HomePage'
+import Modification from './ModificationScreen';
 
 export default function HomeStack() {
   const Stack = createStackNavigator();
@@ -19,6 +20,7 @@ export default function HomeStack() {
       <Stack.Screen name="Ingredients" component={Ingredients}/>
       <Stack.Screen name="RecipeStep" component={RecipeStep} />
       <Stack.Screen name="RecipeFinish" component={RecipeFinish} />
+      <Stack.Screen name="Modification" component={Modification} />
     </Stack.Navigator>
   );
 }

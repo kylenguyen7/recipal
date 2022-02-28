@@ -6,7 +6,6 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStack from './components/screens/HomeStack'
 import MeStack from './components/screens/MeStack';
 import Colors from './constants/colors';
-import MeScreen from './components/screens/MeScreen';
 
 
 const Tab = createBottomTabNavigator();

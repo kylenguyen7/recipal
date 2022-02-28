@@ -46,7 +46,7 @@ export default function Ingredients({ navigation, route }) {
   const SectionHeader = ({ title }) => (
     <View style={styles.header}>
       <Text style={styles.headerText}>{title}</Text>
-      <Pressable style={styles.headerPressable}>
+      <Pressable style={styles.headerPressable} onPress={() => {navigation.navigate("Modification", {recipe})}}>
         <Ionicons name="pencil-sharp" size={32} color="white"></Ionicons>
       </Pressable>
     </View>
