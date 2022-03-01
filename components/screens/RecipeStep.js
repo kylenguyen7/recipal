@@ -172,11 +172,18 @@ export default function RecipeStep({ navigation, route }) {
         <Pressable style={styles.controlPressable} onPress={() => goToPage(page - 1)}>
           {page > 0 && <Ionicons name="chevron-back" color='white' size={48}/>}
         </Pressable>
-        <Pressable style={[{backgroundColor: Colors.bellPepper}, styles.controlPressable]} onPress={() => {navigation.navigate("Modification", {recipe})}}>
+        <Pressable style={[{backgroundColor: Colors.bellPepper}, styles.controlPressable]}>
           <Ionicons name="pencil" color='white' size={48}/>
         </Pressable>
         <Pressable style={styles.controlPressable} onPress={() => goToPage(page + 1)}>
-         {<Ionicons name="chevron-forward" color='white' size={48}/>}
+          {/* {page < DATA.length - 1 ? 
+            <Ionicons name="chevron-forward" color='white' size={48}/> :
+            <RecipalButton width={80} height={50} text={"Finish"} onPress={() => goToPage(page + 1)}/>} */}
+          {page < DATA.length - 1 ? 
+            <Ionicons name="chevron-forward" color='white' size={48}/> :
+            <Ionicons name="checkmark-done-outline" color='white' size={48}/>}
+          
+          
         </Pressable>
       </View>
     </BackgroundImage>

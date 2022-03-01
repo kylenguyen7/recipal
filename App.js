@@ -6,7 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import HomeStack from './components/screens/HomeStack'
 import MeStack from './components/screens/MeStack';
 import Colors from './constants/colors';
-
+import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,8 +36,18 @@ export default function App() {
           ]
         }}
       >
-        <Tab.Screen name="Home" component={HomeStack} />
-        <Tab.Screen name="Me" component={MeStack} />
+        <Tab.Screen name="Home" component={HomeStack} 
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name={focused ? "home" : "home-outline"} color={color} size={size} />
+          )
+        }}/>
+        <Tab.Screen name="Me" component={MeStack}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <Ionicons name={focused ? "heart-circle" : "heart-circle-outline"} color={color} size={size} />
+          )
+        }}/>
       </Tab.Navigator>
     </NavigationContainer>
   );

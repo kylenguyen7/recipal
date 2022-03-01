@@ -50,6 +50,8 @@ export default function HomePage() {
         <ImageBackground source={Images.notepad} style={styles.notebook}>
           <Text style={[styles.text, styles.headerText, {color: Colors.tomato}]}>Recipes</Text>
           {categoryList}
+          <RecipalButton text={'<to ingredient search>'} fontSize={12} width={200} height={50}
+                          onPress={() => navigation.navigate("IngredientSearch")}/>
         </ImageBackground>
       </View>
     </ScrollView>
