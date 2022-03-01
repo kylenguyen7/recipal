@@ -2,7 +2,6 @@ import { StyleSheet, Text, View, Image, ScrollView } from 'react-native';
 import { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import Header from '../BackHeader'
 import Images from '../../constants/images';
 import RecipalButton from '../RecipalButton'
 import Counter from '../Counter'
@@ -57,7 +56,7 @@ export default function MeScreen() {
 
   return (
     <View>
-      <Header></Header>
+      <View style={{height: 60}}></View>
       <ScrollView ref={scrollView}>
         <View style={styles.content}>
 

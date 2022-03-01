@@ -8,7 +8,6 @@ import { useState } from 'react';
 import { NavigationHelpersContext } from '@react-navigation/native';
 
 export default function Modification({ navigation, route }) {
-  let { recipe } = route.params;
   const [restoreModalVisible, setRestoreModalVisible] = useState(false);
   const [Ingredients, updateIngredients] = useState(
     [
@@ -112,6 +111,7 @@ export default function Modification({ navigation, route }) {
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={styles.textinputrow}>
               <TextInput
+                keyboardType = 'numeric'
                 style={styles.textinput}
                 onChangeText={(text) => setText(text)} // update text variable whenever text is changed within textinput
                 value={text} // display value of text variable

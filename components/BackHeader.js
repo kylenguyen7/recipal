@@ -3,11 +3,18 @@ import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
 import Colors from '../constants/colors';
 import Images from '../constants/images'
 
-export default function BackHeader() {
+export default function BackHeader({ screenOverride }) {
   let navigation = useNavigation();
 
   function onBackButtonPress() {
-    navigation.goBack();
+    if(screenOverride !== undefined) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Me' }],
+      });
+    } else {
+      navigation.goBack();
+    }
   }
 
   return (

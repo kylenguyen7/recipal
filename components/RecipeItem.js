@@ -7,7 +7,7 @@ export default function RecipeItem({title, time, image}) {
     let navigation = useNavigation()
     // const { title, time, image } = recipe
     return (
-        <Pressable style={styles.recipeContainer} onPress={() => {navigation.navigate("Ingredients", {recipe: title})}}>
+        <Pressable style={styles.recipeContainer} onPress={() => {navigation.navigate("Ingredients", {recipe: title, screenOverride: "MeScreen"})}}>
         <Image style={styles.recipeImg} source={image}/>
         <View style={styles.recipeTextContainer}>
             <Text style={styles.recipeTitle}>{title}</Text>

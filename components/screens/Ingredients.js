@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 
 export default function Ingredients({ navigation, route }) {
-  let { recipe } = route.params;
+  let { recipe, screenOverride } = route.params;
 
   const DATA = [
     {
@@ -70,7 +70,7 @@ export default function Ingredients({ navigation, route }) {
 
   return ( 
     <ImageBackground /*source={Images.butchers}(*/ style={styles.container}>
-      <Header></Header>
+      <Header screenOverride={screenOverride}></Header>
       <View style={styles.content}>
           <SectionList
             ListHeaderComponent={ListHeader}

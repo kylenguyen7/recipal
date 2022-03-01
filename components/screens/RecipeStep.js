@@ -172,7 +172,7 @@ export default function RecipeStep({ navigation, route }) {
         <Pressable style={styles.controlPressable} onPress={() => goToPage(page - 1)}>
           {page > 0 && <Ionicons name="chevron-back" color='white' size={48}/>}
         </Pressable>
-        <Pressable style={[{backgroundColor: Colors.bellPepper}, styles.controlPressable]}>
+        <Pressable style={[{backgroundColor: Colors.bellPepper}, styles.controlPressable]} onPress={() => navigation.navigate('Modification')}>
           <Ionicons name="pencil" color='white' size={48}/>
         </Pressable>
         <Pressable style={styles.controlPressable} onPress={() => goToPage(page + 1)}>
