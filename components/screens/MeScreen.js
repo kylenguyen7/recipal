@@ -50,7 +50,7 @@ export default function MeScreen() {
 
   for(let i = 0; i < historyData.length; i++) {
     historyList.push(
-      <RecipeItem title={historyData[i].title} time={historyData[i].time} image={historyData[i].image}/>
+      <RecipeItem id={historyData[i].id} title={historyData[i].title} time={historyData[i].time} image={historyData[i].image}/>
     )
   }
 

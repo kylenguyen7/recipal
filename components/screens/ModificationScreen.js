@@ -5,26 +5,35 @@ import Images from '../../constants/images';
 import Colors from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
+import { NavigationHelpersContext } from '@react-navigation/native';
 
 export default function Modification({ navigation, route }) {
   let { recipe } = route.params;
   const [restoreModalVisible, setRestoreModalVisible] = useState(false);
-  const [text, setText] = useState('0');
-
-  let DATA = [
-    {
-      title: "Essential: Fat",
-      data: ["1 Liter Water"]
-    },
-    {
-      title: "Essential: Cream",
-      data: ["8 oz butter"]
-    },
-    {
-      title: "Non-Essentials",
-      data: ["Parmesan to taste", "Parsley to taste"]
-    }
-  ];
+  const [Ingredients, updateIngredients] = useState(
+    [
+      {
+        title: "Essential: Fat",
+        data: [
+          [0, "1 Liter Water"]
+        ]
+      },
+      {
+        title: "Essential: Cream",
+        data: [
+          [0, "8 oz butter"]
+        ]
+      },
+      {
+        title: "Non-Essentials",
+        data: [
+          [1, "Parmesan to taste"],
+          [1, "Parsley to taste"],
+          [2, "+"]
+        ]
+      }
+    ]
+  )
 
 
   const RestoreModal = () => (
@@ -52,10 +61,12 @@ export default function Modification({ navigation, route }) {
               <Pressable
                 style={[styles.button, styles.buttonExit]}
                 onPress={() => {
+                  updateIngredients(startIngredients)
+                  console.log({startIngredients})
                   setRestoreModalVisible(false);
                 }}
               >
-                <Text style={[styles.textStyle, styles.exitTextStyle]}>Yes, please!</Text>
+              <Text style={[styles.textStyle, styles.exitTextStyle]}>Yes, please!</Text>
               </Pressable>
             </View>
           </View>
@@ -63,31 +74,67 @@ export default function Modification({ navigation, route }) {
       </Modal>
   );
 
-  const deleteItemById = (title) => {
-    const filteredData = DATA.filter(item => item.data[0] !== title);
-    this.setState({ DATA: filteredData });
+  const deleteItemById = ({title}) => {
+    let newIngredients = [...Ingredients]
+    for(let i = 0; i < newIngredients.length; i += 1) {
+      for(let j = 0; j < newIngredients[i].data.length; j += 1) {
+        if (newIngredients[i].data[j] === title) {
+          newIngredients[i].data.splice(j, 1);
+          //return;
+        }
+      } 
+    }
+    updateIngredients(newIngredients)
   }
 
-  const Item = ({ id, title }) => (
-    <View style={styles.item}>
-      <View style={styles.itemLeft}>
-      <Image source={Images.butter} style={styles.itemImg}/>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <View style={styles.textinputrow}>
-          <TextInput
-            style={styles.textinput}
-            onChangeText={(text) => setText(text)} // update text variable whenever text is changed within textinput
-            value={text} // display value of text variable
-          />
+  function Item({ id, title }) {
+    const [text, setText] = useState('');
+    
+    let editIcon = null;
+    if (title[0] === 0) {
+      editIcon =
+        <Pressable onPress={() => navigation.navigate("IngredientSearch")}> 
+          <Ionicons name="repeat-outline" size={32} color="orange"></Ionicons>
+        </Pressable>
+    } else {
+      editIcon =
+        <Pressable onPress={() => deleteItemById({title})}> 
+          <Ionicons name="trash-outline" size={32} color="red"></Ionicons>
+        </Pressable>
+    }
+
+    let contentDisplayed = null;
+    if (title[1] !== "+") {
+      contentDisplayed =
+        <View style={styles.item}>
+          <View style={styles.itemLeft}>
+          <Image source={Images.butter} style={styles.itemImg}/>
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+            <View style={styles.textinputrow}>
+              <TextInput
+                style={styles.textinput}
+                onChangeText={(text) => setText(text)} // update text variable whenever text is changed within textinput
+                value={text} // display value of text variable
+              />
+            </View>
+          </KeyboardAvoidingView>
+          <Text style={styles.itemText}>{title[1]}</Text>
+          </View>
+          {editIcon}
         </View>
-      </KeyboardAvoidingView>
-      <Text style={styles.itemText}>{title}</Text>
-      </View>
-      <Pressable onPRess={() => deleteItemById(title)}> 
-        <Ionicons name="trash-outline" size={32} color="red"></Ionicons>
-      </Pressable>
+    } else {
+      contentDisplayed =
+      <View style={[styles.item, {backgroundColor: '#dddddd', justifyContent: 'center'}]}>
+        <Pressable onPress={() => navigation.navigate("IngredientSearch")}> 
+          <Ionicons name="add-outline" size={32} color="green"></Ionicons>
+        </Pressable>
     </View>
-  );
+    }
+
+    return (
+      contentDisplayed
+    );
+  };
 
   const SectionHeader = ({ title }) => (
     <View style={styles.header}>
@@ -96,14 +143,17 @@ export default function Modification({ navigation, route }) {
   )
 
   const ListHeader = () => (
-    <View style={{flex: 1, alignItems: 'center'}}>
-      <View style={styles.titleContainer}>
-        <View style={styles.titleTextContainer}>
-          <Text style={styles.titleText}>Step 2</Text>
+    <View style={[styles.container, {marginTop: 10}]}>
+      <View style={styles.content}>
+        <View style={styles.titleContainer}>
+          <View style={styles.titleTextContainer}>
+            <Text style={[styles.titleText, {fontSize: 30}]}>MODIFY</Text>
+            <Text style={[styles.titleText, {fontSize: 24}]}>Essential: Cream</Text>
+          </View>
+          <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
         </View>
-        <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
       </View>
-    </View>
+    </View> 
   );
 
   return ( 
@@ -112,10 +162,11 @@ export default function Modification({ navigation, route }) {
       <Header></Header>
       <View style={styles.content}>
           <SectionList
+            extraData={Ingredients}
             ListHeaderComponent={ListHeader}
             ListFooterComponent={<View style={{height: 60}}/>}
             style={{width: '100%'}} contentContainerStyle={styles.scrollView}
-            sections={DATA}
+            sections={Ingredients}
             keyExtractor={(item, index) => item + index}
             renderItem={({ item, index }) => <Item id={index} title={item} />}
             renderSectionHeader={({ section: { title } }) => <SectionHeader title={title}/>}
@@ -130,26 +181,20 @@ export default function Modification({ navigation, route }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: 'white'
+    flex: 1
   },
   content: {
-    flex: 1,
     alignItems: 'center',
+    flex: 1,
   },
-  scrollView: {
-  },
+
+  // TITLE
   titleContainer: {
     height: 150,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
-  },
-  titleImg: {
-    height: '110%',
-    width: 110,
-    resizeMode: 'contain',
   },
   titleTextContainer: {
     height: '100%',
@@ -157,11 +202,17 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    margin: 10
   },
   titleText: {
-    fontFamily: 'Avenir-Book',
-    color: 'black',
-    fontSize: 32,
+    fontFamily: 'Avenir-Book'
+  },
+  titleImg: {
+    height: '100%',
+    width: 110,
+    resizeMode: 'contain',
+    position: 'relative',
+    bottom: 10
   },
   subtitleText: {
     fontFamily: 'Avenir-Book',
