@@ -2,6 +2,7 @@ import { StyleSheet, Text, ScrollView, Image, View, ImageBackground } from 'reac
 import { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import RecipalButton from '../RecipalButton'
+import RecipalHomeButton from '../RecipalHomeButton'
 import Images from '../../constants/images'
 import Colors from '../../constants/colors';
 
@@ -12,10 +13,12 @@ export default function HomePage() {
   let categoryList = [];
   const categories = ['Breakfast', 'Brunch', 'Drinks', 'Dessert', 'Sandwiches', 'Burgers', 'Soup', 'Salad', 'Italian', 'Mexican', 'African', 'Persian', 'Korean', 'Chinese', 'Japanese']
 
-  for(let i = 0; i < categories.length; i++) {
+  for(let i = 0; i < categories.length; i += 2) {
     categoryList.push(
-      <View key={i} style={{margin: 4}}>
-        <RecipalButton text={categories[i]} fontSize={24} width={275} height={60}
+      <View key={i} style={{margin: 4, flexDirection: 'row', alignContent: 'space-between'}}>
+        <RecipalHomeButton  text={categories[i]} fontSize={22} width={135} height={135}
+                          onPress={() => navigation.navigate('RecipeSelect', {category: categories[i]})}/>
+         <RecipalHomeButton text={categories[i + 1]} fontSize={22} width={135} height={135}
                           onPress={() => navigation.navigate('RecipeSelect', {category: categories[i]})}/>
       </View>
     )
