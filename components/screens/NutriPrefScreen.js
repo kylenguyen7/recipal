@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image, AsynchStorage } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { useState } from 'react';
 import { SearchableFlatList } from "react-native-searchable-list";
 import { SearchBar } from 'react-native-elements';
@@ -8,6 +8,7 @@ import Images from '../../constants/images';
 import Header from '../BackHeader'
 import { nutritionData } from '../nutritionData'
 import NutitionItem from '../NutritionItem'
+
 
 
 export default function NutriPrefScreen() {
@@ -22,7 +23,8 @@ export default function NutriPrefScreen() {
         title={item.title}
         description={item.description}
         units={item.units}
-        image={item.image}/>
+        image={item.image}
+        dataKey={item.key}/>
     )
   }
 

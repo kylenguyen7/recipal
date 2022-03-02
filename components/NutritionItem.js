@@ -3,45 +3,45 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import Colors from '../constants/colors';
 import Images from '../constants/images'
-import Keys from '../constants/keys'
 
 
-export default function NutitionItem({id, title, description, units, image}) {
+export default function NutitionItem({id, title, description, units, image, dataKey}) {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalText, setModalText] = useState("")
   const [modalTitleText, setModalTitleText] = useState("")
   const [lowerText, setLowerText] = useState('0');
   const [upperText, setUpperText] = useState('');
+  const key = dataKey
 
+  
+  // Get data
   useEffect(() => {
     const getData = async () => {
-      const stringValue = await AsyncStorage.getItem(Keys.limitCaloriesKey)
+      const stringValue = await AsyncStorage.getItem(key)
       const value = JSON.parse(stringValue)
-
-      console.log('1 value.upper: ' + value.upper);
       console.log("Got " + JSON.stringify(value) + " from data store!")
       if(value !== null) {
-        setUpperText(value.upper);
-        console.log('2 value.upper: ' + value.upper);
-        console.log('upperText: ' + upperText);
+        setLowerText(value.lower);
+        setUpperText(value.upper);   
       }
     }
-
     getData().catch(console.error);
   }, []);
 
+
+  // Store data
   useEffect(() => {
     const storeData = async (value) => {
-      if(value.upper === undefined) return;
-
+      if(value === undefined) return;
       const jsonValue = JSON.stringify(value)
-      await AsyncStorage.setItem(Keys.limitCaloriesKey, jsonValue)
+      await AsyncStorage.setItem(key, jsonValue)
       console.log("Stored " + jsonValue + " in data store!")
     }
+    storeData({lower: lowerText, upper: upperText}).catch(console.error);
+  }, [lowerText, upperText]);
 
-    storeData({upper: upperText}).catch(console.error);
-  }, [upperText]);
 
+  // Information Popup
   const ConfirmModal = () => (
     <Modal
         animationType="slide"
@@ -70,16 +70,14 @@ export default function NutitionItem({id, title, description, units, image}) {
       </Modal>
   );
 
+
+  // The page
   return (
-    <View
-      style={[styles.restrictButton, {backgroundColor: 'white'}]}
-      // style={!restrictionInput[id] ? [styles.restrictButton, {backgroundColor: 'white'}] : [styles.restrictButton, {backgroundColor: Colors.tomato}]}
-      //onPress={() => {restrictionInput[id] = true}}
-    >
+    <View style={[styles.restrictButton, {backgroundColor: 'white'}]}>
       <ConfirmModal/>
-      <Pressable>
+      <View>
         <Text style={styles.buttonText}>{title}</Text>
-      </Pressable>
+      </View>
       <View style={styles.rightSide}>
         <View style={styles.infoAndInputs}>
           <Pressable onPress={() => {
@@ -92,6 +90,7 @@ export default function NutitionItem({id, title, description, units, image}) {
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={styles.textinputrow}>
               <TextInput
+                keyboardType = 'numeric'
                 style={styles.textinput}
                 onChangeText={(lowerText) => setLowerText(lowerText)} // update text variable whenever text is changed within textinput
                 value={lowerText} // display value of text variable
@@ -101,6 +100,7 @@ export default function NutitionItem({id, title, description, units, image}) {
           <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={styles.textinputrow}>
               <TextInput
+                keyboardType = 'numeric'
                 style={styles.textinput}
                 onChangeText={(upperText) => setUpperText(upperText)} // update text variable whenever text is changed within textinput
                 value={upperText} // display value of text variable
