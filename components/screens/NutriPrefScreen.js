@@ -1,7 +1,8 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, AsynchStorage } from 'react-native';
 import { useState } from 'react';
 import { SearchableFlatList } from "react-native-searchable-list";
 import { SearchBar } from 'react-native-elements';
+
 
 import Images from '../../constants/images';
 import Header from '../BackHeader'

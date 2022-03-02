@@ -168,7 +168,7 @@ export default function Modification({ navigation, route }) {
             style={{width: '100%'}} contentContainerStyle={styles.scrollView}
             sections={Ingredients}
             keyExtractor={(item, index) => item + index}
-            renderItem={({ item, index }) => <Item id={index} title={item} />}
+             renderItem={({ item, index }) => <Item id={index} title={item} />}
             renderSectionHeader={({ section: { title } }) => <SectionHeader title={title}/>}
           />
           <View style={{position: 'absolute', bottom: 5}}>

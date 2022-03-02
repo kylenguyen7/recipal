@@ -1,7 +1,9 @@
 import { StyleSheet, Text, Pressable, Image, Modal, View, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native';
-import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState, useEffect } from 'react';
 import Colors from '../constants/colors';
 import Images from '../constants/images'
+import Keys from '../constants/keys'
 
 
 export default function NutitionItem({id, title, description, units, image}) {
@@ -10,7 +12,36 @@ export default function NutitionItem({id, title, description, units, image}) {
   const [modalTitleText, setModalTitleText] = useState("")
   const [lowerText, setLowerText] = useState('0');
   const [upperText, setUpperText] = useState('');
-  
+
+  useEffect(() => {
+    const getData = async () => {
+      const stringValue = await AsyncStorage.getItem(Keys.limitCaloriesKey)
+      const value = JSON.parse(stringValue)
+
+      console.log('1 value.upper: ' + value.upper);
+      console.log("Got " + JSON.stringify(value) + " from data store!")
+      if(value !== null) {
+        setUpperText(value.upper);
+        console.log('2 value.upper: ' + value.upper);
+        console.log('upperText: ' + upperText);
+      }
+    }
+
+    getData().catch(console.error);
+  }, []);
+
+  useEffect(() => {
+    const storeData = async (value) => {
+      if(value.upper === undefined) return;
+
+      const jsonValue = JSON.stringify(value)
+      await AsyncStorage.setItem(Keys.limitCaloriesKey, jsonValue)
+      console.log("Stored " + jsonValue + " in data store!")
+    }
+
+    storeData({upper: upperText}).catch(console.error);
+  }, [upperText]);
+
   const ConfirmModal = () => (
     <Modal
         animationType="slide"
