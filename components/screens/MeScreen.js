@@ -14,38 +14,7 @@ export default function MeScreen() {
   
   // Temp data
   let historyList = [];
-  let historyData = [ 
-      {
-        id: 0,
-        title: "Fettucine Alfredo",
-        time: "1.5 hours",
-        image: Images.fettuccine
-      },
-      {
-        id: 1,
-        title: "Garlic Breadsticks",
-        time: "1.5 hours",
-        image: Images.fettuccine
-      },
-      {
-        id: 2,
-        title: "Caprese Pizza",
-        time: "1.5 hours",
-        image: Images.fettuccine
-      },
-      {
-        id: 3,
-        title: "Chicken Parm",
-        time: "1.5 hours",
-        image: Images.fettuccine
-      },
-      {
-        id: 4,
-        title: "Lasagna",
-        time: "1.5 hours",
-        image: Images.fettuccine
-      },
-    ]
+  let historyData = []
 
   for(let i = 0; i < historyData.length; i++) {
     historyList.push(
@@ -53,6 +22,13 @@ export default function MeScreen() {
     )
   }
 
+  let history = undefined
+  if (historyList.lenght > 0) {
+    history = historyList
+  } else {
+    history = 
+      <Text style={styles.firstTime}>You haven't cooked any meals yet!</Text>
+  }
 
   return (
     <View>
@@ -80,7 +56,7 @@ export default function MeScreen() {
         
           <Text style={styles.historyText}>My Latest Meals</Text>
           <View style={styles.historyContainer}>
-            {historyList}
+            {history}
           </View>
 
         </View>
@@ -138,4 +114,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 120
   },
+  firstTime: {
+    backgroundColor: 'white',
+    width: '90%',
+    margin: 10,
+    padding: 10,
+    fontFamily: 'Avenir-Book',
+    textAlign: 'center',
+    borderRadius: 20,
+    overflow: 'hidden',
+  }
 })
