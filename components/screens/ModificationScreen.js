@@ -178,11 +178,7 @@ export default function Modification({ navigation, route }) {
             style={{width: '100%'}} contentContainerStyle={styles.scrollView}
             sections={ingredients}
             keyExtractor={(item, index) => item + index}
-<<<<<<< HEAD
-             renderItem={({ item, index }) => <Item id={index} title={item} />}
-=======
             renderItem={({ item, index }) => <Item ingredient={item} />}
->>>>>>> f25b9f5... Added recipe/ingredient data functionality.
             renderSectionHeader={({ section: { title } }) => <SectionHeader title={title}/>}
           />
           <View style={{position: 'absolute', bottom: 5}}>

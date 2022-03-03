@@ -9,13 +9,7 @@ import Header from '../BackHeader'
 import { nutritionData } from '../nutritionData'
 import NutitionItem from '../NutritionItem'
 
-
-<<<<<<< HEAD
-
-export default function NutriPrefScreen() {
-=======
 export default function NutriPrefScreen({ navigation, route }) {
->>>>>>> f25b9f5... Added recipe/ingredient data functionality.
   const [searchTerm, setSearchTerm] = useState("");
   const searchAttribute = "title";
   const ignoreCase = true;
