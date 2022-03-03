@@ -1,7 +1,9 @@
 import { StyleSheet, Text, Pressable, Image, Modal, View, TouchableOpacity } from 'react-native';
-import { useState } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useState, useEffect } from 'react';
 import Colors from '../constants/colors';
 import Images from '../constants/images'
+import { TapGestureHandler } from 'react-native-gesture-handler';
 
 
 export default function RestrictionButton({id, title, description, image}) {
@@ -9,6 +11,63 @@ export default function RestrictionButton({id, title, description, image}) {
   const [modalText, setModalText] = useState("")
   const [modalTitleText, setModalTitleText] = useState("")
   const [modalImage, setModalImage] = useState([]);
+
+
+  const [selectStatus, setSelectStatus] = useState(false);
+
+  // Get data
+  useEffect(() => {
+    const getData = async () => {
+      const stringValue = await AsyncStorage.getItem('restrictions')
+      const value = JSON.parse(stringValue)
+      console.log("Got " + JSON.stringify(value) + " from data store!")
+      if(value !== null) {
+        for (let i = 0; i < value.length; i++) {
+          if (title === value[i]) {
+            setSelectStatus(true);
+            return;
+          };
+        setSelectStatus(false);
+        }
+      }
+    }
+    getData().catch(console.error);
+  }, []);
+
+
+  // Store data
+  useEffect(() => {
+    const storeData = async (select, title) => {
+      if (select === undefined) {
+        return;
+      }
+      const value = await AsyncStorage.getItem('restrictions')
+      let allSelected = JSON.parse(value)
+      if (allSelected === null) {
+        allSelected = []
+      }
+      if (select === true) {
+        allSelected.push(title)
+        const jsonValue = JSON.stringify(allSelected)
+        await AsyncStorage.setItem('restrictions', jsonValue)
+        console.log("Stored " + jsonValue + " in data store!")
+        return;
+      } 
+      else {
+        for (let i = 0; i < allSelected.length; i++) {
+          if (title === allSelected[i]) {
+            allSelected.splice(i, 1)
+            const jsonValue = JSON.stringify(allSelected)
+            await AsyncStorage.setItem('restrictions', jsonValue)
+            console.log("Stored " + jsonValue + " in data store!")
+            return;
+          }
+        }
+      }
+    }
+    storeData(selectStatus, title).catch(console.error);
+  }, [selectStatus]);
+
   
   const ConfirmModal = () => (
     <Modal
@@ -40,24 +99,23 @@ export default function RestrictionButton({id, title, description, image}) {
   );
 
   return (
-    <TouchableOpacity
-      style={[styles.restrictButton, {backgroundColor: 'white'}]}
+    <Pressable
+      onPress={() => setSelectStatus(selectStatus ? false : true)}
+      style={selectStatus ? styles.buttonPressed : styles.restrictButton}
       // style={!restrictionInput[id] ? [styles.restrictButton, {backgroundColor: 'white'}] : [styles.restrictButton, {backgroundColor: Colors.tomato}]}
       //onPress={() => {restrictionInput[id] = true}}
     >
       <ConfirmModal/>
-      <Pressable>
-        <Text style={styles.buttonText}>{title}</Text>
-      </Pressable>
+      <Text style={selectStatus ? styles.buttonPressedText : styles.buttonText}>{title}</Text> 
       <Pressable onPress={() => {
           setModalText(description);
           setModalTitleText(title);
           setModalImage([image])
           setModalVisible(true);
         }}>
-        <Image style={styles.infoButton} source={Images.infoButton}/>
+        <Image style={styles.infoButton} source={selectStatus ? Images.infoButtonPressed : Images.infoButton}/>
       </Pressable>
-    </TouchableOpacity>
+    </Pressable>
   );
 }
 
@@ -73,6 +131,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     padding: 10,
+    backgroundColor: 'white',
 
     // Shadow
     shadowColor: '#000',
@@ -82,13 +141,17 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   buttonPressed: {
-    borderWidth: 5,
+    height: 70,
+    width: '48%',
+    borderWidth: 2,
     borderColor: Colors.tomato,
-    backgroundColor: Colors.tomato,
-    borderRadius: 1000,
-    display: 'flex',
-    justifyContent: 'center',
+    borderRadius: 20,
+    marginBottom: 15,
     alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    padding: 10,
+    backgroundColor: Colors.tomato,
 
     // Shadow
     shadowColor: '#000',
@@ -107,7 +170,7 @@ const styles = StyleSheet.create({
     // Font
     fontFamily: 'Avenir-Black',
     color: 'white',
-    fontSize: 10
+    fontSize: 13
   }, 
   infoButton: {
     height: 30,

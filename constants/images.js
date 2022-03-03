@@ -7,6 +7,7 @@ const images = {
   fettuccine: require('../assets/fettucine.png'),
   butter: require('../assets/butter.png'),
   infoButton: require('../assets/infoButton.png'),
+  infoButtonPressed: require('../assets/infoButtonPressed.png')
 };
 
 export default images;
