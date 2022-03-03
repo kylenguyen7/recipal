@@ -6,7 +6,7 @@ import { restrictions } from '../restrictionsData';
 import RestrictionButton from '../RestrictionButton';
 
 
-export default function DietRestrictScreen() {
+export default function DietRestrictScreen({ navigation, route }) {
   function renderRestriction(restriction) {
     return (
       <RestrictionButton
@@ -19,7 +19,7 @@ export default function DietRestrictScreen() {
 
   return (
     <View>
-      <Header></Header>
+      <Header onBackButtonPress={() => navigation.navigate("MeScreen")}></Header>
       <View style={styles.content}>
         
         <View style={styles.titleContainer}>

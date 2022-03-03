@@ -3,20 +3,16 @@ import { StyleSheet, Text, View, Pressable, Image } from 'react-native';
 import Colors from '../constants/colors';
 import Images from '../constants/images'
 
-export default function BackHeader({ screenOverride }) {
-  let navigation = useNavigation();
-
-  function onBackButtonPress() {
-    if(screenOverride !== undefined) {
-      navigation.reset({
+/**
+ * 
+ * () => navigation.goBack({currRecipe: currRecipe})
+ * 
+ * () => navigation.reset({
         index: 0,
-        routes: [{ name: 'Me' }],
-      });
-    } else {
-      navigation.goBack();
-    }
-  }
-
+        routes: [{ name: 'Me'' }],
+      })
+ */
+export default function BackHeader({ onBackButtonPress }) {
   return (
     <Pressable style={styles.container} onPress={onBackButtonPress}>
       <Image style={styles.image} source={Images.backButton}/>

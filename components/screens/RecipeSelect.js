@@ -3,66 +3,27 @@ import { useState } from 'react';
 import { SearchableFlatList } from "react-native-searchable-list";
 import { SearchBar } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
-import RecipalButton from '../RecipalButton'
 import Header from '../BackHeader'
 import Images from '../../constants/images';
 import Colors from '../../constants/colors'
+import RecipeData from '../../constants/recipe-data'
 
 export default function RecipeSelect() {
   const navigation = useNavigation();
   const [searchTerm, setSearchTerm] = useState("");
 
-  const data = [ 
-    {
-      id: 0,
-      title: "Fettucine Alfredo",
-      time: "1.5 hours",
-      image: Images.fettuccine
-    },
-    {
-      id: 1,
-      title: "Garlic Breadsticks",
-      time: "1.5 hours",
-      image: Images.fettuccine
-    },
-    {
-      id: 2,
-      title: "Caprese Pizza",
-      time: "1.5 hours",
-      image: Images.fettuccine
-    },
-    {
-      id: 3,
-      title: "Chicken Parm",
-      time: "1.5 hours",
-      image: Images.fettuccine
-    },
-    {
-      id: 4,
-      title: "Lasagna",
-      time: "1.5 hours",
-      image: Images.fettuccine
-    },
-    {
-      id: 5,
-      title: "Crepes",
-      time: "1.5 hours",
-      image: Images.fettuccine
-    }
-  ]
-
   const searchAttribute = "title";
   const ignoreCase = true;
 
   function renderRecipe(recipe) {
-    const { title, time, image } = recipe
+    const { title, time, image, calories } = recipe
     return (
-      <Pressable style={styles.recipeContainer} onPress={() => {navigation.navigate("Ingredients", {recipe: title})}}>
+      <Pressable style={styles.recipeContainer} onPress={() => {navigation.navigate("Ingredients", {currRecipe: JSON.parse(JSON.stringify(recipe))})}}>
         <Image style={styles.recipeImg} source={image}/>
         <View style={styles.recipeTextContainer}>
           <Text style={styles.recipeTitle}>{title}</Text>
           <Text style={styles.recipeSubtitle}>Time: {time}</Text>
-          <Text style={styles.recipeSubtitle}>Calories: {time}</Text>
+          <Text style={styles.recipeSubtitle}>Calories: {calories} cal</Text>
         </View>
       </Pressable>
     )
@@ -70,7 +31,7 @@ export default function RecipeSelect() {
 
   return ( 
     <ImageBackground source={Images.butchers} style={styles.container}>
-      <Header></Header>
+      <Header onBackButtonPress={() => navigation.goBack()}></Header>
       <View style={styles.content}>
         <View style={styles.titleContainer}>
           <View style={styles.titleTextContainer}>
@@ -91,10 +52,10 @@ export default function RecipeSelect() {
           <View style={styles.listContainer}>
             <SearchableFlatList
               contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }}
-              style={styles.list} data={data} searchTerm={searchTerm}
+              style={styles.list} data={RecipeData} searchTerm={searchTerm}
               searchAttribute={searchAttribute} ignoreCase={ignoreCase}
               renderItem={({ item }) => renderRecipe(item)}
-              keyExtractor={(item) => item.id} />
+              keyExtractor={(item) => item.title} />
           </View>
         </ImageBackground>
       </View>

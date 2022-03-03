@@ -6,8 +6,8 @@ import BackHeader from '../BackHeader'
 import Images from '../../constants/images'
 import Colors from '../../constants/colors';
 
-export default function RecipeFinish() {
-  let navigation = useNavigation();
+export default function RecipeFinish({ navigation, route }) {
+  let { currRecipe } = route.params;
 
   function toRecipeHistory() {
     navigation.reset({
@@ -18,7 +18,7 @@ export default function RecipeFinish() {
 
   return (
     <ImageBackground source={Images.butchers} style={styles.container}>
-    <BackHeader></BackHeader>
+    <BackHeader onBackButtonPress={() => navigation.goBack({currRecipe: currRecipe})}></BackHeader>
     <View style={{alignItems: 'center'}}>
       <View style={styles.greeting}>
         <Image style={styles.greetingImg} source={Images.spoonNoBg}/>

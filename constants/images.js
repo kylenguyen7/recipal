@@ -5,7 +5,7 @@ const images = {
   notepad: require('../assets/notepad-2.png'),
   butchers: require('../assets/butchers.png'),
   fettuccine: require('../assets/fettucine.png'),
-  butter: require('../assets/butter.png'),
+  butter: require('../assets/ingredients/butter.png'),
   infoButton: require('../assets/infoButton.png'),
   infoButtonPressed: require('../assets/infoButtonPressed.png')
 };

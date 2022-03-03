@@ -10,8 +10,12 @@ import { nutritionData } from '../nutritionData'
 import NutitionItem from '../NutritionItem'
 
 
+<<<<<<< HEAD
 
 export default function NutriPrefScreen() {
+=======
+export default function NutriPrefScreen({ navigation, route }) {
+>>>>>>> f25b9f5... Added recipe/ingredient data functionality.
   const [searchTerm, setSearchTerm] = useState("");
   const searchAttribute = "title";
   const ignoreCase = true;
@@ -30,9 +34,8 @@ export default function NutriPrefScreen() {
 
   return (
     <View>
-      <Header></Header>
+      <Header onBackButtonPress={() => navigation.navigate("MeScreen")}></Header>
       <View style={styles.content}>
-        
         <View style={styles.titleContainer}>
           <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
           <Text style={styles.bubbleText}>Tap below to specify your recipe needs!</Text>

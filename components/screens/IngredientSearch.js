@@ -5,24 +5,67 @@ import { SearchBar } from 'react-native-elements';
 
 import Images from '../../constants/images';
 import Header from '../BackHeader'
-import data from '../../constants/ingredients-test'
+import IngredientsData, { findIngredientByTitle, findIngredientsByCategory } from '../../constants/ingredients-data';
 
 
 export default function IngredientSearch({ navigation, route }) {
+  let { currRecipe, stepNum, ingredientToSwap, updateIngredientsList } = route.params;
+  const ingredientToSwapData = findIngredientByTitle(ingredientToSwap);
+  const swaps = ingredientToSwap === undefined ? IngredientsData : 
+                  findIngredientsByCategory(ingredientToSwapData.category);
   const [searchTerm, setSearchTerm] = useState("");
   const searchAttribute = "title";
   const ignoreCase = true;
 
-  const Item = ({ title }) => (
-    <Pressable style={styles.item} onPress={ () => navigation.goBack({selected: title}) }>
-      <Image source={Images.butter} style={styles.itemImg}/>
-      <Text style={styles.itemText}>{title}</Text>
+  function replaceIngredient(replacementTitle) {
+    // Find index of ingredient to swap
+    let ingredients = currRecipe.steps[stepNum].ingredients;
+    
+    for(let i = 0; i < ingredients.length; i += 1) {
+      if (ingredients[i].title === ingredientToSwap) {
+        // Set it to replacement ingredient
+        const replacementIngredientData = findIngredientByTitle(replacementTitle);
+
+        ingredients[i] = {
+          title: replacementIngredientData.title,
+          amount: replacementIngredientData.defaultAmount,
+          isEssential: true
+        }
+        break;
+      }
+    }
+    updateIngredientsList();
+  }
+
+  function addIngredient(title) {
+    const newIngredientData = findIngredientByTitle(title);
+
+    currRecipe.steps[stepNum].ingredients.push({
+      title: newIngredientData.title,
+      amount: newIngredientData.defaultAmount,
+      isEssential: false
+    });
+
+    updateIngredientsList();
+  }
+
+  const Item = ({ defaultAmount, units, image, title }) => (
+    <Pressable style={styles.item} onPress={() => {
+        if(ingredientToSwap === undefined) {
+          addIngredient(title);
+        } else {
+          replaceIngredient(title);
+        }
+        navigation.goBack()
+      }}>
+      <Image source={image} style={styles.itemImg}/>
+      <Text style={styles.itemText}>{defaultAmount} {units} {title}</Text>
     </Pressable>
   );
 
   return (
     <View style={styles.container}>
-      <Header></Header>
+      <Header onBackButtonPress={() => navigation.goBack({currRecipe: currRecipe})}></Header>
       <View style={styles.content}>
         <View style={styles.titleContainer}>
           <View style={styles.titleTextContainer}>
@@ -41,7 +84,7 @@ export default function IngredientSearch({ navigation, route }) {
         </View>  
         <SearchableFlatList
             contentContainerStyle={{ flexGrow: 1, alignItems: 'flex-start' }}
-            style={styles.listContainer} data={data} searchTerm={searchTerm}
+            style={styles.listContainer} data={swaps} searchTerm={searchTerm}
             searchAttribute={searchAttribute} ignoreCase={ignoreCase}
             renderItem={({item}) => Item(item)}
             keyExtractor={(item) => item.title} />

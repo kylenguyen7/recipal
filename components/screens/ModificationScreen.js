@@ -5,35 +5,48 @@ import Images from '../../constants/images';
 import Colors from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
-import { NavigationHelpersContext } from '@react-navigation/native';
+import { findIngredientByTitle } from '../../constants/ingredients-data';
 
 export default function Modification({ navigation, route }) {
+  let { currRecipe, stepNum, prevPage } = route.params;
+  let currIngredients = currRecipe.steps[stepNum].ingredients;
   const [restoreModalVisible, setRestoreModalVisible] = useState(false);
-  const [Ingredients, updateIngredients] = useState(
-    [
-      {
-        title: "Essential: Fat",
-        data: [
-          [0, "1 Liter Water"]
-        ]
-      },
-      {
-        title: "Essential: Cream",
-        data: [
-          [0, "8 oz butter"]
-        ]
-      },
-      {
-        title: "Non-Essentials",
-        data: [
-          [1, "Parmesan to taste"],
-          [1, "Parsley to taste"],
-          [2, "+"]
-        ]
-      }
-    ]
-  )
 
+  function generateIngredientsList() {
+    const essentialIngredients = [];
+    const nonEssentialIngredients = [{
+      title: "Non-Essentials",
+      data: []
+    }]
+
+    for(let i = 0; i < currIngredients.length; i++) {
+      const ingredient = currIngredients[i];
+      const ingredientData = findIngredientByTitle(ingredient.title);
+
+      if(ingredientData === null) {
+        console.error("No ingredient found with title " + ingredient.title);
+      }
+
+      if(ingredient.isEssential) {
+        essentialIngredients.push({
+          title: "Essential: " + ingredientData.category,
+          data: [{...ingredient, ingredientIndex: i}],
+        })
+      } else {
+        nonEssentialIngredients[0].data.push({...ingredient, ingredientIndex: i})
+      }
+    }
+
+    nonEssentialIngredients[0].data.push({plus: true});
+
+    return [...essentialIngredients, ...nonEssentialIngredients];
+  }
+
+  function updateIngredientsList() {
+    setIngredients(generateIngredientsList());
+  }
+
+  const [ingredients, setIngredients] = useState(generateIngredientsList());
 
   const RestoreModal = () => (
     <Modal
@@ -60,7 +73,6 @@ export default function Modification({ navigation, route }) {
               <Pressable
                 style={[styles.button, styles.buttonExit]}
                 onPress={() => {
-                  updateIngredients(startIngredients)
                   console.log({startIngredients})
                   setRestoreModalVisible(false);
                 }}
@@ -73,66 +85,64 @@ export default function Modification({ navigation, route }) {
       </Modal>
   );
 
-  const deleteItemById = ({title}) => {
-    let newIngredients = [...Ingredients]
-    for(let i = 0; i < newIngredients.length; i += 1) {
-      for(let j = 0; j < newIngredients[i].data.length; j += 1) {
-        if (newIngredients[i].data[j] === title) {
-          newIngredients[i].data.splice(j, 1);
-          //return;
-        }
-      } 
-    }
-    updateIngredients(newIngredients)
+  function deleteIngredientFromStep(stepNum, ingredientIndex) {
+    let ingredients = currRecipe.steps[stepNum].ingredients;
+    ingredients.splice(ingredientIndex, 1);
+
+    updateIngredientsList();
   }
 
-  function Item({ id, title }) {
-    const [text, setText] = useState('');
-    
+  function Item({ ingredient }) {
+    if(ingredient.plus) {
+      return (
+        <View style={[styles.item, {backgroundColor: '#dddddd', justifyContent: 'center'}]}>
+          <Pressable onPress={() => navigation.navigate("IngredientSearch", { currRecipe, stepNum, updateIngredientsList })}> 
+            <Ionicons name="add-outline" size={32} color="green"></Ionicons>
+          </Pressable>
+        </View>
+      );
+    }
+
     let editIcon = null;
-    if (title[0] === 0) {
+    if (ingredient.isEssential) {
       editIcon =
-        <Pressable onPress={() => navigation.navigate("IngredientSearch")}> 
+        <Pressable onPress={() => navigation.navigate("IngredientSearch", { currRecipe, stepNum, updateIngredientsList, ingredientToSwap: ingredient.title })}> 
           <Ionicons name="repeat-outline" size={32} color="orange"></Ionicons>
         </Pressable>
     } else {
       editIcon =
-        <Pressable onPress={() => deleteItemById({title})}> 
+        <Pressable onPress={() => deleteIngredientFromStep(stepNum, ingredient.ingredientIndex)}> 
           <Ionicons name="trash-outline" size={32} color="red"></Ionicons>
         </Pressable>
     }
 
-    let contentDisplayed = null;
-    if (title[1] !== "+") {
-      contentDisplayed =
-        <View style={styles.item}>
-          <View style={styles.itemLeft}>
-          <Image source={Images.butter} style={styles.itemImg}/>
-          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <View style={styles.textinputrow}>
-              <TextInput
-                keyboardType = 'numeric'
-                style={styles.textinput}
-                onChangeText={(text) => setText(text)} // update text variable whenever text is changed within textinput
-                value={text} // display value of text variable
-              />
-            </View>
-          </KeyboardAvoidingView>
-          <Text style={styles.itemText}>{title[1]}</Text>
-          </View>
-          {editIcon}
-        </View>
-    } else {
-      contentDisplayed =
-      <View style={[styles.item, {backgroundColor: '#dddddd', justifyContent: 'center'}]}>
-        <Pressable onPress={() => navigation.navigate("IngredientSearch")}> 
-          <Ionicons name="add-outline" size={32} color="green"></Ionicons>
-        </Pressable>
-    </View>
+    const [amount, setAmount] = useState((ingredient.amount).toString());
+    const ingredientData = findIngredientByTitle(ingredient.title);
+
+
+    function updateRecipeAmount(amount) {
+      ingredient.amount = amount;
+      setAmount(amount);
     }
 
     return (
-      contentDisplayed
+      <View style={styles.item}>
+        <View style={styles.itemLeft}>
+        <Image source={ingredientData.image} style={styles.itemImg}/>
+        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <View style={styles.textinputrow}>
+            <TextInput
+              keyboardType = 'numeric'
+              style={styles.textinput}
+              onChangeText={(amount) => updateRecipeAmount(amount)} // update text variable whenever text is changed within textinput
+              value={amount} // display value of text variable
+            />
+          </View>
+        </KeyboardAvoidingView>
+        <Text style={styles.itemText}>{ingredientData.units} {ingredientData.title}</Text>
+        </View>
+        {editIcon}
+      </View>
     );
   };
 
@@ -148,7 +158,7 @@ export default function Modification({ navigation, route }) {
         <View style={styles.titleContainer}>
           <View style={styles.titleTextContainer}>
             <Text style={[styles.titleText, {fontSize: 30}]}>MODIFY</Text>
-            <Text style={[styles.titleText, {fontSize: 24}]}>Essential: Cream</Text>
+            <Text style={[styles.titleText, {fontSize: 24}]}>Step {stepNum + 1}</Text>
           </View>
           <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
         </View>
@@ -159,16 +169,20 @@ export default function Modification({ navigation, route }) {
   return ( 
     <ImageBackground /*source={Images.butchers}(*/ style={styles.container}>
       <RestoreModal/>
-      <Header></Header>
+      <Header onBackButtonPress={() => navigation.navigate(prevPage, {currRecipe})}></Header>
       <View style={styles.content}>
           <SectionList
-            extraData={Ingredients}
+            extraData
             ListHeaderComponent={ListHeader}
             ListFooterComponent={<View style={{height: 60}}/>}
             style={{width: '100%'}} contentContainerStyle={styles.scrollView}
-            sections={Ingredients}
+            sections={ingredients}
             keyExtractor={(item, index) => item + index}
+<<<<<<< HEAD
              renderItem={({ item, index }) => <Item id={index} title={item} />}
+=======
+            renderItem={({ item, index }) => <Item ingredient={item} />}
+>>>>>>> f25b9f5... Added recipe/ingredient data functionality.
             renderSectionHeader={({ section: { title } }) => <SectionHeader title={title}/>}
           />
           <View style={{position: 'absolute', bottom: 5}}>
