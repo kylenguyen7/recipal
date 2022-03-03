@@ -7,35 +7,13 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { BackgroundImage } from 'react-native-elements/dist/config';
 import Images from '../../constants/images'
 import { Ionicons } from '@expo/vector-icons';
+import RecipeData from '../../constants/recipe-data';
 
 export default function RecipeStep({ navigation, route }) {
   let carouselRef = useRef();
-  let { recipe, step } = route.params
+  let currRecipe = route.params.currRecipe;
   const [exitModalVisible, setExitModalVisible] = useState(false);
   const [finishModalVisible, setFinishModalVisible] = useState(false);
-
-  const DATA = [
-    {
-      image: Images.fettuccine,
-      directive: 'Add',
-      direction: 'Boil 1 liter of water and add box of fettuccine.'
-    },
-    {
-      image: Images.spoonInCircle,
-      directive: 'Stir',
-      direction: 'Stir in 1 carton of whole milk and 1 stick of butter. Add salt. Measure carefully!'
-    },
-    {
-      image: Images.butter,
-      directive: 'Garnish',
-      direction: 'Sprinkle parmesan and parsley on top according to your liking!'
-    },
-    {
-      image: Images.notepad,
-      directive: 'Bruh',
-      direction: 'Last step.'
-    },
-  ]
   let [ page, setPage ] = useState(0);
 
   const ConfirmExitModal = () => (
@@ -88,7 +66,7 @@ export default function RecipeStep({ navigation, route }) {
               <Pressable
                 style={[styles.button, styles.buttonCancel]}
                 onPress={() => {
-                  navigation.navigate('RecipeFinish', {recipe: recipe});
+                  navigation.navigate('RecipeFinish', {currRecipe: currRecipe});
                   setFinishModalVisible(false);
                 }}
               >
@@ -108,18 +86,18 @@ export default function RecipeStep({ navigation, route }) {
       </Modal>
   );
 
-  const CarouselCard = ({ image, directive, direction}) => (
+  const CarouselCard = ({ image, title, text}) => (
     <View style={styles.card}>
       <Image style={styles.cardImg} source={image}/>
       <View style={styles.cardTextContainer}>
-        <Text style={{fontFamily: 'Avenir-Black', fontSize: 24}}>{directive}</Text>
-        <Text style={{fontFamily: 'Avenir-Book', fontSize: 16}}>{direction}</Text>
+        <Text style={{fontFamily: 'Avenir-Black', fontSize: 24}}>{title}</Text>
+        <Text style={{fontFamily: 'Avenir-Book', fontSize: 16}}>{text}</Text>
       </View>
     </View>
   );
 
   function goToPage(pageIndex) {
-    if(pageIndex == DATA.length) {
+    if(pageIndex == currRecipe.steps.length) {
       setFinishModalVisible(true);
     } else {
       carouselRef.current.snapToItem(pageIndex);
@@ -134,7 +112,7 @@ export default function RecipeStep({ navigation, route }) {
       <View style={styles.stepHeader}>
         <Text style={styles.stepHeaderText}>Step {page + 1}</Text>
         <Pagination
-          dotsLength={DATA.length}
+          dotsLength={currRecipe.steps.length}
           activeDotIndex={page}
           containerStyle={{paddingVertical: 10}}
           dotStyle={{
@@ -160,7 +138,7 @@ export default function RecipeStep({ navigation, route }) {
       <View style={{flex: 1}}>
         <Carousel
           ref={carouselRef}
-          data={DATA}
+          data={currRecipe.steps}
           renderItem={({ item }) => CarouselCard(item)}
           onBeforeSnapToItem={(index) => setPage(index) }
           sliderWidth={Dimensions.get('window').width}
@@ -172,14 +150,14 @@ export default function RecipeStep({ navigation, route }) {
         <Pressable style={styles.controlPressable} onPress={() => goToPage(page - 1)}>
           {page > 0 && <Ionicons name="chevron-back" color='white' size={48}/>}
         </Pressable>
-        <Pressable style={[{backgroundColor: Colors.bellPepper}, styles.controlPressable]} onPress={() => navigation.navigate('Modification')}>
+        <Pressable style={[{backgroundColor: Colors.bellPepper}, styles.controlPressable]} onPress={() => navigation.navigate("Modification", {currRecipe, stepNum: page, prevPage: "RecipeStep"})}>
           <Ionicons name="pencil" color='white' size={48}/>
         </Pressable>
         <Pressable style={styles.controlPressable} onPress={() => goToPage(page + 1)}>
-          {/* {page < DATA.length - 1 ? 
+          {/* {page < currRecipe.steps.length - 1 ? 
             <Ionicons name="chevron-forward" color='white' size={48}/> :
             <RecipalButton width={80} height={50} text={"Finish"} onPress={() => goToPage(page + 1)}/>} */}
-          {page < DATA.length - 1 ? 
+          {page < currRecipe.steps.length - 1 ? 
             <Ionicons name="chevron-forward" color='white' size={48}/> :
             <Ionicons name="checkmark-done-outline" color='white' size={48}/>}
           

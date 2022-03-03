@@ -6,6 +6,7 @@ import Images from '../../constants/images';
 import RecipalButton from '../RecipalButton'
 import Counter from '../Counter'
 import RecipeItem from '../RecipeItem';
+import { findRecipeByTitle } from '../../constants/recipe-data'
 
 
 export default function MeScreen() {
@@ -14,42 +15,12 @@ export default function MeScreen() {
   
   // Temp data
   let historyList = [];
-  let historyData = [ 
-      {
-        id: 0,
-        title: "Fettucine Alfredo",
-        time: "1.5 hours",
-        image: Images.fettuccine
-      },
-      {
-        id: 1,
-        title: "Garlic Breadsticks",
-        time: "1.5 hours",
-        image: Images.fettuccine
-      },
-      {
-        id: 2,
-        title: "Caprese Pizza",
-        time: "1.5 hours",
-        image: Images.fettuccine
-      },
-      {
-        id: 3,
-        title: "Chicken Parm",
-        time: "1.5 hours",
-        image: Images.fettuccine
-      },
-      {
-        id: 4,
-        title: "Lasagna",
-        time: "1.5 hours",
-        image: Images.fettuccine
-      },
-    ]
+  let historyData = [ "Fettuccine Alfredo" ]
 
   for(let i = 0; i < historyData.length; i++) {
+    const recipe = findRecipeByTitle(historyData[i]);
     historyList.push(
-      <RecipeItem id={historyData[i].id} title={historyData[i].title} time={historyData[i].time} image={historyData[i].image}/>
+      <RecipeItem id={i} recipe={recipe}/>
     )
   }
 

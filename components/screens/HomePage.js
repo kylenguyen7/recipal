@@ -11,15 +11,16 @@ export default function HomePage() {
   let navigation = useNavigation();
 
   let categoryList = [];
-  const categories = ['Breakfast', 'Brunch', 'Drinks', 'Dessert', 'Sandwiches', 'Burgers', 'Soup', 'Salad', 'Italian', 'Mexican', 'African', 'Persian', 'Korean', 'Chinese', 'Japanese']
+  const categories = ['Breakfast', 'Brunch', 'Snacks', 'Drinks', 'Dessert', 'Burgers', 'Soup', 'Salad', 'Italian', 'Mexican', 'African', 'Persian', 'Korean', 'Chinese', 'Japanese']
 
   for(let i = 0; i < categories.length; i += 2) {
     categoryList.push(
       <View key={i} style={{margin: 4, flexDirection: 'row', alignContent: 'space-between'}}>
         <RecipalHomeButton  text={categories[i]} fontSize={22} width={135} height={135}
                           onPress={() => navigation.navigate('RecipeSelect', {category: categories[i]})}/>
-         <RecipalHomeButton text={categories[i + 1]} fontSize={22} width={135} height={135}
-                          onPress={() => navigation.navigate('RecipeSelect', {category: categories[i]})}/>
+        {i < categories.length - 1 &&
+        <RecipalHomeButton text={categories[i + 1]} fontSize={22} width={135} height={135}
+                          onPress={() => navigation.navigate('RecipeSelect', {category: categories[i]})}/>}
       </View>
     )
   }
@@ -50,8 +51,6 @@ export default function HomePage() {
         <ImageBackground source={Images.notepad} style={styles.notebook}>
           <Text style={[styles.text, styles.headerText, {color: Colors.tomato}]}>Recipes</Text>
           {categoryList}
-          <RecipalButton text={'<to ingredient search>'} fontSize={12} width={200} height={50}
-                          onPress={() => navigation.navigate("IngredientSearch")}/>
         </ImageBackground>
       </View>
     </ScrollView>

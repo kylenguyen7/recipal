@@ -4,49 +4,47 @@ import Header from '../BackHeader'
 import Images from '../../constants/images';
 import Colors from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
+import IngredientsData, { findIngredientByTitle } from '../../constants/ingredients-data'
 
 
 export default function Ingredients({ navigation, route }) {
-  let { recipe, screenOverride } = route.params;
+  let { currRecipe, from } = route.params;
 
-  const DATA = [
-    {
-      title: "Step 1",
-      data: ["1 Liter Water", "8 oz Fettuccine"]
-    },
-    {
-      title: "Step 2",
-      data: ["8 oz butter", "1 tsp table salt"]
-    },
-    {
-      title: "Step 3",
-      data: ["Parmesan to taste", "Parsley to taste"]
-    },
-    {
-      title: "Step 4",
-      data: ["Parmesan to taste", "Parsley to taste"]
-    },
-    {
-      title: "Step 5",
-      data: ["Parmesan to taste", "Parsley to taste"]
-    },
-    {
-      title: "Step 6",
-      data: ["Parmesan to taste", "Parsley to taste"]
+  const ingredientsData = [];
+  for(let i = 0; i < currRecipe.steps.length; i++) {
+    ingredientsData.push({
+      title: "Step " + (i + 1),
+      stepNum: i,
+      data: currRecipe.steps[i].ingredients
+    })
+  }
+
+  function onBackButtonPress() {
+    if(from === 'Me') {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Me' }],
+      });
+    } else {
+      navigation.goBack();
     }
-  ];
+  }
 
-  const Item = ({ title }) => (
-    <View style={styles.item}>
-      <Image source={Images.butter} style={styles.itemImg}/>
-      <Text style={styles.itemText}>{title}</Text>
-    </View>
-  );
+  function Item({ ingredient }) {
+    const ingredientInfo = findIngredientByTitle(ingredient.title);
 
-  const SectionHeader = ({ title }) => (
+    return (
+      <View style={styles.item}>
+        <Image source={ingredientInfo.image} style={styles.itemImg}/>
+        <Text style={styles.itemText}>{ingredient.amount} {ingredientInfo.units} {ingredient.title}</Text>
+      </View>
+    );
+  }
+
+  const SectionHeader = ({ title, stepNum }) => (
     <View style={styles.header}>
       <Text style={styles.headerText}>{title}</Text>
-      <Pressable style={styles.headerPressable} onPress={() => {navigation.navigate("Modification", {recipe})}}>
+      <Pressable style={styles.headerPressable} onPress={() => {navigation.navigate("Modification", {currRecipe, stepNum, prevPage: "Ingredients"})}}>
         <Ionicons name="pencil-sharp" size={32} color="white"></Ionicons>
       </Pressable>
     </View>
@@ -56,11 +54,11 @@ export default function Ingredients({ navigation, route }) {
     <View style={{flex: 1, alignItems: 'center'}}>
       <View style={styles.titleContainer}>
         <View style={styles.titleTextContainer}>
-          <Text style={styles.titleText}>{recipe}</Text>
-          <Text style={styles.subtitleText}>Prep time: 1 hr 30 min</Text>
-          <Text style={styles.subtitleText}>Yields: 4 servings</Text>
-          <Text style={styles.subtitleText}>Calories: 800 cal per serving</Text>
-          <Text style={styles.subtitleText}>Difficulty: *****</Text>
+          <Text style={styles.titleText}>{currRecipe.title}</Text>
+          <Text style={styles.subtitleText}>Prep time: {currRecipe.time}</Text>
+          <Text style={styles.subtitleText}>Yields: {currRecipe.yield} servings</Text>
+          <Text style={styles.subtitleText}>Calories: {currRecipe.calories} cal per serving</Text>
+          <Text style={styles.subtitleText}>Difficulty: {currRecipe.difficulty}</Text>
         </View>
         <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
       </View>
@@ -70,19 +68,19 @@ export default function Ingredients({ navigation, route }) {
 
   return ( 
     <ImageBackground /*source={Images.butchers}(*/ style={styles.container}>
-      <Header screenOverride={screenOverride}></Header>
+      <Header onBackButtonPress={onBackButtonPress}></Header>
       <View style={styles.content}>
           <SectionList
             ListHeaderComponent={ListHeader}
             ListFooterComponent={<View style={{height: 60}}/>}
             style={{width: '100%'}} contentContainerStyle={styles.scrollView}
-            sections={DATA}
+            sections={ingredientsData}
             keyExtractor={(item, index) => item + index}
-            renderItem={({ item }) => <Item title={item} />}
-            renderSectionHeader={({ section: { title } }) => <SectionHeader title={title}/>}
+            renderItem={({ item }) => <Item ingredient={item} />}
+            renderSectionHeader={({ section: { title, stepNum } }) => <SectionHeader title={title} stepNum={stepNum}/>}
           />
           <View style={{position: 'absolute', bottom: 5}}>
-            <RecipalButton width={375} height={50} fontSize={24} text={'Continue'} onPress={() => navigation.navigate('RecipeStep', {recipe: recipe, step: 1})}/>
+            <RecipalButton width={375} height={50} fontSize={24} text={'Continue'} onPress={() => navigation.navigate('RecipeStep', {currRecipe: currRecipe})}/>
           </View>
       </View>
     </ImageBackground>
