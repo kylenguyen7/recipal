@@ -1,20 +1,37 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Keys = {
-    limitCaloriesKey: 'limit_calories',
-    limitTotalFatKey: 'limit_total_fat',
-    limitSatFatKey: 'limit_sat_fat',
-    limitTransFatKey: 'limit_trans_fat',
-    limitCholesterolKey: 'limit_cholesterol',
-    limitSodiumKey: 'limit_sodium',
-    limitTotalCarbsKey: 'limit_total_carbs',
-    limitFiberKey: 'limit_fiber',
-    limitSugarsKey: 'limit_sugar',
-    limitProteinKey: 'limit_protein',
-    limitCalciumKey: 'limit_calcium',
-    limitIronKey: 'limit_iron',
-    limitVAKey: 'limit_VA',
-    limitVCKey: 'limit_VC',
-    limitVDKey: 'limit_VD'
+    limitCaloriesKey: 'calories',
+    limitTotalFatKey: 'total fat',
+    limitSatFatKey: 'saturated fat',
+    limitTransFatKey: 'trans fat',
+    limitCholesterolKey: 'cholesterol',
+    limitSodiumKey: 'sodium',
+    limitTotalCarbsKey: 'total carbs',
+    limitFiberKey: 'fiber',
+    limitSugarsKey: 'sugar',
+    limitProteinKey: 'protein',
+    limitCalciumKey: 'calcium',
+    limitIronKey: 'iron',
+    limitVAKey: 'Vitamin A',
+    limitVCKey: 'Vitamin C',
+    limitVDKey: 'Vitamin D'
 }
 
 export default Keys;
+
+export async function getAllLimits() {
+    const limits = {};
+
+    for(const key in Keys) {
+        const stringValue = await AsyncStorage.getItem(Keys[key]);
+
+        if(stringValue === null) {
+            "";
+        } else {
+            limits[Keys[key]] = JSON.parse(stringValue).upper;
+        }
+    }
+
+    return limits;
+}

@@ -14,10 +14,10 @@ export default function XHeader({onPress}) {
 
 let styles = StyleSheet.create({
   container: {
-    height: 80,
+    height: 85,
     width: 50,
     display: 'flex',
     justifyContent: 'flex-end',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   }
 })

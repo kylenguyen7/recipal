@@ -8,6 +8,7 @@ import { BackgroundImage } from 'react-native-elements/dist/config';
 import Images from '../../constants/images'
 import { Ionicons } from '@expo/vector-icons';
 import RecipeData from '../../constants/recipe-data';
+import { findIngredientByTitle } from '../../constants/ingredients-data';
 
 export default function RecipeStep({ navigation, route }) {
   let carouselRef = useRef();
@@ -15,6 +16,69 @@ export default function RecipeStep({ navigation, route }) {
   const [exitModalVisible, setExitModalVisible] = useState(false);
   const [finishModalVisible, setFinishModalVisible] = useState(false);
   let [ page, setPage ] = useState(0);
+
+  function generateText(stepNum) {
+    let result = [];
+    let added = [];
+    const currIngredients = currRecipe.steps[stepNum].ingredients;
+    const lines = currRecipe.steps[stepNum].text;
+    for(let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      const tokens = line.match("{.*}");
+      if(tokens != null) {
+        for(let j = 0; j < tokens.length; j++) {
+          const category = tokens[j].slice(1, tokens[j].length - 1);
+
+          // If any of the current ingredients match the descriptor, add it
+          for(let k = 0; k < currIngredients.length; k++) {
+            if(added[k]) continue;
+
+            const currIngredient = currIngredients[k];
+            const currIngredientData = findIngredientByTitle(currIngredient.title);
+            if(currIngredientData.category === category) {
+              let original = lines[i];
+              const tokenIndex = lines[i].search(tokens[j]);
+              result.push(<Text>{lines[i].slice(0, tokenIndex)}</Text>);
+              result.push(<Text style={{textDecorationLine: 'underline'}}>{currIngredient.amount + " " + currIngredientData.units + " " + currIngredient.title}</Text>);
+              result.push(<Text>{lines[i].slice(tokenIndex + tokens[j].length)}</Text>);
+
+              // result.push(<Text style={{textDecorationLine: 'underline'}}>{lines[i].replace(tokens[j], currIngredient.amount + " " + currIngredientData.units + " " + currIngredient.title)}</Text>);
+              result.push(<Text>{i == lines.length - 1 ? "" : " "}</Text>);
+              added[k] = true;
+              break;
+            }
+          }
+        }
+      } else {
+        result.push(<Text>{lines[i]}</Text>);
+        result.push(<Text>{i == lines.length - 1 ? "" : " "}</Text>);
+      }
+    }
+
+    const extras = [];
+    for(let i = 0; i < currIngredients.length; i++) {
+      if(!added[i]) {
+        extras.push(currIngredients[i]);
+      }
+    }
+
+    if (extras.length > 0) {
+      result.push(<Text> Add </Text>);
+      for (let i = 0; i < extras.length; i++) {
+        const data = findIngredientByTitle(extras[i].title);
+        result.push(<Text style={{textDecorationLine: 'underline'}}>{extras[i].amount + " " + data.units + " " + extras[i].title}</Text>);
+        if (i === extras.length - 1) {
+          result.push(<Text>.</Text>);
+        } else if (i === extras.length - 2) {
+          result.push(<Text> and </Text>);
+        } else {
+          result.push(<Text>, </Text>);
+        }
+      }
+    }
+
+    return result;
+  }
 
   const ConfirmExitModal = () => (
     <Modal
@@ -86,12 +150,12 @@ export default function RecipeStep({ navigation, route }) {
       </Modal>
   );
 
-  const CarouselCard = ({ image, title, text}) => (
+  const CarouselCard = ({ image, title }, index) => (
     <View style={styles.card}>
       <Image style={styles.cardImg} source={image}/>
       <View style={styles.cardTextContainer}>
         <Text style={{fontFamily: 'Avenir-Black', fontSize: 24}}>{title}</Text>
-        <Text style={{fontFamily: 'Avenir-Book', fontSize: 16}}>{text}</Text>
+        <Text style={{fontFamily: 'Avenir-Book', fontSize: 16}}>{generateText(index)}</Text>
       </View>
     </View>
   );
@@ -139,7 +203,7 @@ export default function RecipeStep({ navigation, route }) {
         <Carousel
           ref={carouselRef}
           data={currRecipe.steps}
-          renderItem={({ item }) => CarouselCard(item)}
+          renderItem={({ item, index }) => CarouselCard(item, index)}
           onBeforeSnapToItem={(index) => setPage(index) }
           sliderWidth={Dimensions.get('window').width}
           itemWidth={Dimensions.get('window').width}

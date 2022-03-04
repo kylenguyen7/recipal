@@ -29,7 +29,7 @@ const recipeData = [
         title: "Heat",
         text: [
           "In a large skillet or pan, heat {fat} over medium heat.",
-          "Add minced {garlic} and cook for 1 to 2 minutes.",
+          "Add {garlic} and cook for 1 to 2 minutes.",
           "Stir in {cream} and cook for 5 to 8 minutes."],
         image: require('../assets/fettucine.png'),
         ingredients: [
@@ -39,7 +39,7 @@ const recipeData = [
             isEssential: true
           },
           {
-            title: "garlic",
+            title: "minced garlic",
             amount: 1,
             isEssential: false
           },

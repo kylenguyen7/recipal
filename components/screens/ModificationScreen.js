@@ -4,23 +4,35 @@ import Header from '../BackHeader'
 import Images from '../../constants/images';
 import Colors from '../../constants/colors';
 import { Ionicons } from '@expo/vector-icons';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { findIngredientByTitle } from '../../constants/ingredients-data';
+import { findRecipeByTitle } from '../../constants/recipe-data';
+import { getAllLimits } from '../../constants/keys'
 
 export default function Modification({ navigation, route }) {
   let { currRecipe, stepNum, prevPage } = route.params;
-  let currIngredients = currRecipe.steps[stepNum].ingredients;
+  const [ingredients, setIngredients] = useState(generateIngredientsList());
   const [restoreModalVisible, setRestoreModalVisible] = useState(false);
+  const [warningModalMessage, setWarningModalMessage] = useState("");
+  const [limits, setLimits] = useState({});
+
+  const getLimits = async () => {
+    setLimits(await getAllLimits());
+  }
+
+  useEffect(() => {
+    getLimits().catch(console.error);
+  }, [ingredients]);
 
   function generateIngredientsList() {
     const essentialIngredients = [];
     const nonEssentialIngredients = [{
       title: "Non-Essentials",
       data: []
-    }]
+    }];
 
-    for(let i = 0; i < currIngredients.length; i++) {
-      const ingredient = currIngredients[i];
+    for(let i = 0; i < currRecipe.steps[stepNum].ingredients.length; i++) {
+      const ingredient = currRecipe.steps[stepNum].ingredients[i];
       const ingredientData = findIngredientByTitle(ingredient.title);
 
       if(ingredientData === null) {
@@ -43,10 +55,15 @@ export default function Modification({ navigation, route }) {
   }
 
   function updateIngredientsList() {
-    setIngredients(generateIngredientsList());
+    const newList = generateIngredientsList();
+    setIngredients(newList);
   }
 
-  const [ingredients, setIngredients] = useState(generateIngredientsList());
+  // Restores default ingredients for the current step
+  function restoreDefaultIngredients() {
+    currRecipe.steps[stepNum].ingredients = JSON.parse(JSON.stringify(findRecipeByTitle(currRecipe.title).steps[stepNum].ingredients));
+    updateIngredientsList();
+  }
 
   const RestoreModal = () => (
     <Modal
@@ -73,11 +90,38 @@ export default function Modification({ navigation, route }) {
               <Pressable
                 style={[styles.button, styles.buttonExit]}
                 onPress={() => {
-                  console.log({startIngredients})
+                  restoreDefaultIngredients();
                   setRestoreModalVisible(false);
                 }}
               >
               <Text style={[styles.textStyle, styles.exitTextStyle]}>Yes, please!</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+  );
+
+  const WarningModal = () => (
+    <Modal
+        animationType="slide"
+        transparent={true}
+        visible={warningModalMessage !== ""}
+        onRequestClose={() => {
+          setRestoreModalVisible(false);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={[styles.modalText, {fontSize: 20, fontFamily: 'Avenir-Black'}]}>Warning!</Text>
+            <Text style={[styles.modalText, {fontSize: 16}]}>{warningModalMessage}</Text>
+            <View style={styles.modalButtonContainer}>
+              <Pressable
+                style={[styles.button, styles.buttonCancel]}
+                onPress={() => {
+                  setWarningModalMessage("");
+                }}>
+                <Text style={[styles.textStyle, styles.cancelTextStyle]}>Okay.</Text>
               </Pressable>
             </View>
           </View>
@@ -103,6 +147,9 @@ export default function Modification({ navigation, route }) {
       );
     }
 
+    const [amount, setAmount] = useState((ingredient.amount).toString());
+    const ingredientData = findIngredientByTitle(ingredient.title);
+
     let editIcon = null;
     if (ingredient.isEssential) {
       editIcon =
@@ -116,12 +163,20 @@ export default function Modification({ navigation, route }) {
         </Pressable>
     }
 
-    const [amount, setAmount] = useState((ingredient.amount).toString());
-    const ingredientData = findIngredientByTitle(ingredient.title);
-
-
     function updateRecipeAmount(amount) {
-      ingredient.amount = amount;
+      // Validate amount
+      const ingredientData = findIngredientByTitle(ingredient.title);
+      if(limits[ingredientData.nutrient] !== "") {
+        const amountLimit = limits[ingredientData.nutrient] / ingredientData.nutrientPerUnit;
+        if(amount > amountLimit) {
+          setWarningModalMessage("Due to your nutrient limit " + ingredientData.nutrient + " of " + limits[ingredientData.nutrient] + ", you should not use " +
+                      amount + " " + ingredientData.units + " of " + ingredientData.title + ". At this limit, you can use at most " + Math.floor(amountLimit * 10) / 10 + " " + ingredientData.units + ".");
+          return;
+        }
+      }
+
+      let ingredients = currRecipe.steps[stepNum].ingredients;
+      ingredients[ingredient.ingredientIndex].amount = amount;
       setAmount(amount);
     }
 
@@ -169,6 +224,7 @@ export default function Modification({ navigation, route }) {
   return ( 
     <ImageBackground /*source={Images.butchers}(*/ style={styles.container}>
       <RestoreModal/>
+      <WarningModal/>
       <Header onBackButtonPress={() => navigation.navigate(prevPage, {currRecipe})}></Header>
       <View style={styles.content}>
           <SectionList

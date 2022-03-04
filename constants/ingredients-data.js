@@ -1,4 +1,6 @@
 
+import Keys from './keys';
+
 const ingredientsData = [
   {
     title: "fettuccine pasta",
@@ -6,7 +8,7 @@ const ingredientsData = [
     defaultAmount: 16,
     units: 'oz',
     category: 'pasta',
-    nutrient: 'carbohydrates',
+    nutrient: Keys.limitTotalCarbsKey,
     nutrientPerUnit: 7
   },
   {
@@ -15,7 +17,7 @@ const ingredientsData = [
     defaultAmount: 16,
     units: 'oz',
     category: 'pasta',
-    nutrient: 'carbohydrates',
+    nutrient: Keys.limitTotalCarbsKey,
     nutrientPerUnit: 7
   },
   {
@@ -24,16 +26,16 @@ const ingredientsData = [
     defaultAmount: 8,
     units: 'Tablespoon',
     category: 'fat',
-    nutrient: 'saturated fat',
+    nutrient: Keys.limitTotalFatKey,
     nutrientPerUnit: 14
   },
   {
-    title: "garlic",
+    title: "minced garlic",
     image: require('../assets/ingredients/garlic.png'),
-    defaultAmount: 8,
+    defaultAmount: 1,
     units: 'clove',
     category: 'garlic',
-    nutrient: 'none',
+    nutrient: null,
     nutrientPerUnit: 0
   },
   {
@@ -42,7 +44,7 @@ const ingredientsData = [
     defaultAmount: 1.5,
     units: 'cups',
     category: 'cream',
-    nutrient: 'fat',
+    nutrient: Keys.limitTotalFatKey,
     nutrientPerUnit: 88.1
   },
   {
@@ -51,7 +53,7 @@ const ingredientsData = [
     defaultAmount: 0.5,
     units: 'tsp',
     category: 'salt',
-    nutrient: 'sodium',
+    nutrient: Keys.limitSodiumKey,
     nutrientPerUnit: 1163
   },
   {
@@ -60,7 +62,7 @@ const ingredientsData = [
     defaultAmount: 1,
     units: 'cup',
     category: 'cheese',
-    nutrient: 'fat',
+    nutrient: Keys.limitTotalFatKey,
     nutrientPerUnit: 8
   },
   {
@@ -69,7 +71,7 @@ const ingredientsData = [
     defaultAmount: 0.5,
     units: 'tsp',
     category: 'pepper',
-    nutrient: 'none',
+    nutrient: null,
     nutrientPerUnit: 0
   },
   {
@@ -78,7 +80,7 @@ const ingredientsData = [
     defaultAmount: 2,
     units: 'Tablespoon',
     category: 'parsley',
-    nutrient: 'none',
+    nutrient: null,
     nutrientPerUnit: 0
   }
 ]
