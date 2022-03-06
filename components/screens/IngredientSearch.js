@@ -1,11 +1,16 @@
-import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
-import { useState } from 'react';
+import { StyleSheet, Text, View, Image, Pressable, Modal } from 'react-native';
+import { useState, useEffect } from 'react';
 import { SearchableFlatList } from "react-native-searchable-list";
 import { SearchBar } from 'react-native-elements';
 
 import Images from '../../constants/images';
 import Header from '../BackHeader'
 import IngredientsData, { findIngredientByTitle, findIngredientsByCategory } from '../../constants/ingredients-data';
+import Sizes from '../../constants/sizes';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Ionicons } from '@expo/vector-icons';
+import Colors from '../../constants/colors';
+
 
 
 export default function IngredientSearch({ navigation, route }) {
@@ -37,6 +42,60 @@ export default function IngredientSearch({ navigation, route }) {
     updateIngredientsList();
   }
 
+  // WARNING MODAL
+  const [violatingRestrictions, setRestrictions] = useState([]);
+  const [warningModalMessage, setWarningModalMessage] = useState("");
+
+  useEffect(() => {
+    const getData = async () => {
+      const stringValue = await AsyncStorage.getItem('restrictions')
+      const value = JSON.parse(stringValue)
+      setRestrictions(value);
+    }
+    getData().catch(console.error);
+  }, []);
+
+  function showModal(violations) {
+    let violationsList = "";
+    for(let i = 0; i < violations.length; i++) {
+      violationsList += "• " + violations[i] + (i == violations.length - 1 ? "" : "\n");
+    }
+
+    setWarningModalMessage(violationsList);
+  }
+
+  function WarningModal() {
+    return (
+    <Modal
+        animationType="slide"
+        transparent={true}
+        visible={warningModalMessage !== ""}
+        onRequestClose={() => {
+          setWarningModalMessage("");
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={[styles.modalText, {fontSize: 20, fontFamily: 'Avenir-Black'}]}>Warning</Text>
+            <Text style={[styles.modalText, {fontSize: 16}]}>This ingredient violates some of your dietary restrictions!</Text>
+            <Text style={[styles.modalText, {fontSize: 16, textAlign: 'left', marginBottom: 20}]}>{warningModalMessage}</Text>
+            <View style={styles.modalButtonContainer}>
+              <Pressable
+                style={[styles.button, styles.buttonCancel]}
+                onPress={() => {
+                  setWarningModalMessage("");
+                }}
+              >
+                <Text style={[styles.textStyle, styles.cancelTextStyle]}>Okay</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
+  // END WARNING
+
   function addIngredient(title) {
     const newIngredientData = findIngredientByTitle(title);
 
@@ -49,7 +108,18 @@ export default function IngredientSearch({ navigation, route }) {
     updateIngredientsList();
   }
 
-  const Item = ({ defaultAmount, units, image, title }) => (
+  function Item({ defaultAmount, units, image, title, restrictions }) {
+    const violations = [];
+
+    if(restrictions !== undefined) {
+      for(let i = 0; i < restrictions.length; i++) {
+        if(violatingRestrictions.includes(restrictions[i])) {
+          violations.push(restrictions[i]);
+        }
+      }
+    }
+
+    return (
     <Pressable style={styles.item} onPress={() => {
         if(ingredientToSwap === undefined) {
           addIngredient(title);
@@ -59,13 +129,19 @@ export default function IngredientSearch({ navigation, route }) {
         navigation.goBack()
       }}>
       <Image source={image} style={styles.itemImg}/>
-      <Text style={styles.itemText}>{defaultAmount} {units} {title}</Text>
+      <Text numberOfLines={1} style={styles.itemText}>{defaultAmount} {units} {title}</Text>
+      { violations.length > 0 && 
+          <Pressable style={styles.headerPressable} onPress={() => {showModal(violations)}}>
+            <Ionicons name="warning-outline" size={32} color={Colors.pasta}></Ionicons>
+          </Pressable> }
     </Pressable>
-  );
+    );
+  }
 
   return (
     <View style={styles.container}>
       <Header onBackButtonPress={() => navigation.goBack({currRecipe: currRecipe})}></Header>
+      <WarningModal/>
       <View style={styles.content}>
         <View style={styles.titleContainer}>
           <View style={styles.titleTextContainer}>
@@ -145,7 +221,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding: 5,
-    height: 60,
+    height: Sizes.itemHeight,
     width: '100%',
     backgroundColor: 'white',
 
@@ -164,8 +240,72 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontFamily: 'Avenir-Book',
-    fontSize: 28,
-    marginLeft: 5,
+    fontSize: Sizes.itemFontSize,
+    marginHorizontal: 5,
+    flex: 1
+  },
+
+  // Modal
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 300,
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 30,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  modalButtonContainer: {
     width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  button: {
+    borderRadius: 1000,
+    padding: 10,
+    elevation: 2,
+    borderColor: Colors.tomato,
+    borderWidth: 3
+  },
+  buttonExit: {
+    backgroundColor: Colors.white,
+  },
+  buttonCancel: {
+    backgroundColor: Colors.tomato,
+  },
+  textStyle: {
+    fontFamily: 'Avenir-Book',
+    fontWeight: "bold",
+    textAlign: "center"
+  },
+  exitTextStyle: {
+    color: Colors.tomato
+  },
+  cancelTextStyle: {
+    color: 'white'
+  },
+  modalText: {
+    fontFamily: 'Avenir-Book',
+    fontSize: 14,
+    marginBottom: 15,
+    textAlign: "center"
   },
 })

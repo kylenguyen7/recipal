@@ -7,13 +7,16 @@ import { Ionicons } from '@expo/vector-icons';
 import { useState, useEffect } from 'react';
 import { findIngredientByTitle } from '../../constants/ingredients-data';
 import { findRecipeByTitle } from '../../constants/recipe-data';
-import { getAllLimits } from '../../constants/keys'
+import { getAllLimits } from '../../constants/keys';
+import Sizes from '../../constants/sizes';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 export default function Modification({ navigation, route }) {
   let { currRecipe, stepNum, prevPage } = route.params;
   const [ingredients, setIngredients] = useState(generateIngredientsList());
   const [restoreModalVisible, setRestoreModalVisible] = useState(false);
-  const [warningModalMessage, setWarningModalMessage] = useState("");
+  const [nutrientWarningModalMessage, setNutrientWarningModalMessage] = useState("");
   const [limits, setLimits] = useState({});
 
   const getLimits = async () => {
@@ -23,6 +26,61 @@ export default function Modification({ navigation, route }) {
   useEffect(() => {
     getLimits().catch(console.error);
   }, [ingredients]);
+
+  // WARNING MODAL
+  const [restrictions, setRestrictions] = useState([]);
+  const [warningModalMessage, setWarningModalMessage] = useState("");
+
+  useEffect(() => {
+    const getData = async () => {
+      const stringValue = await AsyncStorage.getItem('restrictions')
+      const value = JSON.parse(stringValue)
+      setRestrictions(value);
+    }
+    getData().catch(console.error);
+  }, []);
+
+  function showModal(violations) {
+    let violationsList = "";
+    for(let i = 0; i < violations.length; i++) {
+      violationsList += "• " + violations[i] + (i == violations.length - 1 ? "" : "\n");
+    }
+
+    setWarningModalMessage(violationsList);
+  }
+
+  function WarningModal() {
+    return (
+    <Modal
+        animationType="slide"
+        transparent={true}
+        visible={warningModalMessage !== ""}
+        onRequestClose={() => {
+          setWarningModalMessage("");
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={[styles.modalText, {fontSize: 20, fontFamily: 'Avenir-Black'}]}>Warning</Text>
+            <Text style={[styles.modalText, {fontSize: 16}]}>This ingredient violates some of your dietary restrictions!</Text>
+            <Text style={[styles.modalText, {fontSize: 16, textAlign: 'left', marginBottom: 20}]}>{warningModalMessage}</Text>
+            <View style={styles.modalButtonContainer}>
+              <Pressable
+                style={[styles.button, styles.buttonCancel]}
+                onPress={() => {
+                  setWarningModalMessage("");
+                }}
+              >
+                <Text style={[styles.textStyle, styles.cancelTextStyle]}>Okay</Text>
+              </Pressable>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
+  // END WARNING
+
 
   function generateIngredientsList() {
     const essentialIngredients = [];
@@ -102,24 +160,24 @@ export default function Modification({ navigation, route }) {
       </Modal>
   );
 
-  const WarningModal = () => (
+  const NutrientWarningModal = () => (
     <Modal
         animationType="slide"
         transparent={true}
-        visible={warningModalMessage !== ""}
+        visible={nutrientWarningModalMessage !== ""}
         onRequestClose={() => {
-          setRestoreModalVisible(false);
+          setNutrientWarningModalMessage("");
         }}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={[styles.modalText, {fontSize: 20, fontFamily: 'Avenir-Black'}]}>Warning!</Text>
-            <Text style={[styles.modalText, {fontSize: 16}]}>{warningModalMessage}</Text>
+            <Text style={[styles.modalText, {fontSize: 16}]}>{nutrientWarningModalMessage}</Text>
             <View style={styles.modalButtonContainer}>
               <Pressable
                 style={[styles.button, styles.buttonCancel]}
                 onPress={() => {
-                  setWarningModalMessage("");
+                  setNutrientWarningModalMessage("");
                 }}>
                 <Text style={[styles.textStyle, styles.cancelTextStyle]}>Okay.</Text>
               </Pressable>
@@ -169,7 +227,7 @@ export default function Modification({ navigation, route }) {
       if(limits[ingredientData.nutrient] !== "") {
         const amountLimit = limits[ingredientData.nutrient] / ingredientData.nutrientPerUnit;
         if(amount > amountLimit) {
-          setWarningModalMessage("Due to your nutrient limit " + ingredientData.nutrient + " of " + limits[ingredientData.nutrient] + ", you should not use " +
+          setNutrientWarningModalMessage("Due to your nutrient limit " + ingredientData.nutrient + " of " + limits[ingredientData.nutrient] + ", you should not use " +
                       amount + " " + ingredientData.units + " of " + ingredientData.title + ". At this limit, you can use at most " + Math.floor(amountLimit * 10) / 10 + " " + ingredientData.units + ".");
           return;
         }
@@ -178,6 +236,15 @@ export default function Modification({ navigation, route }) {
       let ingredients = currRecipe.steps[stepNum].ingredients;
       ingredients[ingredient.ingredientIndex].amount = amount;
       setAmount(amount);
+    }
+
+    const violations = [];
+    if(ingredientData.restrictions !== undefined) {
+      for(let i = 0; i < ingredientData.restrictions.length; i++) {
+        if(restrictions.includes(ingredientData.restrictions[i])) {
+          violations.push(ingredientData.restrictions[i]);
+        }
+      }
     }
 
     return (
@@ -194,10 +261,14 @@ export default function Modification({ navigation, route }) {
             />
           </View>
         </KeyboardAvoidingView>
-        <Text style={styles.itemText}>{ingredientData.units} {ingredientData.title}</Text>
+        <Text numberOfLines={1} style={styles.itemText}>{ingredientData.units} {ingredientData.title}</Text>
+        { violations.length > 0 && 
+          <Pressable style={styles.headerPressable} onPress={() => {showModal(violations)}}>
+            <Ionicons name="warning-outline" size={32} color={Colors.pasta}></Ionicons>
+          </Pressable> }
         </View>
-        {editIcon}
-      </View>
+          {editIcon}
+        </View>
     );
   };
 
@@ -224,6 +295,7 @@ export default function Modification({ navigation, route }) {
   return ( 
     <ImageBackground /*source={Images.butchers}(*/ style={styles.container}>
       <RestoreModal/>
+      <NutrientWarningModal/>
       <WarningModal/>
       <Header onBackButtonPress={() => navigation.navigate(prevPage, {currRecipe})}></Header>
       <View style={styles.content}>
@@ -296,7 +368,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 5,
-    height: 60,
+    height: Sizes.itemHeight,
+    width: '100%',
     alignContent: 'space-between'
   },
   itemLeft: {
@@ -313,10 +386,11 @@ const styles = StyleSheet.create({
   },
   itemText: {
     fontFamily: 'Avenir-Book',
-    fontSize: 28,
-    marginLeft: 5,
+    fontSize: Sizes.itemFontSize,
+    flex: 1
   },
   header: {
+    height: Sizes.headerHeight,
     width: '100%',
     backgroundColor: Colors.bellPepper,
     flexDirection: 'row',
@@ -326,7 +400,7 @@ const styles = StyleSheet.create({
   headerText: {
     color: 'white',
     fontFamily: 'Avenir-Book',
-    fontSize: 32,
+    fontSize: Sizes.itemFontSize,
     margin: 10
   },
   headerPressable: {
@@ -336,16 +410,14 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   textinput: {
-    height: 40,
-    width: 40,
+    height: 32,
+    width: 32,
     backgroundColor: '#dddddd',
     borderRadius: 10,
     textAlign: 'center',
     fontFamily: 'Avenir-Book',
     margin: 5
   },
-
-
 
 
   container: {

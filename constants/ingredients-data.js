@@ -4,6 +4,7 @@ import Keys from './keys';
 const ingredientsData = [
   {
     title: "fettuccine pasta",
+    restrictions: ["Gluten Free","Paleo","Coeliac","FODMAP"],
     image: require('../assets/ingredients/fettuccine.png'),
     defaultAmount: 16,
     units: 'oz',
