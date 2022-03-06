@@ -154,8 +154,10 @@ export default function RecipeStep({ navigation, route }) {
     <View style={styles.card}>
       <Image style={styles.cardImg} source={image}/>
       <View style={styles.cardTextContainer}>
-        <Text style={{fontFamily: 'Avenir-Black', fontSize: 24}}>{title}</Text>
-        <Text style={{fontFamily: 'Avenir-Book', fontSize: 16}}>{generateText(index)}</Text>
+        <ScrollView>
+          <Text style={{fontFamily: 'Avenir-Black', fontSize: 24}}>{title}</Text>
+          <Text style={{fontFamily: 'Avenir-Book', fontSize: 16}}>{generateText(index)}</Text>
+        </ScrollView>
       </View>
     </View>
   );
@@ -304,8 +306,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   stepHeaderText: {
-    fontFamily: 'Avenir-Book',
-    fontSize: 32
+    fontFamily: 'Avenir-Black',
+    fontSize: 32,
   },
   card: {
     height: '100%',
@@ -317,13 +319,14 @@ const styles = StyleSheet.create({
   },
   cardImg: {
     width: 300,
-    height: 250,
+    height: 225,
     borderRadius: 10,
     marginVertical: 20,
     resizeMode: 'cover',
   },
   cardTextContainer: {
     width: 300,
+    height: 200,
     padding: 20,
     backgroundColor: 'white',
     borderRadius: 2,
