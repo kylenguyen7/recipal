@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
     fontSize: 12
   },
   listNotAvailable: {
-    backgroundColor: 'white',
+    backgroundColor: Colors.lightGray,
     width: '90%',
     margin: 10,
     marginTop: 50,
