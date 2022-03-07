@@ -10,6 +10,7 @@ import Colors from '../../constants/colors'
 import RecipeData from '../../constants/recipe-data'
 import IngredientsData, { findIngredientByTitle } from '../../constants/ingredients-data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Directions } from 'react-native-gesture-handler';
 
 export default function RecipeSelect({navigation, route}) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -185,11 +186,13 @@ export default function RecipeSelect({navigation, route}) {
           showModal(violationsInfo, recipe) :
           navigation.navigate("Ingredients", {currRecipe: JSON.parse(JSON.stringify(recipe))})}}>
         <WarningModal/>
-        <Image style={styles.recipeImg} source={image}/>
-        <View style={styles.recipeTextContainer}>
-          <Text style={styles.recipeTitle}>{title}</Text>
-          <Text style={styles.recipeSubtitle}>Time: {time} hours</Text>
-          <Text style={styles.recipeSubtitle}>Calories: {calories} cal</Text>
+        <View style={styles.leftSide}>
+          <Image style={styles.recipeImg} source={image}/>
+          <View style={styles.recipeTextContainer}>
+            <Text style={styles.recipeTitle}>{title}</Text>
+            <Text style={styles.recipeSubtitle}>Time: {time} hours</Text>
+            <Text style={styles.recipeSubtitle}>Calories: {calories} cal</Text>
+          </View>
         </View>
         { violationsInfo.length > 0 && 
           <View style={styles.headerPressable}>
@@ -257,7 +260,7 @@ const styles = StyleSheet.create({
   },
   notebook: {
     padding: 30,
-    paddingLeft: 70,
+    paddingTop: 70,
     resizeMode: 'contain',
     height: 1300,
     width: undefined,
@@ -279,13 +282,13 @@ const styles = StyleSheet.create({
   },
   recipeContainer: {
     height: 100,
-    width: 290,
+    width: 320,
     margin: 7,
     paddingLeft: 10,
     borderRadius: 10,
     display: 'flex',
     flexDirection: 'row',
-    //justifyContent: 'center',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: 'white',
     shadowColor: '#000',
@@ -330,6 +333,12 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     justifyContent: 'center',
+    alignItems: 'center'
+  },
+  leftSide: {
+    height: 100,
+    width: 260,
+    flexDirection: 'row',
     alignItems: 'center'
   },
 

@@ -19,11 +19,11 @@ export default function HomePage() {
 
   for(let i = 0; i < categories.length; i += 2) {
     categoryList.push(
-      <View key={i} style={{margin: 4, flexDirection: 'row', alignContent: 'space-between'}}>
-        <RecipalHomeButton  text={categories[i]} fontSize={22} width={135} height={135}
+      <View key={i} style={{margin: 4, flexDirection: 'row', justifyContent: 'space-between'}}>
+        <RecipalHomeButton  text={categories[i]} fontSize={22} width={150} height={125}
                           onPress={() => navigation.navigate('RecipeSelect', {category: categories[i]})}/>
         {i < categories.length - 1 &&
-        <RecipalHomeButton text={categories[i + 1]} fontSize={22} width={135} height={135}
+        <RecipalHomeButton text={categories[i + 1]} fontSize={22} width={150} height={125}
                           onPress={() => navigation.navigate('RecipeSelect', {category: categories[i + 1]})}/>}
       </View>
     )
@@ -90,8 +90,8 @@ const styles = StyleSheet.create({
   },
   notebook: {
     marginTop: 10,
-    padding: 40,
-    paddingLeft: 85,
+    paddingBottom: 40,
+    paddingTop: 70,
     resizeMode: 'contain',
     height: 1300,
     width: undefined,

@@ -9,7 +9,7 @@ export default function NutitionItem({id, title, description, units, image, data
   const [modalVisible, setModalVisible] = useState(false);
   const [modalText, setModalText] = useState("")
   const [modalTitleText, setModalTitleText] = useState("")
-  const [lowerText, setLowerText] = useState('0');
+  const [lowerText, setLowerText] = useState('');
   const [upperText, setUpperText] = useState('');
   const key = dataKey
 
