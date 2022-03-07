@@ -146,7 +146,7 @@ export default function IngredientSearch({ navigation, route }) {
         <View style={styles.titleContainer}>
           <View style={styles.titleTextContainer}>
             <Text style={[styles.titleText, {fontSize: 30}]}>MODIFY</Text>
-            <Text style={[styles.titleText, {fontSize: 24}]}>Essential: Cream</Text>
+            <Text style={[styles.titleText, {fontSize: 24}]}>Non-Essential</Text>
           </View>
           <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
         </View>

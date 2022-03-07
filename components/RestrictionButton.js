@@ -3,7 +3,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useEffect } from 'react';
 import Colors from '../constants/colors';
 import Images from '../constants/images'
-import { TapGestureHandler } from 'react-native-gesture-handler';
 
 
 export default function RestrictionButton({id, title, description, image}) {
@@ -97,6 +96,7 @@ export default function RestrictionButton({id, title, description, image}) {
         </View>
       </Modal>
   );
+
 
   return (
     <Pressable

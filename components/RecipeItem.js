@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 export default function RecipeItem({ recipe }) {
     let navigation = useNavigation()
     const { title, time, image } = recipe
+
     return (
         <Pressable style={styles.recipeContainer} onPress={() => {navigation.navigate("Ingredients", {currRecipe: recipe, from: "Me"})}}>
         <Image style={styles.recipeImg} source={image}/>

@@ -25,7 +25,7 @@ export default function MeScreen() {
   }
 
   let history = undefined
-  if (historyList.lenght > 0) {
+  if (historyList.length > 0) {
     history = historyList
   } else {
     history = 

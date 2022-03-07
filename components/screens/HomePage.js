@@ -6,12 +6,13 @@ import RecipalHomeButton from '../RecipalHomeButton'
 import Images from '../../constants/images'
 import Colors from '../../constants/colors';
 
+
 export default function HomePage() {
   let scrollView = useRef(null);
   let navigation = useNavigation();
 
   let categoryList = [];
-  const categories = ['Breakfast', 'Brunch', 'Snacks', 'Drinks', 'Dessert', 'Burgers', 'Soup', 'Salad', 'Italian', 'Mexican', 'African', 'Persian', 'Korean', 'Chinese', 'Japanese']
+  const categories = ['Breakfast', 'Brunch', 'Snack', 'Drink', 'Dessert', 'Burger', 'Soup', 'Salad', 'Italian', 'Mexican', 'African', 'Persian', 'Korean', 'Chinese', 'Japanese', 'Vietnamese']
 
   for(let i = 0; i < categories.length; i += 2) {
     categoryList.push(
@@ -20,7 +21,7 @@ export default function HomePage() {
                           onPress={() => navigation.navigate('RecipeSelect', {category: categories[i]})}/>
         {i < categories.length - 1 &&
         <RecipalHomeButton text={categories[i + 1]} fontSize={22} width={135} height={135}
-                          onPress={() => navigation.navigate('RecipeSelect', {category: categories[i]})}/>}
+                          onPress={() => navigation.navigate('RecipeSelect', {category: categories[i + 1]})}/>}
       </View>
     )
   }
@@ -126,5 +127,5 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     borderRadius: 20,
     backgroundColor: 'white',
-  }
+  },
 });

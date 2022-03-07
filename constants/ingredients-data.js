@@ -14,6 +14,7 @@ const ingredientsData = [
   },
   {
     title: "macaroni pasta",
+    restrictions: ["Gluten Free","Paleo","Coeliac","FODMAP"],
     image: require('../assets/ingredients/macaroni.png'),
     defaultAmount: 16,
     units: 'oz',
@@ -59,6 +60,7 @@ const ingredientsData = [
   },
   {
     title: "shredded parmesan cheese",
+    restrictions: ["Dairy Free", "Lactose Free"],
     image: require('../assets/ingredients/parmesan.png'),
     defaultAmount: 1,
     units: 'cup',
