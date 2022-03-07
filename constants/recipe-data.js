@@ -4,7 +4,7 @@ const recipeData = [
     restrictions: ["Dairy Free", "Vegan", "Gluten Free", "Paleo", "Kosher", "Coeliac"],
     category: "Italian",
     image: require('../assets/fettucine.png'),
-    time: '1.5 hours',
+    time: 1.5,
     calories: 800,
     yield: 4,
     difficulty: '⭐⭐⭐⭐⭐',

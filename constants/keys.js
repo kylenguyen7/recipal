@@ -35,3 +35,10 @@ export async function getAllLimits() {
 
     return limits;
 }
+
+
+export async function resetLimits() {
+    for(const key in Keys) {
+        await AsyncStorage.setItem(Keys[key], "")
+    }
+}

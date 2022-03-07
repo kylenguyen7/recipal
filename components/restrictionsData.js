@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const restrictions = [
     {
@@ -91,3 +93,51 @@ export const restrictions = [
         image: require('../assets/restrictions/Halal.png')
     },
   ]
+
+
+
+
+  export default function checkViolations(steps) {
+    let allViolations = []
+    for (let i = 0; i < steps.length; i++) {
+      for (let j = 0; j < steps[i].ingredients.length; j++)  {
+        //console.log(steps[i].ingredients[j].title)
+        let conflicts = checkIngredient(steps[i].ingredients[j].title)
+        if (alreadyAdded(allViolations, steps[i].ingredients[j].title)) {
+          continue;
+        }
+        //console.log(conflicts)
+        if (conflicts.length > 0) {
+          allViolations.push({
+            ingredient: steps[i].ingredients[j].title,
+            violations: conflicts
+          })
+        }
+      }
+    }
+   return allViolations
+  }
+
+  // 3. check individual ingredient
+  async function checkIngredient(ingredient) {
+    let userRestrictions = await AsyncStorage.getItem('restrictions')
+    let violations = [];
+    let ingredientData = findIngredientByTitle(ingredient)
+    if (ingredientData.userRestrictions === undefined) return violations
+    for (let i = 0; i < ingredientData.restrictions.length; i++) {
+      if (userRestrictions.includes(ingredientData.userRestrictions[i])) {
+        violations.push(ingredientData.userRestrictions[i]);
+      }
+    }
+    return violations
+  }
+
+// 2. Loop each ingredient
+function alreadyAdded(allViolations, ingredient) {
+    for (let k = 0; k < allViolations.length; k++) {
+        if (allViolations[k].ingredient === ingredient) {
+        return true
+        }  
+    }
+    return false
+}

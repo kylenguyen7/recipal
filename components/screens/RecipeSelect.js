@@ -11,8 +11,6 @@ import RecipeData from '../../constants/recipe-data'
 import IngredientsData, { findIngredientByTitle } from '../../constants/ingredients-data';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
-
 export default function RecipeSelect({navigation, route}) {
   const [searchTerm, setSearchTerm] = useState("");
   let { category } = route.params;
@@ -41,6 +39,7 @@ export default function RecipeSelect({navigation, route}) {
         <View style={styles.listContainer}>
           <SearchableFlatList
             contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }}
+            ListEmptyComponent={<Text style={[styles.listNotAvailable, {width: 230}]}>Sorry, there are no recipes under this search term.</Text>}
             style={styles.list} data={filteredRecipes} searchTerm={searchTerm}
             searchAttribute={searchAttribute} ignoreCase={ignoreCase}
             renderItem={({ item }) => renderRecipe(item)}
@@ -53,7 +52,7 @@ export default function RecipeSelect({navigation, route}) {
     }
 
 
-  // WARNINGS 
+  // START WARNINGS 
   // 1. Get user data
   const [restrictions, setRestrictions] = useState([]);
   useEffect(() => { 
@@ -66,12 +65,24 @@ export default function RecipeSelect({navigation, route}) {
   }, []);
 
   // 2. Loop each ingredient
+  function alreadyAdded(allViolations, ingredient) {
+    for (let k = 0; k < allViolations.length; k++) {
+      if (allViolations[k].ingredient === ingredient) {
+        return true
+      }  
+    }
+    return false
+  }
+
   function checkViolations(steps) {
     let allViolations = []
     for (let i = 0; i < steps.length; i++) {
       for (let j = 0; j < steps[i].ingredients.length; j++)  {
         //console.log(steps[i].ingredients[j].title)
         let conflicts = checkIngredient(steps[i].ingredients[j].title)
+        if (alreadyAdded(allViolations, steps[i].ingredients[j].title)) {
+          continue;
+        }
         //console.log(conflicts)
         if (conflicts.length > 0) {
           allViolations.push({
@@ -160,6 +171,7 @@ export default function RecipeSelect({navigation, route}) {
       </Modal>
     );
   }
+  // END WARNING
 
   // LAYOUTS 
   function renderRecipe(recipe) {
@@ -176,7 +188,7 @@ export default function RecipeSelect({navigation, route}) {
         <Image style={styles.recipeImg} source={image}/>
         <View style={styles.recipeTextContainer}>
           <Text style={styles.recipeTitle}>{title}</Text>
-          <Text style={styles.recipeSubtitle}>Time: {time}</Text>
+          <Text style={styles.recipeSubtitle}>Time: {time} hours</Text>
           <Text style={styles.recipeSubtitle}>Calories: {calories} cal</Text>
         </View>
         { violationsInfo.length > 0 && 
@@ -187,6 +199,7 @@ export default function RecipeSelect({navigation, route}) {
     )
   }
 
+  //console.log(recipeList.length)
   return ( 
     <ImageBackground source={Images.butchers} style={styles.container}>
       <Header onBackButtonPress={() => navigation.goBack()}></Header>
@@ -303,7 +316,7 @@ const styles = StyleSheet.create({
     fontSize: 12
   },
   listNotAvailable: {
-    backgroundColor: Colors.lightGray,
+    backgroundColor: 'white',
     width: '90%',
     margin: 10,
     marginTop: 50,

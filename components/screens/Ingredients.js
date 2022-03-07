@@ -138,7 +138,7 @@ export default function Ingredients({ navigation, route }) {
       <View style={styles.titleContainer}>
         <View style={styles.titleTextContainer}>
           <Text style={styles.titleText}>{currRecipe.title}</Text>
-          <Text style={styles.subtitleText}>Prep time: {currRecipe.time}</Text>
+          <Text style={styles.subtitleText}>Prep time: {currRecipe.time} hours</Text>
           <Text style={styles.subtitleText}>Yields: {currRecipe.yield} servings</Text>
           <Text style={styles.subtitleText}>Calories: {currRecipe.calories} cal per serving</Text>
           <Text style={styles.subtitleText}>Difficulty: {currRecipe.difficulty}</Text>

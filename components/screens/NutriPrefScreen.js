@@ -8,6 +8,7 @@ import Images from '../../constants/images';
 import Header from '../BackHeader'
 import { nutritionData } from '../nutritionData'
 import NutitionItem from '../NutritionItem'
+import Colors from '../../constants/colors';
 
 export default function NutriPrefScreen({ navigation, route }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,6 +48,7 @@ export default function NutriPrefScreen({ navigation, route }) {
         <View>
           <SearchableFlatList
             contentContainerStyle={{ flexGrow: 1, alignItems: 'center' }}
+            ListEmptyComponent={<Text style={[styles.listNotAvailable]}>Sorry, there are no nutrition items under this search term.</Text>}
             style={styles.listContainer} data={nutritionData} searchTerm={searchTerm}
             searchAttribute={searchAttribute} ignoreCase={ignoreCase}
             renderItem={({item}) => renderNutritionItem(item)}
@@ -105,5 +107,16 @@ const styles = StyleSheet.create({
   listContainer: {
     width: '90%',
     marginBottom: 50
-  }
+  },
+  listNotAvailable: {
+    backgroundColor: 'white',
+    width: '80%',
+    margin: 10,
+    marginTop: 50,
+    padding: 10,
+    fontFamily: 'Avenir-Book',
+    textAlign: 'center',
+    borderRadius: 20,
+    overflow: 'hidden',
+  },
 })

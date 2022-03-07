@@ -6,7 +6,9 @@ import RecipeFinish from './RecipeFinish'
 import Ingredients from './Ingredients'
 import HomePage from './HomePage'
 import Modification from './ModificationScreen';
-import IngredientSearch from './IngredientSearch'
+import IngredientSearch from './IngredientSearch';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Welcome from './welcomeScreen';
 
 export default function HomeStack() {
   const Stack = createStackNavigator();
@@ -23,6 +25,7 @@ export default function HomeStack() {
       <Stack.Screen name="RecipeFinish" component={RecipeFinish} />
       <Stack.Screen name="Modification" component={Modification} />
       <Stack.Screen name="IngredientSearch" component={IngredientSearch} />
+      <Stack.Screen name="Welcome" component={Welcome} />
     </Stack.Navigator>
   );
 }
