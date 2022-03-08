@@ -178,7 +178,7 @@ export default function RecipeSelect({navigation, route}) {
   function renderRecipe(recipe) {
     const { title, time, image, calories, steps } = recipe
     const violationsInfo = checkViolations(steps)
-    //console.log(violationsInfo)
+    console.log(violationsInfo)
 
     return (  
       <Pressable style={styles.recipeContainer}
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    //justifyContent: 'space-evenly',
     alignItems: 'center',
     backgroundColor: 'white',
     shadowColor: '#000',
@@ -336,7 +336,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   leftSide: {
-    height: 100,
+    height: '95%',
     width: 260,
     flexDirection: 'row',
     alignItems: 'center'

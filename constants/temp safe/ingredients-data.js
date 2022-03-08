@@ -60,7 +60,7 @@ const ingredientsData = [
   },
   {
     title: "shredded parmesan cheese",
-    restrictions: ["Dairy Free", "Lactose Free", "Vegan"],
+    restrictions: ["Dairy Free", "Lactose Free"],
     image: require('../assets/ingredients/parmesan.png'),
     defaultAmount: 1,
     units: 'cup',
@@ -85,63 +85,6 @@ const ingredientsData = [
     category: 'parsley',
     nutrient: null,
     nutrientPerUnit: 0
-  },
-  {
-    title: "pizza sauce",
-    //image: require('../assets/ingredients/mids-jars-pizza-sauce.png'),
-    defaultAmount: 0.5,
-    units: 'cup',
-    category: 'sauce',
-    nutrient: Keys.limitCaloriesKey,
-    nutrientPerUnit: 70
-  },
-  {
-    title: "pizza dough",
-    //image: require('../assets/ingredients/Pizza-Dough.png'),
-    defaultAmount: 1,
-    units: 'serving',
-    category: 'dough',
-    restrictions: ["Gluten Free","Paleo","Coeliac","FODMAP"],
-    nutrient: Keys.limitTotalCarbsKey,
-    nutrientPerUnit: 26
-  },
-  {
-    title: "mozzarella cheese",
-    //image: require('../assets/ingredients/Mozarella-Cheese.png'),
-    defaultAmount: 8,
-    units: 'oz',
-    category: 'cheese',
-    restrictions:  ["Dairy Free", "Lactose Free", "Vegan"],
-    nutrient: Keys.limitTotalFatKey,
-    nutrientPerUnit: 44.8
-  },
-  {
-    title: "basil leaves",
-    //image: require('../assets/ingredients/basil-leaves.png'),
-    defaultAmount: 10,
-    units: 'leaves',
-    category: 'topping',
-    nutrient: null,
-    nutrientPerUnit: 0
-  },
-  {
-    title: "red pepper flakes",
-    //image: require('../assets/ingredients/parmesan.png'),
-    defaultAmount: 1,
-    units: 'cup',
-    category: 'cheese',
-    nutrient: Keys.limitTotalFatKey,
-    nutrientPerUnit: 8
-  },
-  {
-    title: "pepperoni",
-    //image: require('../assets/ingredients/pepperoni.png'),
-    defaultAmount: 1,
-    units: 'slice',
-    category: 'meat',
-    restrictions:  ["Vegetarian", "Vegan"],
-    nutrient: Keys.limitProteinKey,
-    nutrientPerUnit: 0.6
   }
 ]
 

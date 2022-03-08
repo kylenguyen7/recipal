@@ -1,6 +1,7 @@
 const recipeData = [
   {
     title: "Fettuccine Alfredo",
+    restrictions: ["Dairy Free", "Vegan", "Gluten Free", "Paleo", "Kosher", "Coeliac"],
     category: "Italian",
     image: require('../assets/fettucine.png'),
     time: 1.5,
@@ -92,111 +93,6 @@ const recipeData = [
           {
             title: "italian parsley",
             amount: 1.5,
-            isEssential: false
-          },
-        ]
-      }
-    ]
-  },
-  {
-    title: "Homemade Pizza",
-    category: "Italian",
-    //image: require('../assets/homemade-pizza-finish.png'),
-    time: 1.5,
-    calories: 2400,
-    yield: 4,
-    difficulty: '⭐⭐⭐⭐⭐',
-    steps: [
-      {
-        title: "Preheat & Prepare",
-        text: [
-          "Preheat the oven to 500°F.",
-          "Slice {cheese} into thin slices.",
-          "Prepare {meat} according to preferred topping size."],
-        //image: require('../assets/homemade-pizza-ingredients.png'),
-        ingredients: [
-          {
-            title: "mozzarella cheese",
-            amount: 8,
-            isEssential: false,
-          },
-          {
-            title: "pepperoni",
-            amount: 20,
-            isEssential: false,
-          }
-        ]
-      },
-
-      {
-        title: "Knead",
-        text: [
-          "Let pizza dough rest for 15 minutes before kneading.",
-          "Knead {dough} for 5 minutes until {dough} is a smooth ball.",
-          "If homemade {dough}, let {dough} rise for 1 hour.",
-          "Turn the {dough} out onto a floured surface. Stretch to fit a 14-inch pizza pan or similar."],
-        //image: require('../assets/homemade-pizza-knead.png'),
-        ingredients: [
-          {
-            title: "pizza dough",
-            amount: 1,
-            isEssential: true
-          }
-        ]
-      },
-
-      {
-        title: "Spread",
-        text: [
-          "Spread a thin layer of the {sauce} onto the {dough}",
-          "To make this process easier, use a spoon to spread the sauce in circular motions",
-        ],
-        //image: require('../assets/homemade-pizza-sauce.png'),
-        ingredients: [
-          {
-            title: "pizza sauce",
-            amount: 0.5,
-            isEssential: true
-          }
-        ]
-      },
-
-      {
-        title: "Add Toppings",
-        text: [
-          "Place {cheese} on top of thin layer of {sauce}.",
-          "Place {meat} on top, as desired."
-        ],
-        //image: require('../assets/homemade-pizza-toppings.png'),
-        ingredients: [
-          {
-            title: "mozzarella cheese",
-            amount: 8,
-            isEssential: false,
-          },
-          {
-            title: "pepperoni",
-            amount: 20,
-            isEssential: false,
-          }
-        ]
-      },
-
-      {
-        title: "Bake",
-        text: [
-          "Bake 10 to 12 minutes, or until the crust is browned.",
-           "Remove carefully from the oven and top with fresh {basil leaves} and a pinch of {cheese}."],
-        //image: require('../assets/homemade-pizza-bake.png'),
-        ingredients: [
-          {
-            title: "basil leaves",
-            amount: 10,
-            isEssential: false
-          },
-          {
-            title: "red pepper flakes",
-            amount: 1,
             isEssential: false
           },
         ]
