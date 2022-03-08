@@ -101,10 +101,10 @@ export default function MeScreen() {
   }
 
 
-  let totalTime = 0;
-  for (const [recipe, times] of Object.entries(history)) {
-    totalTime += findRecipeByTitle(recipe).time * times
-  }
+  // let totalTime = 0;
+  // for (const [recipe, times] of Object.entries(history)) {
+  //   totalTime += findRecipeByTitle(recipe).time * times
+  // }
   
   
 
