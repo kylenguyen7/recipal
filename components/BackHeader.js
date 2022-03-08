@@ -26,7 +26,8 @@ let styles = StyleSheet.create({
     width: 32 / 0.4,
     display: 'flex',
     justifyContent: 'flex-end',
-    alignItems: 'flex-start'
+    alignItems: 'flex-start',
+    paddingHorizontal: 3
   },
   image: {
     marginLeft: 10,

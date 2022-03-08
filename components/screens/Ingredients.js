@@ -137,13 +137,15 @@ export default function Ingredients({ navigation, route }) {
     <View style={{flex: 1, alignItems: 'center'}}>
       <View style={styles.titleContainer}>
         <View style={styles.titleTextContainer}>
-          <Text style={styles.titleText}>{currRecipe.title}</Text>
+          <Text numberOfLines={1} style={styles.titleText}>{currRecipe.title}</Text>
           <Text style={styles.subtitleText}>Prep time: {currRecipe.time} hours</Text>
           <Text style={styles.subtitleText}>Yields: {currRecipe.yield} servings</Text>
           <Text style={styles.subtitleText}>Calories: {currRecipe.calories} cal per serving</Text>
           <Text style={styles.subtitleText}>Difficulty: {currRecipe.difficulty}</Text>
         </View>
-        <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
+        </View>
       </View>
       <Image style={styles.img} source={Images.fettuccine}/>
     </View>
@@ -183,6 +185,7 @@ const styles = StyleSheet.create({
   scrollView: {
   },
   titleContainer: {
+    marginHorizontal: 20,
     height: 150,
     display: 'flex',
     flexDirection: 'row',
@@ -190,8 +193,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   titleImg: {
-    height: '110%',
-    width: 110,
+    height: '100%',
+    width: '100%',
     resizeMode: 'contain',
   },
   titleTextContainer: {
