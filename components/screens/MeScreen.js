@@ -68,21 +68,32 @@ export default function MeScreen() {
   );
 
   
-  // Get history
+
+  //Get history
   useEffect(() => {
     const getData = async () => {
       const value = await AsyncStorage.getItem('history')
       console.log("\nGot " + value + " from data store!")
       if (value !== null) {
         setHistory(JSON.parse(value))
-      } else {
-        setHistory({})
       }
     }
     getData().catch(console.error);
   }, []);
 
   
+  // Store data
+  useEffect(() => {
+    const storeData = async () => {
+      const jsonValue = JSON.stringify(history)
+      //AsyncStorage.setItem("history", "null")
+      await AsyncStorage.setItem('history', jsonValue)
+      console.log("Stored " + jsonValue + " in data store!")
+    }
+    storeData(history).catch(console.error);
+  }, [history]);
+
+
   // Render history
   let historyList = [];
   let historyData = Object.keys(history);
