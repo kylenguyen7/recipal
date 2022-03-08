@@ -145,8 +145,8 @@ export default function IngredientSearch({ navigation, route }) {
       <View style={styles.content}>
         <View style={styles.titleContainer}>
           <View style={styles.titleTextContainer}>
-            <Text style={[styles.titleText, {fontSize: 30}]}>MODIFY</Text>
-            <Text style={[styles.titleText, {fontSize: 24}]}>Non-Essential</Text>
+            <Text style={[styles.titleText, {fontSize: 30}]}>{ingredientToSwap === undefined ? "MODIFY" : "SWAP"}</Text>
+            <Text style={[styles.titleText, {fontSize: 24}]}>{ingredientToSwap === undefined ? "Non-Essential" : "Essential: " + ingredientToSwapData.category}</Text>
           </View>
           <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
         </View>
@@ -182,10 +182,11 @@ const styles = StyleSheet.create({
   // TITLE
   titleContainer: {
     height: 150,
+    width: '100%',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
   },
   titleTextContainer: {
     height: '100%',
@@ -193,10 +194,10 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 10
+    marginHorizontal: 30
   },
   titleText: {
-    fontFamily: 'Avenir-Book'
+    fontFamily: 'Avenir-Book',
   },
   titleImg: {
     height: '100%',

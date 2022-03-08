@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   titleContainer: {
-    height: 110,
+    height: 130,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -246,12 +246,22 @@ const styles = StyleSheet.create({
     bottom: 10,
   },
   titleTextContainer: {
-    height: '100%',
+    height: '85%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 25
+
+    margin: 25,
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 20,
+    // Shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,  
+    elevation: 5,
   },
   titleText: {
     fontFamily: 'Avenir-Black',

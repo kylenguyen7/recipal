@@ -176,6 +176,7 @@ export default function RecipeStep({ navigation, route }) {
       <ConfirmFinishModal/>
       <XHeader onPress={() => setExitModalVisible(true)}></XHeader>
       <View style={styles.stepHeader}>
+        <View style={styles.stepHeaderContainer}>
         <Text style={styles.stepHeaderText}>Step {page + 1}</Text>
         <Pagination
           dotsLength={currRecipe.steps.length}
@@ -200,6 +201,7 @@ export default function RecipeStep({ navigation, route }) {
           tappableDots={true}
           carouselRef={carouselRef}
           animatedDuration={10}/>
+        </View>
       </View>
       <View style={{flex: 1}}>
         <Carousel
@@ -301,13 +303,24 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   stepHeader: {
-    width: '100%',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  stepHeaderContainer: {
+    padding: 5,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    // Shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.3,
+    shadowRadius: 2,  
+    elevation: 5,
   },
   stepHeaderText: {
     fontFamily: 'Avenir-Black',
     fontSize: 32,
+    textAlign: 'center'
   },
   card: {
     height: '100%',
