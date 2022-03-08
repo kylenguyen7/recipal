@@ -120,9 +120,8 @@ export default function MeScreen() {
   
 
   return (
-    <View>
+    <View style={{flex: 1, paddingTop: 50}}>
       <ResetModal/>
-      <View style={{height: 60}}></View>
       <ScrollView ref={scrollView}>
         <View style={styles.content}>
 
@@ -146,9 +145,14 @@ export default function MeScreen() {
                            onPress={() => setModalVisible(true)}/>
           </View>
         
-          <Text style={styles.historyText}>My Latest Recipes</Text>
+          <Text style={styles.historyText}>My Latest Recipes 🧑‍🍳</Text>
           <View style={styles.historyContainer}>
             {historyRendered}
+          </View>
+        </View>
+        <View style={{marginVertical: 10, alignItems: 'center', width: '100%'}}>
+          <View style={{width: '90%'}}>
+            <Text style={{fontSize: 10, textAlign: 'center', color: 'gray', fontStyle: 'italic'}}>Unfortunately, Recipal currently only supports customary units of measure. Plans to support metric units are in the works!</Text>
           </View>
         </View>
       </ScrollView>
@@ -161,6 +165,7 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     marginTop: 30,
+    justifyContent: 'center',
   },
   titleContainer: {
     height: 110,
@@ -202,8 +207,7 @@ const styles = StyleSheet.create({
     marginLeft: '7%'
   },
   historyContainer: {
-    alignItems: 'center',
-    marginBottom: 120
+    alignItems: 'center'
   },
   firstTime: {
     backgroundColor: 'white',
@@ -215,8 +219,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: 'hidden',
   },
-
-
   centeredView: {
     flex: 1,
     justifyContent: "center",
