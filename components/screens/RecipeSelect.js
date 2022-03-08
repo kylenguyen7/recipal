@@ -193,11 +193,11 @@ export default function RecipeSelect({navigation, route}) {
             <Text style={styles.recipeSubtitle}>Time: {time} hours</Text>
             <Text style={styles.recipeSubtitle}>Calories: {calories} cal</Text>
           </View>
-        </View>
-        { violationsInfo.length > 0 && 
+          { violationsInfo.length > 0 && 
           <View style={styles.headerPressable}>
             <Ionicons name="warning-outline" size={32} color={Colors.pasta}></Ionicons>
           </View> }
+        </View>
       </Pressable>
     )
   }
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'flex-end'
   },
   leftSide: {
     height: '95%',
