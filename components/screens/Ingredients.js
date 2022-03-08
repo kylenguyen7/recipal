@@ -166,7 +166,7 @@ export default function Ingredients({ navigation, route }) {
             renderSectionHeader={({ section: { title, stepNum } }) => <SectionHeader title={title} stepNum={stepNum}/>}
           />
           <View style={{position: 'absolute', bottom: 5}}>
-            <RecipalButton width={375} height={50} fontSize={24} text={'Continue'} onPress={() => navigation.navigate('RecipeStep', {currRecipe: currRecipe})}/>
+            <RecipalButton width={360} height={50} fontSize={24} text={'Continue'} onPress={() => navigation.navigate('RecipeStep', {currRecipe: currRecipe})}/>
           </View>
       </View>
     </ImageBackground>
@@ -253,19 +253,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 5
+    padding: 8
   },
   headerText: {
     color: 'white',
     fontFamily: 'Avenir-Book',
     fontSize: 24,
-    marginLeft: 10,
+    marginLeft: 5,
   },
   headerPressable: {
     height: 50,
     width: 50,
     justifyContent: 'center',
-    alignItems: 'flex-end'
+    alignItems: 'flex-end',
   },
 
   centeredView: {

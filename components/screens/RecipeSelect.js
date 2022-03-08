@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     padding: 10,
     fontFamily: 'Avenir-Book',
     textAlign: 'center',
-    borderRadius: 20,
+    borderRadius: 15,
     overflow: 'hidden',
   },
   headerPressable: {

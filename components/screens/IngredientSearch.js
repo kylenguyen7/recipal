@@ -221,6 +221,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
     padding: 5,
+    paddingHorizontal: 10,
     height: Sizes.itemHeight,
     width: '100%',
     backgroundColor: 'white',

@@ -310,7 +310,7 @@ export default function Modification({ navigation, route }) {
             renderSectionHeader={({ section: { title } }) => <SectionHeader title={title}/>}
           />
           <View style={{position: 'absolute', bottom: 5}}>
-            <RecipalButton width={375} height={50} fontSize={24} text={'RESTORE DEFAULTS'} onPress={() => {setRestoreModalVisible(true)}}/>
+            <RecipalButton width={360} height={50} fontSize={24} text={'RESTORE DEFAULTS'} onPress={() => {setRestoreModalVisible(true)}}/>
           </View>
       </View>
     </ImageBackground>
@@ -370,7 +370,8 @@ const styles = StyleSheet.create({
     padding: 5,
     height: Sizes.itemHeight,
     width: '100%',
-    alignContent: 'space-between'
+    alignContent: 'space-between',
+    paddingHorizontal: 5
   },
   itemLeft: {
     flexDirection: 'row',
@@ -395,13 +396,13 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.bellPepper,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingHorizontal: 10
   },
   headerText: {
     color: 'white',
     fontFamily: 'Avenir-Book',
     fontSize: Sizes.itemFontSize,
-    margin: 10
   },
   headerPressable: {
     height: 50,
