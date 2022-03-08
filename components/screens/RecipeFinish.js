@@ -43,7 +43,7 @@ export default function RecipeFinish({ navigation, route }) {
       console.log("\nGot " + value + " from data store!")
       let jsonValue = JSON.parse(value)
 
-      if (jsonValue === {} || jsonValue === null) {
+      if (jsonValue === {} || value === null) {
         setHistory({title : 1})
         console.log("Manipulation 1: Init")
       } else {

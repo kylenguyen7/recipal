@@ -73,7 +73,7 @@ export default function MeScreen() {
     const getData = async () => {
       const value = await AsyncStorage.getItem('history')
       console.log("\nGot " + value + " from data store!")
-      if (value !== nulll) {
+      if (value !== null) {
         setHistory(JSON.parse(value))
       } else {
         setHistory("{}")
