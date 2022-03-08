@@ -260,10 +260,10 @@ const styles = StyleSheet.create({
   },
   notebook: {
     padding: 30,
-    paddingTop: 70,
+    paddingTop: 50,
     resizeMode: 'contain',
-    height: 1300,
-    width: undefined,
+    height: undefined,
+    width: 355,
     aspectRatio: 384 / 1349,
     display: 'flex',
     flexDirection: 'column',
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
   },
   recipeContainer: {
     height: 100,
-    width: 320,
+    width: 300,
     margin: 7,
     paddingLeft: 10,
     borderRadius: 10,
