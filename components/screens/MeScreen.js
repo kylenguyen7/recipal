@@ -76,7 +76,7 @@ export default function MeScreen() {
       if (value !== null) {
         setHistory(JSON.parse(value))
       } else {
-        setHistory("{}")
+        setHistory({})
       }
     }
     getData().catch(console.error);
