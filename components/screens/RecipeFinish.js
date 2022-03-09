@@ -90,7 +90,7 @@ return (
       <View style={styles.greeting}>
         <Image style={styles.greetingImg} source={Images.spoonNoBg}/>
         <View style={styles.greetingTextContainer}>
-          <Text style={[styles.text, {fontSize: 32}]}>We did it,</Text>
+          <Text style={[styles.text, {fontSize: 32, fontFamily: 'Avenir-Book'}]}>We did it,</Text>
           <Text style={[styles.text, {fontSize: 40}]}>{name}!</Text>
           <Text style={[styles.text, {fontSize: 64}]}>🎉</Text>
         </View>
@@ -136,8 +136,6 @@ const styles = StyleSheet.create({
     width: 350,
     margin: 20,
     padding: 16,
-    borderColor: Colors.pasta,
-    borderWidth: 3,
     borderRadius: 20,
     backgroundColor: 'white',
   }

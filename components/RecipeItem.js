@@ -156,7 +156,7 @@ export default function RecipeItem({ recipe }) {
         <View style={styles.leftSide}>
           <Image style={styles.recipeImg} source={image}/>
           <View style={styles.recipeTextContainer}>
-            <Text style={styles.recipeTitle}>{title}</Text>
+            <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.recipeTitle}>{title}</Text>
             <Text style={styles.recipeSubtitle}>Time: {time} hours</Text>
             <Text style={styles.recipeSubtitle}>Calories: {calories} cal</Text>
           </View>
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     },
     recipeTextContainer: {
         marginLeft: 10,
-        width: 140
+        width: 180
     },
     recipeTitle: {
         fontFamily: 'Avenir-Book',
@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     justifyContent: 'center',
-    alignItems: 'flex-end'
+    alignItems: 'center'
   },
 
 

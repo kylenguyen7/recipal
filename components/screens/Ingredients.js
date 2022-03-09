@@ -137,7 +137,7 @@ export default function Ingredients({ navigation, route }) {
     <View style={{flex: 1, alignItems: 'center'}}>
       <View style={styles.titleContainer}>
         <View style={styles.titleTextContainer}>
-          <Text numberOfLines={1} style={styles.titleText}>{currRecipe.title}</Text>
+          <Text numberOfLines={1} adjustsFontSizeToFit={true} style={styles.titleText}>{currRecipe.title}</Text>
           <Text style={styles.subtitleText}>Prep time: {currRecipe.time} hours</Text>
           <Text style={styles.subtitleText}>Yields: {currRecipe.yield} servings</Text>
           <Text style={styles.subtitleText}>Calories: {currRecipe.calories} cal per serving</Text>
@@ -203,6 +203,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    width: 250
   },
   titleText: {
     fontFamily: 'Avenir-Book',
