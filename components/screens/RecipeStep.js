@@ -36,7 +36,6 @@ export default function RecipeStep({ navigation, route }) {
             const currIngredient = currIngredients[k];
             const currIngredientData = findIngredientByTitle(currIngredient.title);
             if(currIngredientData.category === category) {
-              let original = lines[i];
               const tokenIndex = lines[i].search(tokens[j]);
               result.push(<Text>{lines[i].slice(0, tokenIndex)}</Text>);
               result.push(<Text style={{textDecorationLine: 'underline'}}>{currIngredient.amount + " " + currIngredientData.units + " " + currIngredient.title}</Text>);
@@ -310,7 +309,7 @@ const styles = StyleSheet.create({
   stepHeaderContainer: {
     padding: 5,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 10,
     // Shadow
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
@@ -343,7 +342,7 @@ const styles = StyleSheet.create({
     height: 200,
     padding: 20,
     backgroundColor: 'white',
-    borderRadius: 2,
+    borderRadius: 10,
     borderColor: 'black',
     borderWidth: 3,
   },

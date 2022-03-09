@@ -88,7 +88,7 @@ const ingredientsData = [
   },
   {
     title: "pizza sauce",
-    //image: require('../assets/ingredients/mids-jars-pizza-sauce.png'),
+    image: require('../assets/ingredients/mids-jars-pizza-sauce.png'),
     defaultAmount: 0.5,
     units: 'cup',
     category: 'sauce',
@@ -97,9 +97,9 @@ const ingredientsData = [
   },
   {
     title: "pizza dough",
-    //image: require('../assets/ingredients/Pizza-Dough.png'),
-    defaultAmount: 1,
-    units: 'serving',
+    image: require('../assets/ingredients/Pizza-Dough.png'),
+    defaultAmount: 8,
+    units: 'oz',
     category: 'dough',
     restrictions: ["Gluten Free","Paleo","Coeliac","FODMAP"],
     nutrient: Keys.limitTotalCarbsKey,
@@ -107,7 +107,7 @@ const ingredientsData = [
   },
   {
     title: "mozzarella cheese",
-    //image: require('../assets/ingredients/Mozarella-Cheese.png'),
+    image: require('../assets/ingredients/Mozzarella-Cheese.png'),
     defaultAmount: 8,
     units: 'oz',
     category: 'cheese',
@@ -117,25 +117,25 @@ const ingredientsData = [
   },
   {
     title: "basil leaves",
-    //image: require('../assets/ingredients/basil-leaves.png'),
+    image: require('../assets/ingredients/basil-leaves.png'),
     defaultAmount: 10,
     units: 'leaves',
-    category: 'topping',
+    category: 'basil',
     nutrient: null,
     nutrientPerUnit: 0
   },
   {
     title: "red pepper flakes",
-    //image: require('../assets/ingredients/parmesan.png'),
+    image: require('../assets/ingredients/crushed_red_pepper.png'),
     defaultAmount: 1,
     units: 'cup',
-    category: 'cheese',
+    category: 'topping',
     nutrient: Keys.limitTotalFatKey,
     nutrientPerUnit: 8
   },
   {
     title: "pepperoni",
-    //image: require('../assets/ingredients/pepperoni.png'),
+    image: require('../assets/ingredients/pepperoni.png'),
     defaultAmount: 1,
     units: 'slice',
     category: 'meat',

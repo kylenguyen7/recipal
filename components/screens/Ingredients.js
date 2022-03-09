@@ -147,7 +147,7 @@ export default function Ingredients({ navigation, route }) {
           <Image source={Images.spoonInCircle} style={styles.titleImg}></Image>
         </View>
       </View>
-      <Image style={styles.img} source={Images.fettuccine}/>
+      <Image style={styles.img} source={currRecipe.image}/>
     </View>
   );
 
