@@ -367,7 +367,7 @@ const recipeData = [
     ]
   },
   {
-    title: "Dairy-Free Strawberry Banana Smoothie",
+    title: "Strawberry Banana Smoothie",
     category: "Drink",
     image: require('../assets/smoothie.png'),
     time: 0.5,

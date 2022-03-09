@@ -80,7 +80,7 @@ export default function HomePage() {
           <Image style={styles.greetingImg} source={Images.spoonNoBg}/>
           <View style={styles.greetingTextContainer}>
             <Text style={[styles.text, {fontSize: 32, fontFamily: 'Avenir-Book'}]}>Welcome back,</Text>
-            <Text style={[styles.text, {fontSize: 40}]}>{name}</Text>
+            <Text style={[styles.text, {fontSize: 40}]}>{name}!</Text>
           </View>
         </View>
         <View style={styles.funFact}>
