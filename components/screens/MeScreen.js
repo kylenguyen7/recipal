@@ -40,8 +40,15 @@ export default function MeScreen() {
             <Text style={[styles.modalText, {fontFamily: 'Avenir-Black', fontSize: 20}]}>Warning!</Text>
             <Text style={[styles.modalText, {fontSize: 16}]}>You are about to wipe your account data and start over. Are you sure?</Text>
             <View style={styles.modalButtonContainer}>
-            <Pressable
-                style={[styles.button, styles.buttonExit]}
+              <Pressable
+                  style={[styles.button, styles.buttonExit]}
+                  onPress={() => {
+                    setModalVisible(false);
+                  }}>
+                <Text style={[styles.textStyle, styles.exitTextStyle]}>No, go back</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonCancel]}
                 onPress={() => {
                   AsyncStorage.setItem('history', "{}");
                   AsyncStorage.setItem('restrictions', "[]");
@@ -51,15 +58,7 @@ export default function MeScreen() {
                   toHome();
                 }}
               >
-                <Text style={[styles.textStyle, styles.exitTextStyle]}>Yes, start over</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonCancel]}
-                onPress={() => {
-                  setModalVisible(false);
-                }}
-              >
-                <Text style={[styles.textStyle, styles.cancelTextStyle]}>No, go back</Text>
+                <Text style={[styles.textStyle, styles.cancelTextStyle]}>Yes, start over</Text>
               </Pressable>
             </View>
           </View>

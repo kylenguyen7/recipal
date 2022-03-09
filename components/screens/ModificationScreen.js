@@ -138,21 +138,21 @@ export default function Modification({ navigation, route }) {
             <Text style={[styles.modalText, {fontSize: 16}]}>Are you sure you want to restore the the original ingredients and measurements for this step?</Text>
             <View style={styles.modalButtonContainer}>
               <Pressable
-                style={[styles.button, styles.buttonCancel]}
+                style={[styles.button, styles.buttonExit]}
                 onPress={() => {
                   setRestoreModalVisible(false);
                 }}
               >
-                <Text style={[styles.textStyle, styles.cancelTextStyle]}>No, cancel</Text>
+                <Text style={[styles.textStyle, styles.exitTextStyle]}>No, cancel</Text>
               </Pressable>
               <Pressable
-                style={[styles.button, styles.buttonExit]}
+                style={[styles.button, styles.buttonCancel]}
                 onPress={() => {
                   restoreDefaultIngredients();
                   setRestoreModalVisible(false);
                 }}
               >
-              <Text style={[styles.textStyle, styles.exitTextStyle]}>Yes, please!</Text>
+              <Text style={[styles.textStyle, styles.cancelTextStyle]}>Yes, please!</Text>
               </Pressable>
             </View>
           </View>
@@ -310,7 +310,7 @@ export default function Modification({ navigation, route }) {
             renderSectionHeader={({ section: { title } }) => <SectionHeader title={title}/>}
           />
           <View style={{position: 'absolute', bottom: 5}}>
-            <RecipalButton width={360} height={50} fontSize={24} text={'RESTORE DEFAULTS'} onPress={() => {setRestoreModalVisible(true)}}/>
+            <RecipalButton width={360} height={50} fontSize={24} text={'Restore Defaults'} onPress={() => {setRestoreModalVisible(true)}}/>
           </View>
       </View>
     </ImageBackground>

@@ -77,21 +77,21 @@ export default function Ingredients({ navigation, route }) {
             <Text style={[styles.modalText, {fontSize: 16, textAlign: 'left', marginBottom: 20}]}>{warningModalMessage}</Text>
             <View style={styles.modalButtonContainer}>
               <Pressable
-                style={[styles.button, styles.buttonCancel]}
+                style={[styles.button, styles.buttonExit]}
                 onPress={() => {
                   setWarningModalMessage("");
                 }}
               >
-                <Text style={[styles.textStyle, styles.cancelTextStyle]}>Okay</Text>
+                <Text style={[styles.textStyle, styles.exitTextStyle]}>Okay</Text>
               </Pressable>
               <Pressable
-                style={[styles.button, styles.buttonExit]}
+                style={[styles.button, styles.buttonCancel]}
                 onPress={() => {
                   setWarningModalMessage("");
                   navigation.navigate("Modification", {currRecipe, stepNum: recipeStepToEdit, prevPage: "Ingredients"})
                 }}
               >
-              <Text style={[styles.textStyle, styles.exitTextStyle]}>Edit Recipe Step</Text>
+              <Text style={[styles.textStyle, styles.cancelTextStyle]}>Edit Recipe Step</Text>
               </Pressable>
             </View>
           </View>

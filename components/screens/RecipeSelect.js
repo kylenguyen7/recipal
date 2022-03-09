@@ -145,26 +145,25 @@ export default function RecipeSelect({navigation, route}) {
           <View style={styles.modalView}>
             <Text style={[styles.modalText, {fontSize: 20, fontFamily: 'Avenir-Black'}]}>Warning</Text>
             <Text style={[styles.modalText, {fontSize: 16}]}>The following ingredients violate some of your dietary restrictions!</Text>
-            <Text style={[styles.modalText, {fontSize: 16, textAlign: 'left'}]}>
-                {warningModalMessage}
-            </Text>
+            <View style={{width: '80%'}}>
+              {warningModalMessage}
+            </View>
             <View style={styles.modalButtonContainer}>
               <Pressable
                 style={[styles.button, styles.buttonExit]}
+                onPress={() => {
+                  setWarningModalMessage(undefined);
+                }}>
+              <Text style={[styles.textStyle, styles.exitTextStyle]}>Go back</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonCancel]}
                 onPress={() => {
                   navigation.navigate("Ingredients", {currRecipe: JSON.parse(JSON.stringify(recipeForNav))}),
                   setWarningModalMessage(undefined);
                 }}
               >
-                <Text style={[styles.textStyle, styles.exitTextStyle]}>Proceed anyways</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonCancel]}
-                onPress={() => {
-                  setWarningModalMessage(undefined);
-                }}
-              >
-                <Text style={[styles.textStyle, styles.cancelTextStyle]}>Go back</Text>
+                <Text style={[styles.textStyle, styles.cancelTextStyle]}>Proceed anyways</Text>
               </Pressable>
             </View>
           </View>

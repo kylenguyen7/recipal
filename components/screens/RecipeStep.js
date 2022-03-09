@@ -93,19 +93,19 @@ export default function RecipeStep({ navigation, route }) {
             <Text style={styles.modalText}>Are you sure you want to exit the recipe? Your progress will not be saved.</Text>
             <View style={styles.modalButtonContainer}>
               <Pressable
-                style={[styles.button, styles.buttonExit]}
+                  style={[styles.button, styles.buttonExit]}
+                  onPress={() => setExitModalVisible(false)}
+                >
+                <Text style={[styles.textStyle, styles.exitTextStyle]}>Cancel</Text>
+              </Pressable>
+              <Pressable
+                style={[styles.button, styles.buttonCancel]}
                 onPress={() => {
                   setExitModalVisible(false);
                   navigation.navigate('HomePage');
                 }}
               >
-                <Text style={[styles.textStyle, styles.exitTextStyle]}>Exit Recipe</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonCancel]}
-                onPress={() => setExitModalVisible(false)}
-              >
-                <Text style={[styles.textStyle, styles.cancelTextStyle]}>Cancel</Text>
+                <Text style={[styles.textStyle, styles.cancelTextStyle]}>Exit Recipe</Text>
               </Pressable>
             </View>
           </View>
@@ -127,6 +127,15 @@ export default function RecipeStep({ navigation, route }) {
             <Text style={[styles.modalText, {fontSize: 16}]}>Congratulations on finishing this recipe! Are you sure you'd like to complete the recipe?</Text>
             <View style={styles.modalButtonContainer}>
               <Pressable
+                style={[styles.button, styles.buttonExit]}
+                onPress={() => {
+                  setFinishModalVisible(false);
+                }}
+              >
+                <Text style={[styles.textStyle, styles.exitTextStyle]}>Cancel</Text>
+              </Pressable>
+
+              <Pressable
                 style={[styles.button, styles.buttonCancel]}
                 onPress={() => {
                   navigation.navigate('RecipeFinish', {currRecipe: currRecipe});
@@ -134,14 +143,6 @@ export default function RecipeStep({ navigation, route }) {
                 }}
               >
                 <Text style={[styles.textStyle, styles.cancelTextStyle]}>Yep, all done!</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonExit]}
-                onPress={() => {
-                  setFinishModalVisible(false);
-                }}
-              >
-                <Text style={[styles.textStyle, styles.exitTextStyle]}>Cancel</Text>
               </Pressable>
             </View>
           </View>
@@ -344,7 +345,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     borderColor: 'black',
-    borderWidth: 3,
+    borderWidth: 0,
+    // Shadow
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.6,
+    shadowRadius: 2,  
+    elevation: 5,
   },
   controlsContainer: {
     height: 100,
