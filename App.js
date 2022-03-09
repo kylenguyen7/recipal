@@ -7,6 +7,7 @@ import HomeStack from './components/screens/HomeStack'
 import MeStack from './components/screens/MeStack';
 import Colors from './constants/colors';
 import { Ionicons } from '@expo/vector-icons';
+import Welcome from './components/screens/welcomeScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,7 +21,6 @@ export default function App() {
   if (!fontsLoaded) {
     return <AppLoading/>;
   }
-
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -46,12 +46,19 @@ export default function App() {
         options={{
           tabBarIcon: ({ focused, color, size }) => (
             <Ionicons name={focused ? "heart-circle" : "heart-circle-outline"} color={color} size={size} />
-          )
+          ),
+        }}/>
+         <Tab.Screen name="Welcome" component={Welcome}
+        options={{
+          tabBarButton: () => null,
+          tabBarStyle: { display: 'none' },
         }}/>
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

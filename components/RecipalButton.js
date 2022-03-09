@@ -23,7 +23,7 @@ export default function RecipalButton({ width, height, text, fontSize, onPress }
 
 const styles = StyleSheet.create({
   button: {
-    borderWidth: 5,
+    borderWidth: 2,
     borderColor: Colors.tomato,
     backgroundColor: 'white',
     borderRadius: 1000,
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   buttonPressed: {
-    borderWidth: 5,
+    borderWidth: 2,
     borderColor: Colors.tomato,
     backgroundColor: Colors.tomato,
     borderRadius: 1000,

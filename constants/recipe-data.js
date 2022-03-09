@@ -203,6 +203,249 @@ const recipeData = [
         ]
       }
     ]
+  },
+  {
+    title: "Homemade Ravioli",
+    category: "Italian",
+    image: require('../assets/ravioli-finish.png'),
+    time: 2,
+    calories: 800,
+    yield: 4,
+    difficulty: '⭐⭐⭐⭐⭐',
+    steps: [
+      {
+        title: "Make Dough",
+        text: [
+          "Form a well with the flour.",
+	  "Crack the eggs into the well.",
+	  "Slowly incorporate the ingredients until a ball of dough is formed. Split in two.",
+          "Cover, and set aside in the refrigerator 20 minutes."],
+        image: require('../assets/ravioli-make-dough.png'),
+        ingredients: [
+          {
+            title: "flour",
+            amount: 2.5,
+            isEssential: true,
+          },
+	  {
+            title: "eggs",
+            amount: 4,
+            isEssential: true,
+          }
+        ]
+      },
+
+      {
+        title: "Prepare Filling",
+        text: [
+          "In a large pan, cook {meat} over medium heat.",
+          "Chop {vegetable} to prepare it for the food processor.",
+          "Mix {cheese} with other filling ingredients and blend until smooth."],
+        image: require('../assets/ravioli-prepare-filling.png'),
+        ingredients: [
+          {
+            title: "chicken",
+            amount: 6,
+            isEssential: false
+          },
+          {
+            title: "mushroom",
+            amount: 5,
+            isEssential: false
+          },
+          {
+            title: "ricotta",
+            amount: 2,
+            isEssential: true
+          }
+        ]
+      },
+
+      {
+        title: "Assemble Ravioli",
+        text: [
+          "Using a pasta machine or rolling pin, roll out the dough into two long, flat sheets.",
+	  "On top of the first sheet, make scoops of 1 tbsp of filling 1 inch apart from one end of the sheet to the other.",
+	  "Lay the second sheet on top of the first and press around the filling scoops, sealing them.",
+	  "Cut each ravioli with a ravioli cutter. Dust with flour to keep the ravioli from sticking together."
+        ],
+        image: require('../assets/ravioli-assemble-ravioli.png'),
+        ingredients: [
+          {
+            title: "flour",
+            amount: 0.25,
+            isEssential: false
+          },
+        ]
+      },
+
+      {
+        title: "Boil Ravioli",
+        text: [
+	  "Boil the ravioli for 3 to 4 minutes. They should rise to the top when they're ready to serve.",
+          "Top with {cheese}, if so desired. Enjoy!"
+        ],
+        image: require('../assets/ravioli-boil-ravioli.png'),
+        ingredients: [
+          {
+            title: "shredded parmesan cheese",
+            amount: 3,
+            isEssential: false
+          },
+        ]
+      }
+
+    ]
+  },
+  {
+    title: "Peanut Butter Cookies",
+    category: "Dessert",
+    image: require('../assets/cookies-finish.png'),
+    time: 0.75,
+    calories: 3240,
+    yield: 24,
+    difficulty: '⭐⭐',
+    steps: [
+      {
+        title: "Preheat & Prepare",
+        text: [
+          "Preheat oven to 350°F.",
+	  "Line baking sheet with partchment paper.",
+	  "Dust with flour to prevent cookies from sticking to the sheet."],
+        image: require('../assets/cookies-preheat-n-prepare.png'),
+        ingredients: [
+          {
+            title: "flour",
+            amount: 0.5,
+            isEssential: false
+          }
+        ]
+      },
+
+      {
+        title: "Make Dough",
+        text: [
+          "In the bowl of an electric stand mixer fitted with the paddle attachment cream butter.",
+	  "Slowly add in brown sugar as the mixer mixes.",
+          "Slowly add in flour as the mixer mixes.",
+	  "Slowly add in {nut butter} as the mixer mixes."],
+        image: require('../assets/cookies-make-dough.png'),
+        ingredients: [
+          {
+            title: "butter",
+            amount: 0.5,
+            isEssential: true
+          },
+          {
+            title: "brown sugar",
+            amount: 1,
+            isEssential: true
+          },
+          {
+            title: "flour",
+            amount: 1.33,
+            isEssential: true
+          },
+	  {
+            title: "peanut butter",
+            amount: 0.75,
+            isEssential: true
+          }
+        ]
+      },
+    //   {
+    //     title: "Shape & Bake",
+    //     text: [
+    //       "Scoop dough out and shape into balls, then place on baking sheet spacing them 2 inches apart.",
+	  // "Using a fork, flatten cookies slightly in opposite directions to create criss cross patterns.",
+	  // "Bake cookies in preheated oven, for about 9 minutes.",
+	  // "Let cool on baking sheet 5 minutes then transfer to a wire rack to cool completely. Store cookies in an airtight container."
+    //     ],
+    //     image: require('../assets/cookies-shape-n-bake.png'),
+    //     ingredients: [
+    //       {
+
+    //       },
+    //     ]
+    //   }
+    ]
+  },
+  {
+    title: "Dairy-Free Strawberry Banana Smoothie",
+    category: "Drink",
+    image: require('../assets/smoothie.png'),
+    time: '5 minutes',
+    calories: 168,
+    yield: 2,
+    difficulty: '⭐⭐⭐⭐⭐',
+    steps: [
+      {
+        title: "Prepare",
+        text: [
+          "Measure 1 cup of frozen {strawberry}.",
+          "Slice 1 {banana} into 1-inch thin slices.",
+          "Measure 1/2 cup of {milk} into the blender.",
+          "Do not add sugar - the fruit has sufficient sugar for this recipe."],
+        image: require('../assets/smoothie-ingredients.png'),
+        ingredients: [
+          {
+            title: "strawberries",
+            amount: 8,
+            isEssential: true,
+          },
+          {
+            title: "banana",
+            amount: 1,
+            isEssential: true,
+          },
+          {
+            title: "almond milk",
+            amount: 0.5,
+            isEssential: false,
+          }
+        ]
+      },
+      {
+        title: "Add",
+        text: [
+          "Add {strawberry} and {banana} into the blender first.",
+           "Pour {milk} on top of fruit in the blender."],
+        image: require('../assets/add-to-blender.png'),
+        ingredients: [
+          {
+            title: "strawberries",
+            amount: 8,
+            isEssential: true,
+          },
+          {
+            title: "banana",
+            amount: 1,
+            isEssential: true,
+          },
+          {
+            title: "almond milk",
+            amount: 0.5,
+            isEssential: false,
+          }
+        ]
+      },
+      {
+        title: "Blend",
+        text: [
+          "Blend the ingredients until smooth and creamy.",
+           "This should take about one minute depending on your blender.",
+           "Add a few ice cubes if the smoothie is too thin.", 
+           "Add more liquid ({milk} or water) if the smoothie is too thick."],
+        image: require('../assets/blender-finished.png'),
+        ingredients: [
+          {
+            title: "almond milk",
+            amount: 0.5,
+            isEssential: false,
+          }
+        ]
+      }
+    ]
   }
 ]
 

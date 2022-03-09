@@ -1,5 +1,5 @@
 import { StyleSheet, Text, ScrollView, Image, View, ImageBackground, Modal, Pressable, KeyboardAvoidingView, TextInput } from 'react-native';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import RecipalButton from '../RecipalButton'
 import RecipalHomeButton from '../RecipalHomeButton'
@@ -49,7 +49,22 @@ export default function HomePage() {
     "Goat meat is the most popular meat—it accounts for 70% of the red meat eaten globally."
   ]   
   const funFact = funFacts[Math.floor(Math.random() * funFacts.length)];
-  let name = "No name"
+
+  let [name, setName] = useState("No Name")
+  //Get history
+  useEffect(() => {
+    const getData = async () => {
+      const value = await AsyncStorage.getItem('name')
+      console.log("\nGot " + value + " from data store!")
+      if (value !== null) {
+        setName(value)
+      } else {
+        navigation.navigate("Welcome")
+      }
+    }
+    getData().catch(console.error);
+  }, []);
+  
   
   return (
     <ImageBackground source={Images.butchers} style={styles.container}>
@@ -64,18 +79,18 @@ export default function HomePage() {
         <View style={styles.greeting}>
           <Image style={styles.greetingImg} source={Images.spoonNoBg}/>
           <View style={styles.greetingTextContainer}>
-            <Text style={[styles.text, {fontSize: 32}]}>Welcome back,</Text>
+            <Text style={[styles.text, {fontSize: 32, fontFamily: 'Avenir-Book'}]}>Welcome back,</Text>
             <Text style={[styles.text, {fontSize: 40}]}>{name}</Text>
           </View>
         </View>
         <View style={styles.funFact}>
-          <Text style={[styles.text, {fontSize: 32}]}>Fun Fact</Text>
+          <Text style={[styles.text, {fontSize: 27, fontFamily: 'Avenir-Book'}]}>Fun Fact</Text>
           <Text style={{fontFamily: 'Avenir-Book', fontSize: 20}}>{funFact}</Text>
         </View>
         <RecipalButton text={'LET\'S COOK!'} fontSize={40} width={350} height={100}
                           onPress={() => scrollView.current.scrollTo({ x: 0, y: 650, animated: true })}/>
         <ImageBackground source={Images.notepad} style={styles.notebook}>
-          <Text style={[styles.text, styles.headerText, {color: Colors.tomato}]}>Recipes</Text>
+          <Text style={[styles.text, styles.headerText, {color: Colors.tomato, marginBottom: 10}]}>Recipes</Text>
           {categoryList}
         </ImageBackground>
       </View>
@@ -126,6 +141,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 40,
+    //marginBottom: 10
   },
   greeting: {
     marginTop: 10,
@@ -149,8 +165,8 @@ const styles = StyleSheet.create({
     width: 350,
     margin: 20,
     padding: 16,
-    borderColor: Colors.pasta,
-    borderWidth: 3,
+    // borderColor: Colors.pasta,
+    // borderWidth: 3,
     borderRadius: 20,
     backgroundColor: 'white',
   },

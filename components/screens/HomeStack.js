@@ -25,7 +25,6 @@ export default function HomeStack() {
       <Stack.Screen name="RecipeFinish" component={RecipeFinish} />
       <Stack.Screen name="Modification" component={Modification} />
       <Stack.Screen name="IngredientSearch" component={IngredientSearch} />
-      <Stack.Screen name="Welcome" component={Welcome} />
     </Stack.Navigator>
   );
 }

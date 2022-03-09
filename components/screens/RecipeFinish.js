@@ -40,11 +40,13 @@ export default function RecipeFinish({ navigation, route }) {
     const updateData = async (title) => {
       if (title === undefined) { return; }
       const value = await AsyncStorage.getItem('history')
-      console.log("\nGot " + value + " from data store!")
+      console.log("Got " + value + " from data store!")
       let jsonValue = JSON.parse(value)
 
-      if (jsonValue === {} || value === null) {
-        setHistory({title : 1})
+      if (value === null) {
+        let tempHistory = {};
+        tempHistory[title] = 1;
+        setHistory(tempHistory)
         console.log("Manipulation 1: Init")
       } else {
         if (jsonValue.hasOwnProperty(title)) {
@@ -68,8 +70,19 @@ switch (history[currRecipe.title]) {
   case 3: {numTimes = "3rd"; break;}
 }
 
-let name = "No name"
-
+let [name, setName] = useState("No Name")
+  //Get history
+  useEffect(() => {
+    const getData = async () => {
+      const value = await AsyncStorage.getItem('name')
+      console.log("\nGot " + value + " from data store!")
+      if (value !== null) {
+        setName(value)
+      }
+    }
+    getData().catch(console.error);
+  }, []);
+  
 return (
   <ImageBackground source={Images.butchers} style={styles.container}>
     <BackHeader onBackButtonPress={() => navigation.goBack({currRecipe: currRecipe})}></BackHeader>

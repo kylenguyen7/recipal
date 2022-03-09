@@ -13,6 +13,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Directions } from 'react-native-gesture-handler';
 
 export default function RecipeSelect({navigation, route}) {
+  const [restrictions, setRestrictions] = useState(["None"]);
   const [searchTerm, setSearchTerm] = useState("");
   let { category } = route.params;
 
@@ -55,15 +56,30 @@ export default function RecipeSelect({navigation, route}) {
 
   // START WARNINGS 
   // 1. Get user data
-  const [restrictions, setRestrictions] = useState([]);
   useEffect(() => { 
     const getData = async () => {
+      console.log("Grabbing restriction data")
       const stringValue = await AsyncStorage.getItem('restrictions')
-      const value = JSON.parse(stringValue)
-      setRestrictions(value);
+      console.log("Got " + stringValue + " from data store!")
+      if (stringValue !== null) {
+          const value = JSON.parse(stringValue);
+          setRestrictions(value);
+      }
     }
     getData().catch(console.error);
   }, []);
+
+  // Store data
+  useEffect(() => {
+    const storeData = async (value) => {
+      const jsonValue = JSON.stringify(value)
+      //AsyncStorage.setItem("history", "null")
+      await AsyncStorage.setItem('restrictions', jsonValue)
+      console.log("Stored " + jsonValue + " in data store!")
+    }
+    storeData(restrictions).catch(console.error);
+  }, [restrictions]);
+  
 
   // 2. Loop each ingredient
   function alreadyAdded(allViolations, ingredient) {
@@ -99,6 +115,7 @@ export default function RecipeSelect({navigation, route}) {
   // 3. check individual ingredient
   function checkIngredient(ingredient) {
     let violations = [];
+    console.log("Ingredient is " + ingredient) 
     let ingredientData = findIngredientByTitle(ingredient)
     if (ingredientData.restrictions === undefined) return violations
     for (let i = 0; i < ingredientData.restrictions.length; i++) {
@@ -177,7 +194,8 @@ export default function RecipeSelect({navigation, route}) {
   function renderRecipe(recipe) {
     const { title, time, image, calories, steps } = recipe
     const violationsInfo = checkViolations(steps)
-    console.log(violationsInfo)
+    //console.log("Restrictions: " + toString([]))
+    //console.log("violationInfo: " + toString(violationsInfo))
 
     return (  
       <Pressable style={styles.recipeContainer}
@@ -346,7 +364,7 @@ const styles = StyleSheet.create({
   },
   leftSide: {
     height: '95%',
-    width: 260,
+    width: '90%',
     flexDirection: 'row',
     alignItems: 'center'
   },

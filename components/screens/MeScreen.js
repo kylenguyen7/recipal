@@ -50,12 +50,14 @@ export default function MeScreen() {
               <Pressable
                 style={[styles.button, styles.buttonCancel]}
                 onPress={() => {
-                  AsyncStorage.setItem('history', "{}");
-                  AsyncStorage.setItem('restrictions', "[]");
-                  AsyncStorage.setItem('firstTime', "true");
+                  AsyncStorage.removeItem('history');
+                  AsyncStorage.removeItem('restrictions');
+                  //AsyncStorage.removeItem('firstTime');
+                  AsyncStorage.removeItem('name')
                   resetLimits();
                   setModalVisible(false);
-                  toHome();
+                  //toHome()
+                  navigation.navigate("Welcome");
                 }}
               >
                 <Text style={[styles.textStyle, styles.cancelTextStyle]}>Yes, start over</Text>
@@ -79,7 +81,6 @@ export default function MeScreen() {
     }
     getData().catch(console.error);
   }, []);
-
   
   // Store data
   useEffect(() => {

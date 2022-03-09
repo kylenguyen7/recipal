@@ -12,10 +12,19 @@ export default function Welcome() {
   let scrollView = useRef(null);
   let navigation = useNavigation();
   const [text, setText] = useState("")
+  const [errorVisible, showError] = useState(false)
 
   function getStarted() {
+    if (text.length === 0) {
+      showError(true)
+      return;
+    }
     AsyncStorage.setItem('name', text),
-    navigation.navigate('HomePage')
+    //navigation.navigate('HomePage')
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Home' }],
+    });
   }
 
   return (
@@ -29,8 +38,8 @@ export default function Welcome() {
                     </View>
                 </View>
                 <Text style={[styles.text, {fontFamily: 'Avenir-Black', fontSize: 32, textAlign: 'center'}]}>Welcome</Text>
-                <Text style={[styles.text, {fontFamily: 'Avenir-Book', fontSize: 20, textAlign: 'center'}]}>Recipal helps you cook recipes your way!</Text>
-                <Text style={[styles.text, {fontFamily: 'Avenir-Book', fontSize: 20, textAlign: 'center'}]}>To get started, type your name below!</Text>
+                <Text style={[styles.text, {fontFamily: 'Avenir-Book', fontSize: 20, textAlign: 'center'}]}>Recipal is a recipe helper that lets you cook your own way.</Text>
+                <Text style={[styles.text, {fontFamily: 'Avenir-Book', fontSize: 20, textAlign: 'center'}]}>Type your name below!</Text>
             
                 <KeyboardAvoidingView style={{}}behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 <View style={styles.textinputrow}>
@@ -40,9 +49,11 @@ export default function Welcome() {
                     value={text} // display value of text variable
                 />
                 </View>
-            </KeyboardAvoidingView>
+              </KeyboardAvoidingView>
 
-            <RecipalButton text={'Get Started'} fontSize={20} width={200} height={80}
+              {errorVisible && <Text style={{fontFamily: 'Avenir-Book', fontSize: 20, textAlign: 'center', color: 'red', fontStyle: 'italic'}}>Name required!</Text>}
+
+            <RecipalButton text={'Get Started'} fontSize={20} width={200} height={60}
                 onPress={() => 
                     getStarted()
                 }/>
@@ -54,20 +65,22 @@ export default function Welcome() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    alignItems: 'center'
   },
   content: {
     height: 500,
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
   },
   notebook: {
     marginTop: 50,
     padding: 40,
-    paddingLeft: 85,
+    //paddingLeft: 85,
     resizeMode: 'contain',
     height: 1300,
     width: undefined,
-//     aspectRatio: 384 / 1349,
+    aspectRatio: 384 / 1349,
 //     display: 'flex',
 //     flexDirection: 'column',
     alignItems: 'center',
@@ -83,6 +96,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
+    marginBottom: 25
   },
   headerImg: {
     height: '100%',
@@ -190,19 +204,12 @@ const styles = StyleSheet.create({
     textAlign: "center"
   },
   textinput: {
-    height: 40,
-    width: 40,
-    backgroundColor: '#dddddd',
-    borderRadius: 10,
-    textAlign: 'center',
-    fontFamily: 'Avenir-Book'
-  },
-  textinput: {
-    height: 40,
+    height: 60,
     width: 250,
     backgroundColor: '#dddddd',
     borderRadius: 10,
     textAlign: 'center',
-    fontFamily: 'Avenir-Book'
+    fontFamily: 'Avenir-Book',
+    fontSize: 30
   },
 });
