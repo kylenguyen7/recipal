@@ -374,10 +374,10 @@ const recipeData = [
     title: "Dairy-Free Strawberry Banana Smoothie",
     category: "Drink",
     image: require('../assets/smoothie.png'),
-    time: '5 minutes',
+    time: 0.5,
     calories: 168,
     yield: 2,
-    difficulty: '⭐⭐⭐⭐⭐',
+    difficulty: '⭐',
     steps: [
       {
         title: "Prepare",
