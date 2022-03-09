@@ -353,21 +353,17 @@ const recipeData = [
           }
         ]
       },
-    //   {
-    //     title: "Shape & Bake",
-    //     text: [
-    //       "Scoop dough out and shape into balls, then place on baking sheet spacing them 2 inches apart.",
-	  // "Using a fork, flatten cookies slightly in opposite directions to create criss cross patterns.",
-	  // "Bake cookies in preheated oven, for about 9 minutes.",
-	  // "Let cool on baking sheet 5 minutes then transfer to a wire rack to cool completely. Store cookies in an airtight container."
-    //     ],
-    //     image: require('../assets/cookies-shape-n-bake.png'),
-    //     ingredients: [
-    //       {
-
-    //       },
-    //     ]
-    //   }
+      {
+        title: "Shape & Bake",
+        text: [
+          "Scoop dough out and shape into balls, then place on baking sheet spacing them 2 inches apart.",
+	  "Using a fork, flatten cookies slightly in opposite directions to create criss cross patterns.",
+	  "Bake cookies in preheated oven, for about 9 minutes.",
+	  "Let cool on baking sheet 5 minutes then transfer to a wire rack to cool completely. Store cookies in an airtight container."
+        ],
+        image: require('../assets/cookies-shape-n-bake.png'),
+        ingredients: []
+      }
     ]
   },
   {
