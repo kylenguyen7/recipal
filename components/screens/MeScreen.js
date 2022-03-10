@@ -114,7 +114,8 @@ export default function MeScreen() {
 
   let totalTime = 0;
   for (const [recipe, times] of Object.entries(history)) {
-    totalTime += findRecipeByTitle(recipe).time * times
+    let recipeTime = findRecipeByTitle(recipe).time;
+    totalTime += (Math.round(recipeTime * 10) / 10) * times
   }
   
   

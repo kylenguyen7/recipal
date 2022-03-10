@@ -9,7 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 export default function RecipeItem({ recipe }) {
     let navigation = useNavigation()
-    const { title, time, image, calories, steps } = recipe
+    const { title, timeString, image, calories, steps } = recipe
 
     // START WARNINGS 
     // 1. Get user data
@@ -157,7 +157,7 @@ export default function RecipeItem({ recipe }) {
           <Image style={styles.recipeImg} source={image}/>
           <View style={styles.recipeTextContainer}>
             <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.recipeTitle}>{title}</Text>
-            <Text style={styles.recipeSubtitle}>Time: {time} hours</Text>
+            <Text style={styles.recipeSubtitle}>Time: {timeString} </Text>
             <Text style={styles.recipeSubtitle}>Calories: {calories} cal</Text>
           </View>
           </View>

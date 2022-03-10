@@ -192,7 +192,7 @@ export default function RecipeSelect({navigation, route}) {
 
   // LAYOUTS 
   function renderRecipe(recipe) {
-    const { title, time, image, calories, steps } = recipe
+    const { title, timeString, image, calories, steps } = recipe
     const violationsInfo = checkViolations(steps)
     //console.log("Restrictions: " + toString([]))
     //console.log("violationInfo: " + toString(violationsInfo))
@@ -207,7 +207,7 @@ export default function RecipeSelect({navigation, route}) {
           <Image style={styles.recipeImg} source={image}/>
           <View style={styles.recipeTextContainer}>
             <Text adjustsFontSizeToFit={true} numberOfLines={1} style={styles.recipeTitle}>{title}</Text>
-            <Text style={styles.recipeSubtitle}>Time: {time} hours</Text>
+            <Text style={styles.recipeSubtitle}>Time: {timeString} </Text>
             <Text style={styles.recipeSubtitle}>Calories: {calories} cal</Text>
           </View>
           { violationsInfo.length > 0 && 
