@@ -79,8 +79,10 @@ export default function HomePage() {
         <View style={styles.greeting}>
           <Image style={styles.greetingImg} source={Images.spoonNoBg}/>
           <View style={styles.greetingTextContainer}>
-            <Text style={[styles.text, {fontSize: 32, fontFamily: 'Avenir-Book'}]}>Welcome back,</Text>
-            <Text style={[styles.text, {fontSize: 40}]}>{name}!</Text>
+            <View style={{backgroundColor: 'white', alignItems: 'center', margin: 10, borderRadius: 20, padding: 15, maxWidth: 220}}>
+              <Text numberOfLines={1} adjustsFontSizeToFit={true} style={[styles.text, {fontSize: 32, fontFamily: 'Avenir-Book'}]}>Welcome back,</Text>
+              <Text numberOfLines={1} adjustsFontSizeToFit={true} style={[styles.text, {fontSize: 40}]}>{name}!</Text>
+            </View>
           </View>
         </View>
         <View style={styles.funFact}>
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   funFact: {
     width: 350,

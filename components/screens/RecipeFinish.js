@@ -90,9 +90,11 @@ return (
       <View style={styles.greeting}>
         <Image style={styles.greetingImg} source={Images.spoonNoBg}/>
         <View style={styles.greetingTextContainer}>
-          <Text style={[styles.text, {fontSize: 32, fontFamily: 'Avenir-Book'}]}>We did it,</Text>
-          <Text style={[styles.text, {fontSize: 40}]}>{name}!</Text>
-          <Text style={[styles.text, {fontSize: 64}]}>🎉</Text>
+          <View style={{backgroundColor: 'white', alignItems: 'center', borderRadius: 20, padding: 15, maxWidth: 220}}>
+            <Text numberOfLines={1} adjustsFontSizeToFit={true} style={[styles.text, {fontSize: 32, fontFamily: 'Avenir-Book'}]}>We did it,</Text>
+            <Text numberOfLines={1} adjustsFontSizeToFit={true}  style={[styles.text, {fontSize: 40}]}>{name}!</Text>
+            <Text style={[styles.text, {fontSize: 64}]}>🎉</Text>
+          </View>
         </View>
       </View>
       <View style={styles.funFact}>

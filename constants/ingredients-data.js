@@ -24,6 +24,7 @@ const ingredientsData = [
   },
   {
     title: "butter",
+    restrictions: ["Dairy Free","Vegan","Lactose Free","Paleo"],
     image: require('../assets/ingredients/butter.png'),
     defaultAmount: 8,
     units: 'Tablespoon',
@@ -33,6 +34,7 @@ const ingredientsData = [
   },
   {
     title: "minced garlic",
+    restrictions: [],
     image: require('../assets/ingredients/garlic.png'),
     defaultAmount: 1,
     units: 'clove',
@@ -42,6 +44,7 @@ const ingredientsData = [
   },
   {
     title: "heavy cream",
+    restrictions: ["Dairy Free","Vegan","Lactose Free","Paleo"],
     image: require('../assets/ingredients/heavy-cream.png'),
     defaultAmount: 1.5,
     units: 'cups',
@@ -51,6 +54,7 @@ const ingredientsData = [
   },
   {
     title: "salt",
+    restrictions: [],
     image: require('../assets/ingredients/salt.png'),
     defaultAmount: 0.5,
     units: 'tsp',
@@ -70,6 +74,7 @@ const ingredientsData = [
   },
   {
     title: "pepper",
+    restrictions: [],
     image: require('../assets/ingredients/black-pepper.png'),
     defaultAmount: 0.5,
     units: 'tsp',
@@ -79,6 +84,7 @@ const ingredientsData = [
   },
   {
     title: "italian parsley",
+    restrictions: [],
     image: require('../assets/ingredients/parsley.png'),
     defaultAmount: 2,
     units: 'Tablespoon',
@@ -88,6 +94,7 @@ const ingredientsData = [
   },
   {
     title: "pizza sauce",
+    restrictions: ["Paleo"],
     image: require('../assets/ingredients/mids-jars-pizza-sauce.png'),
     defaultAmount: 0.5,
     units: 'cup',
@@ -97,6 +104,7 @@ const ingredientsData = [
   },
   {
     title: "pizza dough",
+    restrictions: ["Vegan","Gluten Free","Paleo","Coeliac","FODMAP"],
     image: require('../assets/ingredients/Pizza-Dough.png'),
     defaultAmount: 8,
     units: 'oz',
@@ -107,6 +115,7 @@ const ingredientsData = [
   },
   {
     title: "mozzarella cheese",
+    restrictions: ["Dairy Free","Vegan","Lactose Free","Paleo"],
     image: require('../assets/ingredients/Mozzarella-Cheese.png'),
     defaultAmount: 8,
     units: 'oz',
@@ -117,6 +126,7 @@ const ingredientsData = [
   },
   {
     title: "basil leaves",
+    restrictions: [],
     image: require('../assets/ingredients/basil-leaves.png'),
     defaultAmount: 10,
     units: 'leaves',
@@ -126,6 +136,7 @@ const ingredientsData = [
   },
   {
     title: "red pepper flakes",
+    restrictions: [],
     image: require('../assets/ingredients/crushed_red_pepper.png'),
     defaultAmount: 1,
     units: 'cup',
@@ -135,6 +146,7 @@ const ingredientsData = [
   },
   {
     title: "pepperoni",
+    restrictions: ["Vegetarian","Vegan","Pescatarian","Paleo","Kosher","Halal"],
     image: require('../assets/ingredients/pepperoni.png'),
     defaultAmount: 1,
     units: 'slice',
@@ -145,6 +157,7 @@ const ingredientsData = [
   },
   {
     title: "banana",
+    restrictions: [],
     image: require('../assets/ingredients/banana.png'),
     defaultAmount: 1,
     units: 'serving',
@@ -154,6 +167,7 @@ const ingredientsData = [
   },
   {
     title: "strawberries",
+    restrictions: [],
     image: require('../assets/ingredients/strawberry.png'),
     defaultAmount: 1,
     units: 'serving',
@@ -163,6 +177,7 @@ const ingredientsData = [
   },
   {
     title: "almond milk",
+    restrictions: ["Nut Free","Paleo"],
     image: require('../assets/ingredients/almondmilk.png'),
     defaultAmount: 8,
     units: 'cup',
@@ -172,6 +187,7 @@ const ingredientsData = [
   },
   {
     title: "soy milk",
+    restrictions: ["Paleo", "FODMAP"],
     image: require('../assets/ingredients/soymilk.png'),
     defaultAmount: 8,
     units: 'cup',
@@ -181,6 +197,7 @@ const ingredientsData = [
   },
   {
     title: "coconut milk",
+    restrictions: ["Paleo"],
     image: require('../assets/ingredients/coconutmilk.png'),
     defaultAmount: 8,
     units: 'cup',
@@ -190,6 +207,7 @@ const ingredientsData = [
   },
   {
     title: "oat milk",
+    restrictions: ["Paleo", "FODMAP"],
     image: require('../assets/ingredients/oatmilk.png'),
     defaultAmount: 6,
     units: 'cup',
