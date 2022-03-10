@@ -236,7 +236,7 @@ const ingredientsData = [
     nutrientPerUnit: 6,
   },
   {
-    title: "mushroom",
+    title: "mushrooms",
     image: require('../assets/ingredients/mushroom.png'),
     defaultAmount: 4,
     units: '',
@@ -321,7 +321,7 @@ const ingredientsData = [
     defaultAmount: 1,
     units: 'cup',
     category: 'nut butter',
-    restrictions: ["Nut free"],
+    restrictions: ["Nut Free"],
     nutrient: Keys.limitTotalFatKey,
     nutrientPerUnit: 130,
   },

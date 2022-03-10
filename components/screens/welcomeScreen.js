@@ -12,12 +12,16 @@ export default function Welcome() {
   let scrollView = useRef(null);
   let navigation = useNavigation();
   const [text, setText] = useState("")
-  const [errorVisible, showError] = useState(false)
+  const [error, setError] = useState("")
 
   function getStarted() {
     if (text.length === 0) {
-      showError(true)
+      setError("Name required!")
       return;
+    }
+
+    if(text.length > 10) {
+
     }
     AsyncStorage.setItem('name', text),
     //navigation.navigate('HomePage')
@@ -51,7 +55,7 @@ export default function Welcome() {
                 </View>
               </KeyboardAvoidingView>
 
-              {errorVisible && <Text style={{fontFamily: 'Avenir-Book', fontSize: 20, textAlign: 'center', color: 'red', fontStyle: 'italic'}}>Name required!</Text>}
+              {(error.length > 0) && <Text style={{fontFamily: 'Avenir-Book', fontSize: 20, textAlign: 'center', color: 'red', fontStyle: 'italic'}}>Name required!</Text>}
 
             <RecipalButton text={'Get Started'} fontSize={20} width={200} height={60}
                 onPress={() => 

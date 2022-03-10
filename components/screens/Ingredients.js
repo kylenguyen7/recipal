@@ -115,7 +115,7 @@ export default function Ingredients({ navigation, route }) {
     return (
       <View style={styles.item}>
         <Image source={ingredientInfo.image} style={styles.itemImg}/>
-        <Text numberOfLines={1} style={styles.itemText}>{ingredient.amount} {ingredientInfo.units} {ingredient.title}</Text>
+        <Text numberOfLines={1} style={styles.itemText}>{ingredient.amount} {ingredientInfo.units !== "" && (ingredientInfo.units + " ")}{ingredient.title}</Text>
         { violations.length > 0 && 
           <Pressable style={styles.headerPressable} onPress={() => {showModal(violations, ingredient.stepNum)}}>
             <Ionicons name="warning-outline" size={32} color={Colors.pasta}></Ionicons>
@@ -128,7 +128,9 @@ export default function Ingredients({ navigation, route }) {
     <View style={styles.header}>
       <Text style={styles.headerText}>{title}</Text>
       <Pressable style={styles.headerPressable} onPress={() => {navigation.navigate("Modification", {currRecipe, stepNum, prevPage: "Ingredients"})}}>
-        <Ionicons name="pencil-sharp" size={32} color="white"></Ionicons>
+        {({pressed}) => (
+          <Ionicons name="pencil-sharp" size={32} color={pressed ? Colors.bellPepper : "white"}></Ionicons>
+        )}
       </Pressable>
     </View>
   )
@@ -226,6 +228,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 5,
+    paddingRight: 8,
     height: Sizes.itemHeight,
     width: '100%',
     // Shadow
