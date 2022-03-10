@@ -7,15 +7,26 @@ import { Ionicons } from '@expo/vector-icons';
 export default function XHeader({onPress}) {
   return (
     <Pressable style={styles.container} onPress={onPress}>
-      <Ionicons name="close-outline" size={40} color={Colors.tomato} />
+      {({ pressed }) => (
+      <View style={{backgroundColor: pressed ? Colors.tomato : 'white', width: 40, height: 40, justifyContent: 'center', alignItems: 'center', borderRadius: 1000,}}>
+        <Ionicons name="close-outline" size={40} color={pressed ? 'white' : Colors.tomato} />
+      </View>
+      )}
     </Pressable>
   );
 }
 
+
+{/* <Pressable onPress={onPress} style={({ pressed }) => [ pressed ? styles.buttonPressed : styles.button, {width: width, height: height}]}>
+      {({ pressed }) => (
+        <Text style={[pressed ? styles.buttonPressedText : styles.buttonText, {fontSize: fontSize}]}>{text}</Text>
+      )}
+    </Pressable> */}
+
 let styles = StyleSheet.create({
   container: {
-    height: 85,
-    width: 50,
+    height: 90,
+    width: 60,
     display: 'flex',
     justifyContent: 'flex-end',
     alignItems: 'center',

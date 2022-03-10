@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
   },
   cardImg: {
     width: 300,
-    height: 225,
+    height: 215,
     borderRadius: 10,
     marginVertical: 20,
     resizeMode: 'cover',
