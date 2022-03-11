@@ -261,7 +261,7 @@ export default function Modification({ navigation, route }) {
             />
           </View>
         </KeyboardAvoidingView>
-        <Text numberOfLines={1} style={styles.itemText}>{ingredientData.units} {ingredientData.title}</Text>
+        <Text numberOfLines={1} style={styles.itemText}>{ingredientData.units !== "" && (ingredientData.units + " ")}{ingredientData.title}</Text>
         { violations.length > 0 && 
           <Pressable style={styles.headerPressable} onPress={() => {showModal(violations)}}>
             <Ionicons name="warning-outline" size={32} color={Colors.pasta}></Ionicons>

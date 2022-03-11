@@ -129,7 +129,7 @@ export default function IngredientSearch({ navigation, route }) {
         navigation.goBack()
       }}>
       <Image source={image} style={styles.itemImg}/>
-      <Text numberOfLines={1} style={styles.itemText}>{defaultAmount} {units} {title}</Text>
+      <Text numberOfLines={1} style={styles.itemText}>{defaultAmount} {units !== "" && (units + " ")}{title}</Text>
       { violations.length > 0 && 
           <Pressable style={styles.headerPressable} onPress={() => {showModal(violations)}}>
             <Ionicons name="warning-outline" size={32} color={Colors.pasta}></Ionicons>

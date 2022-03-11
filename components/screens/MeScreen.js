@@ -153,7 +153,7 @@ export default function MeScreen() {
         </View>
         <View style={{marginVertical: 10, alignItems: 'center', width: '100%'}}>
           <View style={{width: '90%'}}>
-            <Text style={{fontSize: 10, textAlign: 'center', color: 'gray', fontStyle: 'italic'}}>Unfortunately, Recipal currently only supports customary units of measure. Plans to support metric units are in the works!</Text>
+            <Text style={{fontSize: 10, fonttextAlign: 'center', color: 'gray', fontStyle: 'italic'}}>Unfortunately, Recipal currently only supports customary units of measure. Plans to support metric units are in the works!</Text>
           </View>
         </View>
       </ScrollView>

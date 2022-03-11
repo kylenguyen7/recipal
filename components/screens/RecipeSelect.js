@@ -160,29 +160,31 @@ export default function RecipeSelect({navigation, route}) {
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <Text style={[styles.modalText, {fontSize: 20, fontFamily: 'Avenir-Black'}]}>Warning</Text>
-            <Text style={[styles.modalText, {fontSize: 16}]}>The following ingredients violate some of your dietary restrictions!</Text>
-            <View style={{width: '80%'}}>
-              {warningModalMessage}
-            </View>
-            <View style={styles.modalButtonContainer}>
-              <Pressable
-                style={[styles.button, styles.buttonExit]}
-                onPress={() => {
-                  setWarningModalMessage(undefined);
-                }}>
-              <Text style={[styles.textStyle, styles.exitTextStyle]}>Go back</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonCancel]}
-                onPress={() => {
-                  navigation.navigate("Ingredients", {currRecipe: JSON.parse(JSON.stringify(recipeForNav))}),
-                  setWarningModalMessage(undefined);
-                }}
-              >
-                <Text style={[styles.textStyle, styles.cancelTextStyle]}>Proceed anyways</Text>
-              </Pressable>
-            </View>
+            <ScrollView>
+              <Text style={[styles.modalText, {fontSize: 20, fontFamily: 'Avenir-Black'}]}>Warning</Text>
+              <Text style={[styles.modalText, {fontSize: 16}]}>The following ingredients violate some of your dietary restrictions!</Text>
+              <View style={{width: '80%'}}>
+                {warningModalMessage}
+              </View>
+            </ScrollView>
+              <View style={styles.modalButtonContainer}>
+                <Pressable
+                  style={[styles.button, styles.buttonExit]}
+                  onPress={() => {
+                    setWarningModalMessage(undefined);
+                  }}>
+                <Text style={[styles.textStyle, styles.exitTextStyle]}>Go back</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.button, styles.buttonCancel]}
+                  onPress={() => {
+                    navigation.navigate("Ingredients", {currRecipe: JSON.parse(JSON.stringify(recipeForNav))}),
+                    setWarningModalMessage(undefined);
+                  }}
+                >
+                  <Text style={[styles.textStyle, styles.cancelTextStyle]}>Proceed anyways</Text>
+                </Pressable>
+              </View>
           </View>
         </View>
       </Modal>
@@ -276,7 +278,7 @@ const styles = StyleSheet.create({
     // Shadow
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.8,
+    shadowOpacity: 0.4,
     shadowRadius: 2,  
     elevation: 5,
   },
@@ -320,7 +322,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.8,
+    shadowOpacity: 0.4,
     shadowRadius: 2,  
     elevation: 5
   },
@@ -332,7 +334,7 @@ const styles = StyleSheet.create({
   },
   recipeTextContainer: {
     marginLeft: 10,
-    width: 150
+    width: 145
   },
   recipeTitle: {
     fontFamily: 'Avenir-Book',
@@ -385,6 +387,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: 300,
+    maxHeight: 500,
     margin: 20,
     backgroundColor: "white",
     borderRadius: 20,

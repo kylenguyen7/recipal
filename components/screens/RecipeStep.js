@@ -38,7 +38,7 @@ export default function RecipeStep({ navigation, route }) {
             if(currIngredientData.category === category) {
               const tokenIndex = lines[i].search(tokens[j]);
               result.push(<Text>{lines[i].slice(0, tokenIndex)}</Text>);
-              result.push(<Text style={{textDecorationLine: 'underline'}}>{currIngredient.amount + " " + currIngredientData.units + " " + currIngredient.title}</Text>);
+              result.push(<Text style={{textDecorationLine: 'underline'}}>{currIngredient.amount + " " + (currIngredientData.units !== "" && (currIngredientData.units + " ")) + currIngredient.title}</Text>);
               result.push(<Text>{lines[i].slice(tokenIndex + tokens[j].length)}</Text>);
 
               // result.push(<Text style={{textDecorationLine: 'underline'}}>{lines[i].replace(tokens[j], currIngredient.amount + " " + currIngredientData.units + " " + currIngredient.title)}</Text>);
@@ -65,7 +65,7 @@ export default function RecipeStep({ navigation, route }) {
       result.push(<Text> Add </Text>);
       for (let i = 0; i < extras.length; i++) {
         const data = findIngredientByTitle(extras[i].title);
-        result.push(<Text style={{textDecorationLine: 'underline'}}>{extras[i].amount + " " + data.units + " " + extras[i].title}</Text>);
+        result.push(<Text style={{textDecorationLine: 'underline'}}>{extras[i].amount + (data.units !== "" && (" " + data.units)) + " " + extras[i].title}</Text>);
         if (i === extras.length - 1) {
           result.push(<Text>.</Text>);
         } else if (i === extras.length - 2) {

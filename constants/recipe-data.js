@@ -252,7 +252,7 @@ const recipeData = [
             isEssential: false
           },
           {
-            title: "mushroom",
+            title: "mushrooms",
             amount: 5,
             isEssential: false
           },
