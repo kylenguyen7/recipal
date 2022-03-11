@@ -231,7 +231,7 @@ const ingredientsData = [
     defaultAmount: 1,
     units: '',
     category: 'egg',
-    restrictions: ["Vegan", "Egg Free", ""],
+    restrictions: ["Vegan", "Egg Free"],
     nutrient: Keys.limitProteinKey,
     nutrientPerUnit: 6,
   },
