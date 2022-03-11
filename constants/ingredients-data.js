@@ -241,7 +241,7 @@ const ingredientsData = [
     defaultAmount: 4,
     units: '',
     category: 'vegetable',
-    restrictions: ["Vegan", "Egg Free", "FODMAP"],
+    restrictions: ["FODMAP"],
     nutrient: null,
     nutrientPerUnit: 0,
   },
